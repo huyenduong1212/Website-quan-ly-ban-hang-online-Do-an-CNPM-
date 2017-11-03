@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using QuanLyBanHang.Models;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using WebSiteBanHang.Models;
-using PagedList;
 namespace WebSiteBanHang.Controllers
 {
-    public class SANPHAMController : Controller
+  public class SANPHAMController : Controller
     {
         //
         // GET: /SANPHAM/

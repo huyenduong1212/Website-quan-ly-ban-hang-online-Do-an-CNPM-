@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebSiteBanHang.Models;
 using PagedList;
+using QuanLyBanHang.Models;
 
 namespace WebSiteBanHang.Controllers
 {

@@ -1,13 +1,13 @@
-﻿@using WebSiteBanHang.Models;
-@model IEnumerable<SanPham>
+﻿@using QuanLyBanHang.Models;
+@model IEnumerable<SANPHAM>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Layout/HomeLayout.cshtml";
 }
 @{
-    IEnumerable<SanPham> lstDTM = (IEnumerable<SanPham>)ViewBag.ListDTM;
-    IEnumerable<SanPham> lstLTM = ViewBag.ListLTM as IEnumerable<SanPham>;
-    IEnumerable<SanPham> lstMTBM = ViewBag.ListMTBM as IEnumerable<SanPham>;
+    IEnumerable<SANPHAM> lstDTM = (IEnumerable<SANPHAM>)ViewBag.ListDTM;
+    IEnumerable<SANPHAM> lstLTM = ViewBag.ListLTM as IEnumerable<SANPHAM>;
+    IEnumerable<SANPHAM> lstMTBM = ViewBag.ListMTBM as IEnumerable<SANPHAM>;
 }
 @Html.RouteLink("click vào đây để vào trang khách hàng", "khachhang")
 @*Bước 1: Chúng ta sẽ tách code và lồng PartialView*@

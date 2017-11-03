@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebSiteBanHang.Models;
 using System.Net.Mail; // send mail
-
+using QuanLyBanHang.Models;
 
 namespace WebSiteBanHang.Controllers
 {

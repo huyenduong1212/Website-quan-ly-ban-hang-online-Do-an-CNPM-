@@ -1,11 +1,13 @@
-﻿using System;
+﻿using QuanLyBanHang.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using WebSiteBanHang.Models;
+using System.Data.Entity;
+using System.Data;
 
 namespace WebSiteBanHang.Controllers
 {
@@ -139,7 +141,7 @@ namespace WebSiteBanHang.Controllers
             ViewBag.MaLoaiSP = new SelectList(db.LOAISANPHAMs.OrderBy(n => n.MaLoaiSP), "MaLoaiSP", "TenLoai", model.MaLoaiSP);
            // ViewBag.MaNSX = new SelectList(db.NhaSanXuats.OrderBy(n => n.MaNSX), "MaNSX", "TenNSX", model.MaNSX);
             //Nếu dữ liệu đầu vào chắn chắn ok 
-                db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(model).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
         }

@@ -7,6 +7,7 @@ using WebSiteBanHang.Models;
 using CaptchaMvc.HtmlHelpers;
 using CaptchaMvc;
 using System.Web.Security;
+using QuanLyBanHang.Models;
 
 namespace WebSiteBanHang.Controllers
 {

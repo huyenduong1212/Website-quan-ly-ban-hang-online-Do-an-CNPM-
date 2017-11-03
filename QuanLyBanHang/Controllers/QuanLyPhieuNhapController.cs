@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLyBanHang.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -38,7 +39,7 @@ namespace WebSiteBanHang.Controllers
                 //Gán mã phiếu nhập cho tất cả chi tiết phiếu nhập
                 item.MaPN = model.MaPN;
             }
-            db.CHITIETPHIEUNHAPs.AddRange(lstModel);
+            //db.CHITIETPHIEUNHAPs.AddRange(lstModel);
             db.SaveChanges();
             return View();
         }
