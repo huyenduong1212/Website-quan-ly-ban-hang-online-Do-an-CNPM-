@@ -1,5 +1,5 @@
-﻿@using WebSiteBanHang.Models;
-@model DonDatHang
+﻿@using QuanLyBanHang.Models;
+@model DONDATHANG
 
 @{
     ViewBag.Title = "DuyetDonHang";
@@ -12,7 +12,7 @@
 @using (Html.BeginForm()) 
 { 
     <div class="ChiTietDonHang table">
-          @{IEnumerable<ChiTietDonDatHang> lstChiTietDH = (IEnumerable<ChiTietDonDatHang>)ViewBag.ListChiTietDH;}
+          @{IEnumerable<CHITIETDONDATHANG> lstChiTietDH = (IEnumerable<CHITIETDONDATHANG>)ViewBag.ListChiTietDH;}
         <table class="table" id="table">
             @*Phần thông tin đơn hàng*@
             <tr>

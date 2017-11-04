@@ -1,4 +1,4 @@
-﻿@model WebSiteBanHang.Models.SanPham
+﻿@model QuanLyBanHang.Models.SANPHAM
 
 @{
     ViewBag.Title = "Chỉnh sửa sản phẩm";
@@ -60,23 +60,23 @@
         </div>
         @*Bước 3: đặt thêm thuộc tính class cho thẻ textbox*@
         <div class="form-group">
-            @Html.LabelFor(model => model.NgayCapNhap, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NgayCapNhat, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @if(Model.NgayCapNhap!=null)
+                @if(Model.NgayCapNhat!=null)
                 { 
-                @Html.TextBox("NgayCapNhap", Model.NgayCapNhap.Value.ToString("dd/MM/yyyy"), new { id = "datepicker", @class = "date" })
-                @Html.ValidationMessageFor(model => model.NgayCapNhap)
+                @Html.TextBox("NgayCapNhap", Model.NgayCapNhat.Value.ToString("dd/MM/yyyy"), new { id = "datepicker", @class = "date" })
+                @Html.ValidationMessageFor(model => model.NgayCapNhat)
                 }
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.CauHinh, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CauHinh)
                 @Html.ValidationMessageFor(model => model.CauHinh)
             </div>
-        </div>
+        </div>*@
 
 
 
@@ -105,7 +105,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.LuotBinhLuan, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.LuotBinhLuan)
@@ -119,9 +119,9 @@
                 @Html.EditorFor(model => model.SoLanMua)
                 @Html.ValidationMessageFor(model => model.SoLanMua)
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.Moi, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Moi)
@@ -137,13 +137,13 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.MaNSX, new { @class = "control-label col-md-2" })
             <div class="col-md-3">
                 @Html.DropDownList("MaNSX", null, new { @class = "form-control" })
 
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.MaLoaiSP, new { @class = "control-label col-md-2" })
@@ -170,7 +170,7 @@
                 <img src="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh)" width="250" height="100" />
             </div>
         </div>
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.HinhAnh1, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input id="HinhAnh" name="HinhAnh" type="file" />
@@ -182,9 +182,9 @@
             <div class="col-md-10">
                 <input id="HinhAnh" name="HinhAnh" type="file" />
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.HinhAnh3, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input id="HinhAnh" name="HinhAnh" type="file" />
@@ -196,7 +196,7 @@
             <div class="col-md-10">
                 <input id="HinhAnh" name="HinhAnh" type="file" />
             </div>
-        </div>
+        </div>*@
         <div class="form-group">
             @Html.LabelFor(model => model.MoTa, new { @class = "control-label col-md-2" })
             <div class="col-md-10">

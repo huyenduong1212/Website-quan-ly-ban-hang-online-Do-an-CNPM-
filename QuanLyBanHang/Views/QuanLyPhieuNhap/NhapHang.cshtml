@@ -1,5 +1,5 @@
-﻿@using WebSiteBanHang.Models;
-@model  PhieuNhap
+﻿@using QuanLyBanHang.Models;
+@model  PHIEUNHAP
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +7,7 @@
 }
 
 @{
-    IEnumerable<NhaCungCap> lstNCC = ViewBag.MaNCC as IEnumerable<NhaCungCap>;    
+    IEnumerable<NHACUNGCAP> lstNCC = ViewBag.MaNCC as IEnumerable<NHACUNGCAP>;    
 }
 @*Bước 1: Sử dụng control datetimepicker chèn 3 file script*@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -59,7 +59,7 @@
         <br /><br /><br />
         @*Phần chi tiết nhập hàng*@
         <table class="table tblChiTietPhieuNhap">
-            @{IEnumerable<SanPham> lstSanPham = ViewBag.ListSanPham as IEnumerable<SanPham>;}
+            @{IEnumerable<SANPHAM> lstSanPham = ViewBag.ListSanPham as IEnumerable<SANPHAM>;}
             @*Tạo ra 1 tr với nội dung nhập hàng của 1 sản phẩm*@
             <tr class="trAppend" style="display:none;">
                 <td>
