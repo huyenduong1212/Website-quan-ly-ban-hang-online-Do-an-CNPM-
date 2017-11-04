@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLyBanHang", "QuanLyBanHang\QuanLyBanHang.csproj", "{DADDB38B-B42D-459C-A28A-8B1A5D36BD70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSiteBanHang", "WebSiteBanHang\WebSiteBanHang.csproj", "{901FF164-FB41-41A9-923D-3E80815E023F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSiteBanHang.Tests", "WebSiteBanHang.Tests\WebSiteBanHang.Tests.csproj", "{6F910CB6-4156-42D6-BC0C-E721D1FF4F0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DADDB38B-B42D-459C-A28A-8B1A5D36BD70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DADDB38B-B42D-459C-A28A-8B1A5D36BD70}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DADDB38B-B42D-459C-A28A-8B1A5D36BD70}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DADDB38B-B42D-459C-A28A-8B1A5D36BD70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{901FF164-FB41-41A9-923D-3E80815E023F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{901FF164-FB41-41A9-923D-3E80815E023F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{901FF164-FB41-41A9-923D-3E80815E023F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{901FF164-FB41-41A9-923D-3E80815E023F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F910CB6-4156-42D6-BC0C-E721D1FF4F0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F910CB6-4156-42D6-BC0C-E721D1FF4F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F910CB6-4156-42D6-BC0C-E721D1FF4F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F910CB6-4156-42D6-BC0C-E721D1FF4F0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
