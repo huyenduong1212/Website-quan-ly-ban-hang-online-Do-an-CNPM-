@@ -97,24 +97,24 @@ namespace WebSiteBanHang.Controllers
 
     //Xây dựng action đăng nhập
     //[HttpPost]
-    //public ActionResult DangNhap(FormCollection f)
-    //{
-    //    //Kiểm tra tên đăng nhập và mật khẩu
-    //    string sTaiKhoan = f["txtTenDangNhap"].ToString();
-    //    string sMatKhau = f["txtMatKhau"].ToString();
-    //    ThanhVien tv = db.ThanhViens.SingleOrDefault(n => n.TaiKhoan == sTaiKhoan && n.MatKhau == sMatKhau);
-    //    if (tv != null)
-    //    {
-    //        Session["TaiKhoan"] = tv;
-    //        return Content("<script>window.location.reload();</script>");
-    //    }
-    //    return Content("Tài khoản hoặc mật khẩu không đúng!");
-    //}
+    public ActionResult DangNhap(FormCollection f)
+    {
+      //Kiểm tra tên đăng nhập và mật khẩu
+      string sTaiKhoan = f["txtTenDangNhap"].ToString();
+      string sMatKhau = f["txtMatKhau"].ToString();
+      NGUOIDUNG tv = db.NGUOIDUNGs.SingleOrDefault(n => n.TaiKhoan == sTaiKhoan && n.MatKhau == sMatKhau);
+      if (tv != null)
+      {
+        Session["NGUOIDUNG"] = tv;
+        return Content("<script>window.location.reload();</script>");
+      }
+      return Content("Tài khoản hoặc mật khẩu không đúng!");
+    }
 
-    //public ActionResult DangXuat()
-    //{
-    //    Session["TaiKhoan"] = null;
-    //    return RedirectToAction("Index");
-    //}
+    public ActionResult DangXuat()
+    {
+      Session["NGUOIDUNG"] = null;
+      return RedirectToAction("Index");
+    }
   }
 }
