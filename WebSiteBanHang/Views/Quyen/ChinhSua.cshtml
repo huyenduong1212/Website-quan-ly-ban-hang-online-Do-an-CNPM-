@@ -1,0 +1,35 @@
+﻿@model WebSiteBanHang.Models.CHUCNANG
+@{
+    ViewBag.Title = "ChinhSua";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+  @Html.AntiForgeryToken()
+
+  <div class="form-horizontal">
+
+    @Html.ValidationSummary(true)
+    <div class="form-group">
+      @Html.Label("TenChucNang", "Tên quyền", new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        <input type="text" value="@Model.TenChucNang"/>
+        @*@Html.EditorFor(model => model.TenChucNang,new {@Value = ViewBag.DefaultValue })*@
+        @Html.ValidationMessageFor(model => model.TenChucNang)
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Thêm" class="btn btn-success" />
+      </div>
+    </div>
+  </div>
+}
+
+<div>
+  @Html.ActionLink("Trở về", "Index")
+</div>
+s
+

@@ -1,0 +1,67 @@
+﻿
+@using WebSiteBanHang.Models;
+@model IEnumerable<CHUCNANG>
+@{
+  ViewBag.Title = "Index";
+  Layout = "~/Views/Layout/AdminLayout.cshtml";
+  WebGrid grid = new WebGrid(source: Model, rowsPerPage: 15);
+}
+<br /><br />
+<h2>Quản lý quyền</h2>
+<br />
+@Html.ActionLink("Thêm quyền", "ThemChucNang", null, new { @class = "btn btn-success" })
+<br /><br />
+@*Thể hiện dữ liệu thông qua control webGrid*@
+@grid.GetHtml(
+    tableStyle: "divTable",
+    headerStyle: "gridHead",
+    footerStyle: "gridFooter",
+    rowStyle: "gridRow",
+    alternatingRowStyle: "gridAltRow",
+    columns: grid.Columns(
+    grid.Column("MaChucNang", "Mã quyền"),
+    grid.Column("TenChucNang", "Tên quyền"),
+    grid.Column(format: p => @Html.ActionLink("Chỉnh sửa", "ChinhSua", new { @id = p.MaChucNang })),
+    grid.Column(format: p => @Html.ActionLink("Xóa", "XoaChucNang", new { @id = p.MaChucNang }))
+    ))
+
+
+@*Css cho từng Style của table*@
+<style>
+  .divTable {
+    width: 100%;
+    border: 1px solid #999999;
+  }
+
+    .divTable td {
+      border: 1px solid #999999;
+    }
+
+  .gridHead {
+    background-color: Green;
+  }
+
+    .gridHead > th > a {
+      color: #fff;
+    }
+
+  .gridFooter {
+    font-weight: bold;
+  }
+  /*.gridRow {
+        color:#fff;
+        background-color:blueviolet;
+    }
+    .gridAltRow {
+        color:#fff;
+        background-color:darkorange;
+    }*/
+</style>
+
+<style>
+  .FooterAdmin {
+    display: none;
+  }
+</style>
+
+

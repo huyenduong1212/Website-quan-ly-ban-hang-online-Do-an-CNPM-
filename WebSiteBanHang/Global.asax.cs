@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
+using System.Security.Principal;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace WebSiteBanHang
 {
@@ -17,5 +19,17 @@ namespace WebSiteBanHang
       RouteConfig.RegisterRoutes(RouteTable.Routes);
       BundleConfig.RegisterBundles(BundleTable.Bundles);
     }
+    //protected void Application_AuthenticationRequest(Object sender, EventArgs e)
+    //{
+    //  var taiKhoan_cookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];//lấy dữ liệu (index của cookie) từ request được gửi lên từ client
+    //  if (taiKhoan_cookie != null)
+    //  {
+    //    var authticket = FormsAuthentication.Decrypt(taiKhoan_cookie.Value);
+    //    var chucNang = authticket.UserData.Split(new char[] { ',' });//cắt thành một mảng lưu vào chucNang dựa vào ký tự ','
+    //    var userPrincipal = new GenericPrincipal(new GenericIdentity(authticket.Name), chucNang);//Quyen là mảng chuỗi biểu diễn các roles đi với cái authTicket.Nam này
+    //    Context.User = userPrincipal;//Thiết lập cái thông tin bảo mật cho HTTP request hiện tại
+    //  }
+
+    //}
   }
 }
