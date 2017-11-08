@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebSiteBanHang.Models.SanPham>
+﻿@model IEnumerable<WebSiteBanHang.Models.SANPHAM>
 
 
 <style>
@@ -27,7 +27,7 @@
         <img class="img-responsive" src="@Url.Content("~/Content/HinhAnhSP/"+Model.ElementAt(0).HinhAnh)" alt="">
         <div class="b-wrapper">
             <h3 class="b-animate b-from-top top-in   b-delay03  text-font-size-10  ">
-                <span> @Html.Raw(Model.ElementAt(0).CauHinh) </span>
+                @*<span> @Html.Raw(Model.ElementAt(0).CauHinh) </span>*@
             </h3>
         </div>
     </a>
@@ -40,7 +40,7 @@
             <img class="img-responsive" src="@Url.Content("~/Content/HinhAnhSP/"+Model.ElementAt(1).HinhAnh)" alt="">
             <div class="b-wrapper">
                 <h3 class="b-animate b-from-top top-in1   b-delay03 text-font-size-8  ">
-                    <span> @Html.Raw(Model.ElementAt(1).CauHinh) </span>
+                    @*<span> @Html.Raw(Model.ElementAt(1).CauHinh) </span>*@
                 </h3>
             </div>
         </a>
@@ -53,7 +53,7 @@
 
                 <div class="b-wrapper">
                     <h3 class="b-animate b-from-top top-in2   b-delay03 text-font-size-5   ">
-                        <span> @Html.Raw(Model.ElementAt(2).CauHinh) </span>
+                        @*<span> @Html.Raw(Model.ElementAt(2).CauHinh) </span>*@
                     </h3>
                 </div>
             </a>
@@ -65,7 +65,7 @@
 
                 <div class="b-wrapper">
                     <h3 class="b-animate b-from-top top-in2   b-delay03 text-font-size-5 " >
-                        <span> @Html.Raw(Model.ElementAt(3).CauHinh) </span>
+                        @*<span> @Html.Raw(Model.ElementAt(3).CauHinh) </span>*@
                     </h3>
                 </div>
             </a>

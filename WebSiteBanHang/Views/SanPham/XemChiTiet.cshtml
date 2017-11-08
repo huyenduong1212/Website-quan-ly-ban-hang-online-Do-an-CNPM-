@@ -1,5 +1,5 @@
 ﻿@using WebSiteBanHang.Models
-@model SanPham
+@model SANPHAM
 @{
     ViewBag.Title = "XemChiTiet";
     Layout = "~/Views/Layout/ProductLayout.cshtml";
@@ -11,14 +11,14 @@
                 <li data-thumb="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh)">
                     <img src="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh)" />
                 </li>
-                <li data-thumb="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh1)">
+                @*<li data-thumb="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh1)">
                     <img src="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh1)" />
                 </li>
                 <li data-thumb="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh2)">
                     <img src="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh2)" />
                 </li>
                 <li data-thumb="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh3)">
-                    <img src="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh3)" />
+                    <img src="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh3)" />*@
                 </li>
             </ul>
         </div>
@@ -55,9 +55,9 @@
             </div>
 
             <h5 class="item_price">@Model.DonGia.Value.ToString("#,##") VNĐ</h5>
-            <p>
+            @*<p>
                 @Html.Raw(Model.CauHinh)
-            </p>
+            </p>*@
             <a href="#" class="add-cart item_add">Giỏ hàng</a>
         </div>
         
