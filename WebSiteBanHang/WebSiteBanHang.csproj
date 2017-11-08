@@ -178,71 +178,62 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BINHLUAN.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CHITIETDONDATHANG.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CHITIETGIOHANG.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CHITIETPHIEUNHAP.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CHUCNANG.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DONDATHANG.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GIOHANG.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ItemGioHang.cs" />
     <Compile Include="Models\LOAINGUOIDUNG.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LOAISANPHAM.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NGUOIDUNG.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NHACUNGCAP.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PHIEUNHAP.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\QuanLyBanHang.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuanLyBanHang.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\QuanLyBanHang.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\QuanLyBanHang.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SANPHAM.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SUKIEN.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    <Compile Include="Models\WebSiteBanHang.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebSiteBanHang.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebSiteBanHang.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebSiteBanHang.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebSiteBanHang.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -766,15 +757,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\QuanLyBanHang.Context.tt">
+    <Content Include="Models\WebSiteBanHang.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>QuanLyBanHang.Context.cs</LastGenOutput>
-      <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
+      <DependentUpon>WebSiteBanHang.edmx</DependentUpon>
+      <LastGenOutput>WebSiteBanHang.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\QuanLyBanHang.tt">
+    <Content Include="Models\WebSiteBanHang.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
-      <LastGenOutput>QuanLyBanHang.cs</LastGenOutput>
+      <DependentUpon>WebSiteBanHang.edmx</DependentUpon>
+      <LastGenOutput>WebSiteBanHang.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -819,12 +810,12 @@
     <Content Include="Content\tinymce\js\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Content\tinymce\js\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Content\tinymce\js\tinymce\skins\lightgray\fonts\tinymce.woff" />
-    <EntityDeploy Include="Models\QuanLyBanHang.edmx">
+    <EntityDeploy Include="Models\WebSiteBanHang.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QuanLyBanHang.Designer.cs</LastGenOutput>
+      <LastGenOutput>WebSiteBanHang.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\QuanLyBanHang.edmx.diagram">
-      <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
+    <Content Include="Models\WebSiteBanHang.edmx.diagram">
+      <DependentUpon>WebSiteBanHang.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

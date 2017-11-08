@@ -1,9 +1,9 @@
-﻿@model IEnumerable<WebSiteBanHang.Models.SanPham>
+﻿@model IEnumerable<WebSiteBanHang.Models.SANPHAM>
 @{
     ViewBag.Title = "DSSPHetHang";
     Layout = "~/Views/Layout/AdminLayout.cshtml";
     //Khởi tạo control WebGrid
-    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 5);
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 25);
 }
 <h2>Danh sách các sản phẩm gần hết hàng</h2>
 <br /><br />
@@ -18,6 +18,7 @@
     grid.Column("MaSP", "Mã sản phẩm"),
     grid.Column("TenSP", "Tên SP"),
     grid.Column("HinhAnh", "Hình ảnh", format: p => @Html.Raw("<img width=\"150\" height=\"50\" src=\"../Content/HinhAnhSP/" + p.HinhAnh + "\">")),
+    grid.Column("SoLuongTon", "Sô lượng"),
     grid.Column(format: p => @Html.ActionLink("Nhập hàng", "NhapHangDon", new { id = p.MaSP }, new {@target="_blank" }))
 
     ))

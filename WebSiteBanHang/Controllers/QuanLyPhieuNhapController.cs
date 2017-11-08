@@ -46,7 +46,7 @@ namespace WebSiteBanHang.Controllers
         public ActionResult DSSPHetHang()
         {
             //Danh sách sản phẩm gần hết hàng với số lượng tồn bé hơn hoặc bằng 5
-            var lstSP = db.SANPHAMs.Where(n => n.DaXoa == false&&n.SoLuongTon<=5);
+            var lstSP = db.SANPHAMs.Where(n => n.DaXoa == false&&n.SoLuongTon<=100);
             return View(lstSP);
         
         }
