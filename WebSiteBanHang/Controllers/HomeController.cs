@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WebSiteBanHang.Models;
 using CaptchaMvc.HtmlHelpers;
 using CaptchaMvc;
+using System.Web.Security;
 
 namespace WebSiteBanHang.Controllers
 {
@@ -105,12 +106,36 @@ namespace WebSiteBanHang.Controllers
       NGUOIDUNG tv = db.NGUOIDUNGs.SingleOrDefault(n => n.TaiKhoan == sTaiKhoan && n.MatKhau == sMatKhau);
       if (tv != null)
       {
-        Session["NGUOIDUNG"] = tv;
-        return Content("<script>window.location.reload();</script>");
+        var lstQuyen= db.QUYENHANLOAINGUOIDUNGs.Where(n => n.MaLoaiNguoiDung == tv.MaLoaiNguoiDung); 
+        string quyen = "";
+        if (lstQuyen.Count() != 0)
+        {
+          foreach (var item in lstQuyen)
+          {
+            quyen += item.MaChucNang + ",";
+          }
+          PhanQuyen(tv.MaNguoiDung.ToString(), quyen);
+          Session["NGUOIDUNG"] = tv;
+          return Content("<script>window.location.reload();</script>");
+        }
       }
       return Content("Tài khoản hoặc mật khẩu không đúng!");
     }
-
+    public ActionResult LoiTruyCap()
+    {
+      return View();
+    }
+    public void PhanQuyen(string tv, string quyen)
+    {
+      FormsAuthentication.Initialize();
+      var ticket = new FormsAuthenticationTicket(1, tv, DateTime.Now, DateTime.Now.AddHours(3), true, quyen);
+      var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));//value (đã được mã hóa)
+      if (ticket.IsPersistent)//true nếu cookie đã được cấp 
+      {
+        cookie.Expires = ticket.Expiration;//cấp thời gian sống cho cookie
+      }
+      Response.Cookies.Add(cookie);//gán cookie trả về cho client
+    }
     public ActionResult DangXuat()
     {
       Session["NGUOIDUNG"] = null;
