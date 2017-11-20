@@ -49,8 +49,13 @@
     <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
       <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -64,7 +69,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -158,7 +162,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\DangKyController.cs" />
     <Compile Include="Controllers\DemoAjaxController.cs" />
     <Compile Include="Controllers\DemoCssController.cs" />
     <Compile Include="Controllers\DemoJqueryController.cs" />
@@ -169,6 +172,7 @@
     <Compile Include="Controllers\QuanLyDonHangController.cs" />
     <Compile Include="Controllers\QuanLyPhieuNhapController.cs" />
     <Compile Include="Controllers\QuanLySanPhamController.cs" />
+    <Compile Include="Controllers\QuanLyTaiKhoanController.cs" />
     <Compile Include="Controllers\QuyenController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Controllers\SubmitListModelController.cs" />
@@ -208,10 +212,17 @@
     <Compile Include="Models\NGUOIDUNG.cs">
       <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NguoiDung_LoaiNguoiDungModel.cs" />
     <Compile Include="Models\NHACUNGCAP.cs">
       <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PHIEUNHAP.cs">
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QUYENHANLOAINGUOIDUNG.cs">
+      <DependentUpon>WebSiteBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QUYENHANNGUOIDUNG.cs">
       <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SANPHAM.cs">
@@ -853,7 +864,6 @@
     <Content Include="Views\GioHang\SuaGioHang.cshtml" />
     <Content Include="Views\GioHang\ThongBao.cshtml" />
     <Content Include="Views\GioHang\XemGioHang.cshtml" />
-    <Content Include="Views\Home\DangKy.cshtml" />
     <Content Include="Views\Home\DangKy1.cshtml" />
     <Content Include="Views\Home\MenuPartial.cshtml" />
     <Content Include="Views\KhachHang\GroupDuLieu.cshtml" />
@@ -880,6 +890,12 @@
     <Content Include="Views\SubmitListModel\Index.cshtml" />
     <Content Include="Views\TimKiem\KQTimKiem.cshtml" />
     <Content Include="Views\TimKiem\KQTimKiemPartial.cshtml" />
+    <Content Include="Views\QuanLyTaiKhoan\Index.cshtml" />
+    <Content Include="Views\QuanLyTaiKhoan\ThemTaiKhoan.cshtml" />
+    <Content Include="Views\QuanLyTaiKhoan\SuaTaiKhoan.cshtml" />
+    <Content Include="Views\Home\DangKy.cshtml" />
+    <Content Include="Views\KhachHang\SuaThongTin.cshtml" />
+    <Content Include="Views\KhachHang\DoiMatKhau.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

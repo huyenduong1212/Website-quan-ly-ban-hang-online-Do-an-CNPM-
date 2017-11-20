@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.ApplicationServices;
 using WebSiteBanHang.Models;
-using WebSiteBanHang.Models;
 
 namespace WebSiteBanHang.Controllers
 {

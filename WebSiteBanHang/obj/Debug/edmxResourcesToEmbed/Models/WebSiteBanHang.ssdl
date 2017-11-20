@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="QuanLyBanHang123Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="QuanLyBanHangModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="BINHLUAN">
     <Key>
       <PropertyRef Name="MaBL" />
@@ -43,7 +43,6 @@
     </Key>
     <Property Name="MaChucNang" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenChucNang" Type="nvarchar" MaxLength="100" />
-    <Property Name="GhiChu" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="DONDATHANG">
     <Key>
@@ -88,7 +87,7 @@
     <Key>
       <PropertyRef Name="MaNguoiDung" />
     </Key>
-    <Property Name="Ho" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Ho" Type="nvarchar" MaxLength="100" />
     <Property Name="TenLot" Type="nvarchar" MaxLength="100" />
     <Property Name="Ten" Type="nvarchar" MaxLength="100" />
     <Property Name="GioiTinh" Type="bit" />
@@ -129,6 +128,7 @@
     </Key>
     <Property Name="MaLoaiNguoiDung" Type="int" Nullable="false" />
     <Property Name="MaChucNang" Type="int" Nullable="false" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="QUYENHANNGUOIDUNG">
     <Key>
@@ -137,6 +137,7 @@
     </Key>
     <Property Name="MaChucNang" Type="int" Nullable="false" />
     <Property Name="MaNguoiDung" Type="int" Nullable="false" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="SANPHAM">
     <Key>
@@ -393,7 +394,7 @@
     <Parameter Name="TaiKhoan" Type="nchar" Mode="In" />
     <Parameter Name="MatKhau" Type="nchar" Mode="In" />
   </Function>
-  <EntityContainer Name="QuanLyBanHang123ModelStoreContainer">
+  <EntityContainer Name="QuanLyBanHangModelStoreContainer">
     <EntitySet Name="BINHLUAN" EntityType="Self.BINHLUAN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CHITIETDONDATHANG" EntityType="Self.CHITIETDONDATHANG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CHITIETGIOHANG" EntityType="Self.CHITIETGIOHANG" Schema="dbo" store:Type="Tables" />

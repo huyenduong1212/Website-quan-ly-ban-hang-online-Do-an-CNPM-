@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QuanLyBanHang123Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="QuanLyBanHangModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BINHLUAN">
           <Key>
             <PropertyRef Name="MaBL" />
@@ -48,7 +48,6 @@
           </Key>
           <Property Name="MaChucNang" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenChucNang" Type="nvarchar" MaxLength="100" />
-          <Property Name="GhiChu" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="DONDATHANG">
           <Key>
@@ -93,7 +92,7 @@
           <Key>
             <PropertyRef Name="MaNguoiDung" />
           </Key>
-          <Property Name="Ho" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Ho" Type="nvarchar" MaxLength="100" />
           <Property Name="TenLot" Type="nvarchar" MaxLength="100" />
           <Property Name="Ten" Type="nvarchar" MaxLength="100" />
           <Property Name="GioiTinh" Type="bit" />
@@ -134,6 +133,7 @@
           </Key>
           <Property Name="MaLoaiNguoiDung" Type="int" Nullable="false" />
           <Property Name="MaChucNang" Type="int" Nullable="false" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="QUYENHANNGUOIDUNG">
           <Key>
@@ -142,6 +142,7 @@
           </Key>
           <Property Name="MaChucNang" Type="int" Nullable="false" />
           <Property Name="MaNguoiDung" Type="int" Nullable="false" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SANPHAM">
           <Key>
@@ -398,7 +399,7 @@
           <Parameter Name="TaiKhoan" Type="nchar" Mode="In" />
           <Parameter Name="MatKhau" Type="nchar" Mode="In" />
         </Function>
-        <EntityContainer Name="QuanLyBanHang123ModelStoreContainer">
+        <EntityContainer Name="QuanLyBanHangModelStoreContainer">
           <EntitySet Name="BINHLUAN" EntityType="Self.BINHLUAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHITIETDONDATHANG" EntityType="Self.CHITIETDONDATHANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHITIETGIOHANG" EntityType="Self.CHITIETGIOHANG" Schema="dbo" store:Type="Tables" />
@@ -492,7 +493,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="QuanLyBanHang123Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="QuanLyBanHangModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="BINHLUAN">
           <Key>
             <PropertyRef Name="MaBL" />
@@ -543,9 +544,8 @@
           </Key>
           <Property Name="MaChucNang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenChucNang" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="GhiChu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LOAINGUOIDUNGs" Relationship="Self.QUYENHANLOAINGUOIDUNG" FromRole="CHUCNANG" ToRole="LOAINGUOIDUNG" />
-          <NavigationProperty Name="NGUOIDUNGs" Relationship="Self.QUYENHANNGUOIDUNG" FromRole="CHUCNANG" ToRole="NGUOIDUNG" />
+          <NavigationProperty Name="QUYENHANNGUOIDUNGs" Relationship="Self.FK_QUYENHAN_CHUCNANG" FromRole="CHUCNANG" ToRole="QUYENHANNGUOIDUNG" />
+          <NavigationProperty Name="QUYENHANLOAINGUOIDUNGs" Relationship="Self.FK_QUYENHANLOAINGUOIDUNG_CHUCNANG" FromRole="CHUCNANG" ToRole="QUYENHANLOAINGUOIDUNG" />
         </EntityType>
         <EntityType Name="DONDATHANG">
           <Key>
@@ -584,7 +584,7 @@
           <Property Name="MaLoaiNguoiDung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenLoaiNguoiDung" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="NGUOIDUNGs" Relationship="Self.FK_NGUOIDUNG_LOAINGUOIDUNG" FromRole="LOAINGUOIDUNG" ToRole="NGUOIDUNG" />
-          <NavigationProperty Name="CHUCNANGs" Relationship="Self.QUYENHANLOAINGUOIDUNG" FromRole="LOAINGUOIDUNG" ToRole="CHUCNANG" />
+          <NavigationProperty Name="QUYENHANLOAINGUOIDUNGs" Relationship="Self.FK_QUYENHANLOAINGUOIDUNG_LOAINGUOIDUNG" FromRole="LOAINGUOIDUNG" ToRole="QUYENHANLOAINGUOIDUNG" />
         </EntityType>
         <EntityType Name="LOAISANPHAM">
           <Key>
@@ -598,7 +598,7 @@
           <Key>
             <PropertyRef Name="MaNguoiDung" />
           </Key>
-          <Property Name="Ho" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ho" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TenLot" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Ten" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="GioiTinh" Type="Boolean" />
@@ -613,7 +613,7 @@
           <NavigationProperty Name="GIOHANGs" Relationship="Self.FK_GioHang_NGUOIDUNG" FromRole="NGUOIDUNG" ToRole="GIOHANG" />
           <NavigationProperty Name="LOAINGUOIDUNG" Relationship="Self.FK_NGUOIDUNG_LOAINGUOIDUNG" FromRole="NGUOIDUNG" ToRole="LOAINGUOIDUNG" />
           <NavigationProperty Name="PHIEUNHAPs" Relationship="Self.FK_PHIEUNHAP_NGUOIDUNG" FromRole="NGUOIDUNG" ToRole="PHIEUNHAP" />
-          <NavigationProperty Name="CHUCNANGs" Relationship="Self.QUYENHANNGUOIDUNG" FromRole="NGUOIDUNG" ToRole="CHUCNANG" />
+          <NavigationProperty Name="QUYENHANNGUOIDUNGs" Relationship="Self.FK_QUYENHAN_NGUOIDUNG" FromRole="NGUOIDUNG" ToRole="QUYENHANNGUOIDUNG" />
         </EntityType>
         <EntityType Name="NHACUNGCAP">
           <Key>
@@ -639,6 +639,28 @@
           <NavigationProperty Name="CHITIETPHIEUNHAPs" Relationship="Self.FK_CTPN_PN" FromRole="PHIEUNHAP" ToRole="CHITIETPHIEUNHAP" />
           <NavigationProperty Name="NGUOIDUNG" Relationship="Self.FK_PHIEUNHAP_NGUOIDUNG" FromRole="PHIEUNHAP" ToRole="NGUOIDUNG" />
           <NavigationProperty Name="NHACUNGCAP" Relationship="Self.FK_PHIEUNHAP_NCC" FromRole="PHIEUNHAP" ToRole="NHACUNGCAP" />
+        </EntityType>
+        <EntityType Name="QUYENHANLOAINGUOIDUNG">
+          <Key>
+            <PropertyRef Name="MaLoaiNguoiDung" />
+            <PropertyRef Name="MaChucNang" />
+          </Key>
+          <Property Name="MaLoaiNguoiDung" Type="Int32" Nullable="false" />
+          <Property Name="MaChucNang" Type="Int32" Nullable="false" />
+          <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CHUCNANG" Relationship="Self.FK_QUYENHANLOAINGUOIDUNG_CHUCNANG" FromRole="QUYENHANLOAINGUOIDUNG" ToRole="CHUCNANG" />
+          <NavigationProperty Name="LOAINGUOIDUNG" Relationship="Self.FK_QUYENHANLOAINGUOIDUNG_LOAINGUOIDUNG" FromRole="QUYENHANLOAINGUOIDUNG" ToRole="LOAINGUOIDUNG" />
+        </EntityType>
+        <EntityType Name="QUYENHANNGUOIDUNG">
+          <Key>
+            <PropertyRef Name="MaChucNang" />
+            <PropertyRef Name="MaNguoiDung" />
+          </Key>
+          <Property Name="MaChucNang" Type="Int32" Nullable="false" />
+          <Property Name="MaNguoiDung" Type="Int32" Nullable="false" />
+          <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CHUCNANG" Relationship="Self.FK_QUYENHAN_CHUCNANG" FromRole="QUYENHANNGUOIDUNG" ToRole="CHUCNANG" />
+          <NavigationProperty Name="NGUOIDUNG" Relationship="Self.FK_QUYENHAN_NGUOIDUNG" FromRole="QUYENHANNGUOIDUNG" ToRole="NGUOIDUNG" />
         </EntityType>
         <EntityType Name="SANPHAM">
           <Key>
@@ -761,6 +783,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_QUYENHAN_CHUCNANG">
+          <End Role="CHUCNANG" Type="Self.CHUCNANG" Multiplicity="1" />
+          <End Role="QUYENHANNGUOIDUNG" Type="Self.QUYENHANNGUOIDUNG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CHUCNANG">
+              <PropertyRef Name="MaChucNang" />
+            </Principal>
+            <Dependent Role="QUYENHANNGUOIDUNG">
+              <PropertyRef Name="MaChucNang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUYENHANLOAINGUOIDUNG_CHUCNANG">
+          <End Role="CHUCNANG" Type="Self.CHUCNANG" Multiplicity="1" />
+          <End Role="QUYENHANLOAINGUOIDUNG" Type="Self.QUYENHANLOAINGUOIDUNG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CHUCNANG">
+              <PropertyRef Name="MaChucNang" />
+            </Principal>
+            <Dependent Role="QUYENHANLOAINGUOIDUNG">
+              <PropertyRef Name="MaChucNang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DONDATHANG_GioHang">
           <End Role="GIOHANG" Type="Self.GIOHANG" Multiplicity="0..1" />
           <End Role="DONDATHANG" Type="Self.DONDATHANG" Multiplicity="*" />
@@ -797,6 +843,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_QUYENHANLOAINGUOIDUNG_LOAINGUOIDUNG">
+          <End Role="LOAINGUOIDUNG" Type="Self.LOAINGUOIDUNG" Multiplicity="1" />
+          <End Role="QUYENHANLOAINGUOIDUNG" Type="Self.QUYENHANLOAINGUOIDUNG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAINGUOIDUNG">
+              <PropertyRef Name="MaLoaiNguoiDung" />
+            </Principal>
+            <Dependent Role="QUYENHANLOAINGUOIDUNG">
+              <PropertyRef Name="MaLoaiNguoiDung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LoaiSP_SP">
           <End Role="LOAISANPHAM" Type="Self.LOAISANPHAM" Multiplicity="0..1" />
           <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
@@ -818,6 +876,18 @@
             </Principal>
             <Dependent Role="PHIEUNHAP">
               <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUYENHAN_NGUOIDUNG">
+          <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="1" />
+          <End Role="QUYENHANNGUOIDUNG" Type="Self.QUYENHANNGUOIDUNG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NGUOIDUNG">
+              <PropertyRef Name="MaNguoiDung" />
+            </Principal>
+            <Dependent Role="QUYENHANNGUOIDUNG">
+              <PropertyRef Name="MaNguoiDung" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -845,14 +915,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="QUYENHANLOAINGUOIDUNG">
-          <End Role="CHUCNANG" Type="Self.CHUCNANG" Multiplicity="*" />
-          <End Role="LOAINGUOIDUNG" Type="Self.LOAINGUOIDUNG" Multiplicity="*" />
-        </Association>
-        <Association Name="QUYENHANNGUOIDUNG">
-          <End Role="CHUCNANG" Type="Self.CHUCNANG" Multiplicity="*" />
-          <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="QuanLyBanHangEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BINHLUANs" EntityType="Self.BINHLUAN" />
           <EntitySet Name="CHITIETDONDATHANGs" EntityType="Self.CHITIETDONDATHANG" />
@@ -866,6 +928,8 @@
           <EntitySet Name="NGUOIDUNGs" EntityType="Self.NGUOIDUNG" />
           <EntitySet Name="NHACUNGCAPs" EntityType="Self.NHACUNGCAP" />
           <EntitySet Name="PHIEUNHAPs" EntityType="Self.PHIEUNHAP" />
+          <EntitySet Name="QUYENHANLOAINGUOIDUNGs" EntityType="Self.QUYENHANLOAINGUOIDUNG" />
+          <EntitySet Name="QUYENHANNGUOIDUNGs" EntityType="Self.QUYENHANNGUOIDUNG" />
           <EntitySet Name="SANPHAMs" EntityType="Self.SANPHAM" />
           <EntitySet Name="SUKIENs" EntityType="Self.SUKIEN" />
           <AssociationSet Name="FK_BL_SP" Association="Self.FK_BL_SP">
@@ -896,6 +960,14 @@
             <End Role="SANPHAM" EntitySet="SANPHAMs" />
             <End Role="CHITIETPHIEUNHAP" EntitySet="CHITIETPHIEUNHAPs" />
           </AssociationSet>
+          <AssociationSet Name="FK_QUYENHAN_CHUCNANG" Association="Self.FK_QUYENHAN_CHUCNANG">
+            <End Role="CHUCNANG" EntitySet="CHUCNANGs" />
+            <End Role="QUYENHANNGUOIDUNG" EntitySet="QUYENHANNGUOIDUNGs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QUYENHANLOAINGUOIDUNG_CHUCNANG" Association="Self.FK_QUYENHANLOAINGUOIDUNG_CHUCNANG">
+            <End Role="CHUCNANG" EntitySet="CHUCNANGs" />
+            <End Role="QUYENHANLOAINGUOIDUNG" EntitySet="QUYENHANLOAINGUOIDUNGs" />
+          </AssociationSet>
           <AssociationSet Name="FK_DONDATHANG_GioHang" Association="Self.FK_DONDATHANG_GioHang">
             <End Role="GIOHANG" EntitySet="GIOHANGs" />
             <End Role="DONDATHANG" EntitySet="DONDATHANGs" />
@@ -908,6 +980,10 @@
             <End Role="LOAINGUOIDUNG" EntitySet="LOAINGUOIDUNGs" />
             <End Role="NGUOIDUNG" EntitySet="NGUOIDUNGs" />
           </AssociationSet>
+          <AssociationSet Name="FK_QUYENHANLOAINGUOIDUNG_LOAINGUOIDUNG" Association="Self.FK_QUYENHANLOAINGUOIDUNG_LOAINGUOIDUNG">
+            <End Role="LOAINGUOIDUNG" EntitySet="LOAINGUOIDUNGs" />
+            <End Role="QUYENHANLOAINGUOIDUNG" EntitySet="QUYENHANLOAINGUOIDUNGs" />
+          </AssociationSet>
           <AssociationSet Name="FK_LoaiSP_SP" Association="Self.FK_LoaiSP_SP">
             <End Role="LOAISANPHAM" EntitySet="LOAISANPHAMs" />
             <End Role="SANPHAM" EntitySet="SANPHAMs" />
@@ -916,6 +992,10 @@
             <End Role="NGUOIDUNG" EntitySet="NGUOIDUNGs" />
             <End Role="PHIEUNHAP" EntitySet="PHIEUNHAPs" />
           </AssociationSet>
+          <AssociationSet Name="FK_QUYENHAN_NGUOIDUNG" Association="Self.FK_QUYENHAN_NGUOIDUNG">
+            <End Role="NGUOIDUNG" EntitySet="NGUOIDUNGs" />
+            <End Role="QUYENHANNGUOIDUNG" EntitySet="QUYENHANNGUOIDUNGs" />
+          </AssociationSet>
           <AssociationSet Name="FK_PHIEUNHAP_NCC" Association="Self.FK_PHIEUNHAP_NCC">
             <End Role="NHACUNGCAP" EntitySet="NHACUNGCAPs" />
             <End Role="PHIEUNHAP" EntitySet="PHIEUNHAPs" />
@@ -923,14 +1003,6 @@
           <AssociationSet Name="FK_SANPHAM_SUKIEN" Association="Self.FK_SANPHAM_SUKIEN">
             <End Role="SUKIEN" EntitySet="SUKIENs" />
             <End Role="SANPHAM" EntitySet="SANPHAMs" />
-          </AssociationSet>
-          <AssociationSet Name="QUYENHANLOAINGUOIDUNG" Association="Self.QUYENHANLOAINGUOIDUNG">
-            <End Role="CHUCNANG" EntitySet="CHUCNANGs" />
-            <End Role="LOAINGUOIDUNG" EntitySet="LOAINGUOIDUNGs" />
-          </AssociationSet>
-          <AssociationSet Name="QUYENHANNGUOIDUNG" Association="Self.QUYENHANNGUOIDUNG">
-            <End Role="CHUCNANG" EntitySet="CHUCNANGs" />
-            <End Role="NGUOIDUNG" EntitySet="NGUOIDUNGs" />
           </AssociationSet>
           <FunctionImport Name="DangKy">
             <Parameter Name="Hoten" Mode="In" Type="String" />
@@ -947,9 +1019,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QuanLyBanHang123ModelStoreContainer" CdmEntityContainer="QuanLyBanHangEntities">
+        <EntityContainerMapping StorageEntityContainer="QuanLyBanHangModelStoreContainer" CdmEntityContainer="QuanLyBanHangEntities">
           <EntitySetMapping Name="BINHLUANs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.BINHLUAN">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.BINHLUAN">
               <MappingFragment StoreEntitySet="BINHLUAN">
                 <ScalarProperty Name="MaBL" ColumnName="MaBL" />
                 <ScalarProperty Name="NoiDungBL" ColumnName="NoiDungBL" />
@@ -960,7 +1032,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHITIETDONDATHANGs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.CHITIETDONDATHANG">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.CHITIETDONDATHANG">
               <MappingFragment StoreEntitySet="CHITIETDONDATHANG">
                 <ScalarProperty Name="MaDDH" ColumnName="MaDDH" />
                 <ScalarProperty Name="MaSP" ColumnName="MaSP" />
@@ -969,7 +1041,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHITIETGIOHANGs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.CHITIETGIOHANG">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.CHITIETGIOHANG">
               <MappingFragment StoreEntitySet="CHITIETGIOHANG">
                 <ScalarProperty Name="MaGioHang" ColumnName="MaGioHang" />
                 <ScalarProperty Name="MaSP" ColumnName="MaSP" />
@@ -978,7 +1050,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHITIETPHIEUNHAPs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.CHITIETPHIEUNHAP">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.CHITIETPHIEUNHAP">
               <MappingFragment StoreEntitySet="CHITIETPHIEUNHAP">
                 <ScalarProperty Name="MaPN" ColumnName="MaPN" />
                 <ScalarProperty Name="MaSP" ColumnName="MaSP" />
@@ -987,16 +1059,15 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CHUCNANGs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.CHUCNANG">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.CHUCNANG">
               <MappingFragment StoreEntitySet="CHUCNANG">
                 <ScalarProperty Name="MaChucNang" ColumnName="MaChucNang" />
                 <ScalarProperty Name="TenChucNang" ColumnName="TenChucNang" />
-                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DONDATHANGs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.DONDATHANG">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.DONDATHANG">
               <MappingFragment StoreEntitySet="DONDATHANG">
                 <ScalarProperty Name="MaDDH" ColumnName="MaDDH" />
                 <ScalarProperty Name="ThoiDiemDat" ColumnName="ThoiDiemDat" />
@@ -1013,7 +1084,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GIOHANGs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.GIOHANG">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.GIOHANG">
               <MappingFragment StoreEntitySet="GIOHANG">
                 <ScalarProperty Name="MaGioHang" ColumnName="MaGioHang" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
@@ -1023,7 +1094,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LOAINGUOIDUNGs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.LOAINGUOIDUNG">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.LOAINGUOIDUNG">
               <MappingFragment StoreEntitySet="LOAINGUOIDUNG">
                 <ScalarProperty Name="MaLoaiNguoiDung" ColumnName="MaLoaiNguoiDung" />
                 <ScalarProperty Name="TenLoaiNguoiDung" ColumnName="TenLoaiNguoiDung" />
@@ -1031,7 +1102,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LOAISANPHAMs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.LOAISANPHAM">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.LOAISANPHAM">
               <MappingFragment StoreEntitySet="LOAISANPHAM">
                 <ScalarProperty Name="MaLoaiSP" ColumnName="MaLoaiSP" />
                 <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
@@ -1039,7 +1110,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NGUOIDUNGs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.NGUOIDUNG">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.NGUOIDUNG">
               <MappingFragment StoreEntitySet="NGUOIDUNG">
                 <ScalarProperty Name="Ho" ColumnName="Ho" />
                 <ScalarProperty Name="TenLot" ColumnName="TenLot" />
@@ -1057,7 +1128,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NHACUNGCAPs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.NHACUNGCAP">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.NHACUNGCAP">
               <MappingFragment StoreEntitySet="NHACUNGCAP">
                 <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
                 <ScalarProperty Name="TenNCC" ColumnName="TenNCC" />
@@ -1069,7 +1140,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PHIEUNHAPs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.PHIEUNHAP">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.PHIEUNHAP">
               <MappingFragment StoreEntitySet="PHIEUNHAP">
                 <ScalarProperty Name="MaPN" ColumnName="MaPN" />
                 <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
@@ -1079,8 +1150,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="QUYENHANLOAINGUOIDUNGs">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.QUYENHANLOAINGUOIDUNG">
+              <MappingFragment StoreEntitySet="QUYENHANLOAINGUOIDUNG">
+                <ScalarProperty Name="MaLoaiNguoiDung" ColumnName="MaLoaiNguoiDung" />
+                <ScalarProperty Name="MaChucNang" ColumnName="MaChucNang" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QUYENHANNGUOIDUNGs">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.QUYENHANNGUOIDUNG">
+              <MappingFragment StoreEntitySet="QUYENHANNGUOIDUNG">
+                <ScalarProperty Name="MaChucNang" ColumnName="MaChucNang" />
+                <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="SANPHAMs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.SANPHAM">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.SANPHAM">
               <MappingFragment StoreEntitySet="SANPHAM">
                 <ScalarProperty Name="MaSP" ColumnName="MaSP" />
                 <ScalarProperty Name="TenSP" ColumnName="TenSP" />
@@ -1099,7 +1188,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SUKIENs">
-            <EntityTypeMapping TypeName="QuanLyBanHang123Model.SUKIEN">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.SUKIEN">
               <MappingFragment StoreEntitySet="SUKIEN">
                 <ScalarProperty Name="MaSuKien" ColumnName="MaSuKien" />
                 <ScalarProperty Name="TenSuKien" ColumnName="TenSuKien" />
@@ -1111,23 +1200,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="QUYENHANLOAINGUOIDUNG" TypeName="QuanLyBanHang123Model.QUYENHANLOAINGUOIDUNG" StoreEntitySet="QUYENHANLOAINGUOIDUNG">
-            <EndProperty Name="CHUCNANG">
-              <ScalarProperty Name="MaChucNang" ColumnName="MaChucNang" />
-            </EndProperty>
-            <EndProperty Name="LOAINGUOIDUNG">
-              <ScalarProperty Name="MaLoaiNguoiDung" ColumnName="MaLoaiNguoiDung" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="QUYENHANNGUOIDUNG" TypeName="QuanLyBanHang123Model.QUYENHANNGUOIDUNG" StoreEntitySet="QUYENHANNGUOIDUNG">
-            <EndProperty Name="CHUCNANG">
-              <ScalarProperty Name="MaChucNang" ColumnName="MaChucNang" />
-            </EndProperty>
-            <EndProperty Name="NGUOIDUNG">
-              <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="DangKy" FunctionName="QuanLyBanHang123Model.Store.DangKy" />
+          <FunctionImportMapping FunctionImportName="DangKy" FunctionName="QuanLyBanHangModel.Store.DangKy" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1144,7 +1217,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

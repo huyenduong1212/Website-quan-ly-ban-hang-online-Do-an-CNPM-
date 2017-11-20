@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="QuanLyBanHang123ModelStoreContainer" CdmEntityContainer="QuanLyBanHangEntities">
+  <EntityContainerMapping StorageEntityContainer="QuanLyBanHangModelStoreContainer" CdmEntityContainer="QuanLyBanHangEntities">
     <EntitySetMapping Name="BINHLUANs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.BINHLUAN">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.BINHLUAN">
         <MappingFragment StoreEntitySet="BINHLUAN">
           <ScalarProperty Name="MaBL" ColumnName="MaBL" />
           <ScalarProperty Name="NoiDungBL" ColumnName="NoiDungBL" />
@@ -13,7 +13,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CHITIETDONDATHANGs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.CHITIETDONDATHANG">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.CHITIETDONDATHANG">
         <MappingFragment StoreEntitySet="CHITIETDONDATHANG">
           <ScalarProperty Name="MaDDH" ColumnName="MaDDH" />
           <ScalarProperty Name="MaSP" ColumnName="MaSP" />
@@ -22,7 +22,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CHITIETGIOHANGs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.CHITIETGIOHANG">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.CHITIETGIOHANG">
         <MappingFragment StoreEntitySet="CHITIETGIOHANG">
           <ScalarProperty Name="MaGioHang" ColumnName="MaGioHang" />
           <ScalarProperty Name="MaSP" ColumnName="MaSP" />
@@ -31,7 +31,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CHITIETPHIEUNHAPs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.CHITIETPHIEUNHAP">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.CHITIETPHIEUNHAP">
         <MappingFragment StoreEntitySet="CHITIETPHIEUNHAP">
           <ScalarProperty Name="MaPN" ColumnName="MaPN" />
           <ScalarProperty Name="MaSP" ColumnName="MaSP" />
@@ -40,16 +40,15 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CHUCNANGs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.CHUCNANG">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.CHUCNANG">
         <MappingFragment StoreEntitySet="CHUCNANG">
           <ScalarProperty Name="MaChucNang" ColumnName="MaChucNang" />
           <ScalarProperty Name="TenChucNang" ColumnName="TenChucNang" />
-          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DONDATHANGs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.DONDATHANG">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.DONDATHANG">
         <MappingFragment StoreEntitySet="DONDATHANG">
           <ScalarProperty Name="MaDDH" ColumnName="MaDDH" />
           <ScalarProperty Name="ThoiDiemDat" ColumnName="ThoiDiemDat" />
@@ -66,7 +65,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="GIOHANGs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.GIOHANG">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.GIOHANG">
         <MappingFragment StoreEntitySet="GIOHANG">
           <ScalarProperty Name="MaGioHang" ColumnName="MaGioHang" />
           <ScalarProperty Name="MaKH" ColumnName="MaKH" />
@@ -76,7 +75,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="LOAINGUOIDUNGs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.LOAINGUOIDUNG">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.LOAINGUOIDUNG">
         <MappingFragment StoreEntitySet="LOAINGUOIDUNG">
           <ScalarProperty Name="MaLoaiNguoiDung" ColumnName="MaLoaiNguoiDung" />
           <ScalarProperty Name="TenLoaiNguoiDung" ColumnName="TenLoaiNguoiDung" />
@@ -84,7 +83,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="LOAISANPHAMs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.LOAISANPHAM">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.LOAISANPHAM">
         <MappingFragment StoreEntitySet="LOAISANPHAM">
           <ScalarProperty Name="MaLoaiSP" ColumnName="MaLoaiSP" />
           <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
@@ -92,7 +91,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="NGUOIDUNGs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.NGUOIDUNG">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.NGUOIDUNG">
         <MappingFragment StoreEntitySet="NGUOIDUNG">
           <ScalarProperty Name="Ho" ColumnName="Ho" />
           <ScalarProperty Name="TenLot" ColumnName="TenLot" />
@@ -110,7 +109,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="NHACUNGCAPs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.NHACUNGCAP">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.NHACUNGCAP">
         <MappingFragment StoreEntitySet="NHACUNGCAP">
           <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
           <ScalarProperty Name="TenNCC" ColumnName="TenNCC" />
@@ -122,7 +121,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PHIEUNHAPs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.PHIEUNHAP">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.PHIEUNHAP">
         <MappingFragment StoreEntitySet="PHIEUNHAP">
           <ScalarProperty Name="MaPN" ColumnName="MaPN" />
           <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
@@ -132,8 +131,26 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="QUYENHANLOAINGUOIDUNGs">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.QUYENHANLOAINGUOIDUNG">
+        <MappingFragment StoreEntitySet="QUYENHANLOAINGUOIDUNG">
+          <ScalarProperty Name="MaLoaiNguoiDung" ColumnName="MaLoaiNguoiDung" />
+          <ScalarProperty Name="MaChucNang" ColumnName="MaChucNang" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QUYENHANNGUOIDUNGs">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.QUYENHANNGUOIDUNG">
+        <MappingFragment StoreEntitySet="QUYENHANNGUOIDUNG">
+          <ScalarProperty Name="MaChucNang" ColumnName="MaChucNang" />
+          <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SANPHAMs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.SANPHAM">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.SANPHAM">
         <MappingFragment StoreEntitySet="SANPHAM">
           <ScalarProperty Name="MaSP" ColumnName="MaSP" />
           <ScalarProperty Name="TenSP" ColumnName="TenSP" />
@@ -152,7 +169,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="SUKIENs">
-      <EntityTypeMapping TypeName="QuanLyBanHang123Model.SUKIEN">
+      <EntityTypeMapping TypeName="QuanLyBanHangModel.SUKIEN">
         <MappingFragment StoreEntitySet="SUKIEN">
           <ScalarProperty Name="MaSuKien" ColumnName="MaSuKien" />
           <ScalarProperty Name="TenSuKien" ColumnName="TenSuKien" />
@@ -164,22 +181,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="QUYENHANLOAINGUOIDUNG" TypeName="QuanLyBanHang123Model.QUYENHANLOAINGUOIDUNG" StoreEntitySet="QUYENHANLOAINGUOIDUNG">
-      <EndProperty Name="CHUCNANG">
-        <ScalarProperty Name="MaChucNang" ColumnName="MaChucNang" />
-      </EndProperty>
-      <EndProperty Name="LOAINGUOIDUNG">
-        <ScalarProperty Name="MaLoaiNguoiDung" ColumnName="MaLoaiNguoiDung" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="QUYENHANNGUOIDUNG" TypeName="QuanLyBanHang123Model.QUYENHANNGUOIDUNG" StoreEntitySet="QUYENHANNGUOIDUNG">
-      <EndProperty Name="CHUCNANG">
-        <ScalarProperty Name="MaChucNang" ColumnName="MaChucNang" />
-      </EndProperty>
-      <EndProperty Name="NGUOIDUNG">
-        <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <FunctionImportMapping FunctionImportName="DangKy" FunctionName="QuanLyBanHang123Model.Store.DangKy" />
+    <FunctionImportMapping FunctionImportName="DangKy" FunctionName="QuanLyBanHangModel.Store.DangKy" />
   </EntityContainerMapping>
 </Mapping>

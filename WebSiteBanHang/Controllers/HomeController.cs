@@ -42,15 +42,22 @@ namespace WebSiteBanHang.Controllers
       var lstSP = db.SANPHAMs;
       return PartialView(lstSP);
     }
-    [HttpGet]
     public ActionResult DangKy()
     {
-      ViewBag.CauHoi = new SelectList(LoadCauHoi());
+      //ViewBag.CauHoi = new SelectList(LoadCauHoi());
 
       return View();
     }
+        [HttpPost]
+        public ActionResult DangKy(NGUOIDUNG nd)
+        {
+            nd.MaLoaiNguoiDung = 1;
+            db.NGUOIDUNGs.Add(nd);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-    [HttpPost, CaptchaMvc.Attributes.CaptchaVerify("Captcha is not valid")]
+        [HttpPost, CaptchaMvc.Attributes.CaptchaVerify("Captcha is not valid")]
     //public ActionResult DangKy(ThanhVien tv,FormCollection f)
     //{
     //    ViewBag.CauHoi = new SelectList(LoadCauHoi());
