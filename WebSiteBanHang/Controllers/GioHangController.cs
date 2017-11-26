@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebSiteBanHang.Models;
+using WebSiteBanHang.ViewModels;
 
 namespace WebSiteBanHang.Controllers
 {
@@ -116,7 +117,23 @@ namespace WebSiteBanHang.Controllers
     {
       //Lấy giỏ hàng 
       GIOHANG lstGioHang = LayGioHang();
-      return View(lstGioHang.CHITIETGIOHANGs);
+      SANPHAM sp = null;
+      List<KhachHang_GioHangViewModel> lstSP_KH = new List<KhachHang_GioHangViewModel>();
+      foreach (CHITIETGIOHANG ctgh in lstGioHang.CHITIETGIOHANGs)
+      {
+        sp = db.SANPHAMs.SingleOrDefault(n => n.MaSP == ctgh.MaSP);
+        KhachHang_GioHangViewModel sp_KhachHang = new KhachHang_GioHangViewModel()
+        {
+          MaSP = ctgh.MaSP,
+          TenSP = sp.TenSP,
+          DonGia = sp.DonGia.Value,
+          HinhAnh = sp.HinhAnh,
+          MaGioHang = lstGioHang.MaGioHang,
+          SoLuong = ctgh.SoLuong.Value
+        };
+        lstSP_KH.Add(sp_KhachHang);
+      }
+      return View(lstSP_KH);
     }
     //Thêm giỏ hàng Ajax
     public ActionResult ThemGioHangAjax(int MaSP, string strURL)
