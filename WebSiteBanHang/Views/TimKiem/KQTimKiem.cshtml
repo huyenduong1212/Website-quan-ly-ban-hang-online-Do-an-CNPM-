@@ -1,6 +1,6 @@
 ﻿@using WebSiteBanHang.Models
 @using PagedList.Mvc;
-@model PagedList.IPagedList<SanPham>
+@model PagedList.IPagedList<SANPHAM>
 
 @{
     ViewBag.Title = "KQTimKiem";
@@ -9,12 +9,10 @@
 
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 @*Form tìm kiếm Ajax*@
-@using (Ajax.BeginForm("KQTimKiemPartial", "TimKiem", new AjaxOptions { @UpdateTargetId = "KQTimKiem", InsertionMode = InsertionMode.Replace }))
+@using (Html.BeginForm("LayTuKhoaTimKiem", "TimKiem"))
 {
-    <div class="search">
-        <input type="text" id="txtTimKiem" value="" name="sTuKhoa" placeholder="Nhập vào tên sản phẩm cần tìm..." />
-        <input type="submit" id="btnTimKiem" value="Tìm kiếm" />
-    </div>
+    <input type="text" name="sTuKhoa" placeholder="Nhập tên sản phẩm cần tìm..">
+    <input type="submit" value="Tìm kiếm">
 }
     <br /><br /><br /><br />
       <div style="clear:both"></div>
