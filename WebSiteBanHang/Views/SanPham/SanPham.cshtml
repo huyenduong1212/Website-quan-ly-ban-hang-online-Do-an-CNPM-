@@ -14,7 +14,7 @@
       <div class="col-md-4 bottom-cd simpleCart_shelfItem">
         <div class="product-at ">
           <a href="single.html">
-            <img class="img-responsive" src="@Url.Content(" ~/Content/HinhAnhSP/"+item.HinhAnh)" alt="" style="width:150px;height:150px;">
+            <img class="img-responsive" src="@Url.Content("~/Content/HinhAnhSP/"+item.HinhAnh)" alt="" style="width:150px;height:150px;">
             <div class="pro-grid">
               <span class="buy-in">Đặt mua</span>
             </div>
@@ -24,7 +24,8 @@
         @*Thẻ a nút thêm*@
         @*<a href="@Url.Action(" ThemGioHang", "GioHang" , new { @MaSP=item.MaSP, @strURL=Request.Url.ToString() })" class="item_add"><p class="number item_price"><i> </i>@item.DonGia.Value.ToString("#,##")</p></a>*@
         @*Thêm giỏ hàng ajax*@
-        @Ajax.ActionLink("Thêm giỏ hàng Ajax", "ThemGioHangAjax", "GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }@*, new { @class = "item_add" }*@)
+        @Ajax.ActionLink("Thêm vào giỏ hàng", "ThemGioHangAjax", "GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() },
+     new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-primary center-block" })
       </div>
     }
     <div class="clearfix"> </div>
