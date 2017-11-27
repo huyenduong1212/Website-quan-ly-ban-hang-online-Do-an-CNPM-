@@ -48,16 +48,16 @@ namespace WebSiteBanHang.Controllers
 
       return View();
     }
-        [HttpPost]
-        public ActionResult DangKy(NGUOIDUNG nd)
-        {
-            nd.MaLoaiNguoiDung = 1;
-            db.NGUOIDUNGs.Add(nd);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+    [HttpPost]
+    public ActionResult DangKy(NGUOIDUNG nd)
+    {
+      nd.MaLoaiNguoiDung = 1;
+      db.NGUOIDUNGs.Add(nd);
+      db.SaveChanges();
+      return RedirectToAction("Index");
+    }
 
-        [HttpPost, CaptchaMvc.Attributes.CaptchaVerify("Captcha is not valid")]
+    [HttpPost, CaptchaMvc.Attributes.CaptchaVerify("Captcha is not valid")]
     //public ActionResult DangKy(ThanhVien tv,FormCollection f)
     //{
     //    ViewBag.CauHoi = new SelectList(LoadCauHoi());
@@ -113,7 +113,7 @@ namespace WebSiteBanHang.Controllers
       NGUOIDUNG tv = db.NGUOIDUNGs.SingleOrDefault(n => n.TaiKhoan == sTaiKhoan && n.MatKhau == sMatKhau);
       if (tv != null)
       {
-        var lstQuyen= db.QUYENHANLOAINGUOIDUNGs.Where(n => n.MaLoaiNguoiDung == tv.MaLoaiNguoiDung); 
+        var lstQuyen = db.QUYENHANLOAINGUOIDUNGs.Where(n => n.MaLoaiNguoiDung == tv.MaLoaiNguoiDung);
         string quyen = "";
         if (lstQuyen.Count() != 0)
         {
@@ -146,6 +146,7 @@ namespace WebSiteBanHang.Controllers
     public ActionResult DangXuat()
     {
       Session["NGUOIDUNG"] = null;
+      Session["GioHang"] = null;
       return RedirectToAction("Index");
     }
   }

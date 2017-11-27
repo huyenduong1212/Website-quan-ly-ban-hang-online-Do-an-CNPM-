@@ -15,20 +15,32 @@ namespace WebSiteBanHang.Controllers
     QuanLyBanHangEntities db = new QuanLyBanHangEntities();
 
     //Lấy giỏ hàng
-    public GIOHANG LayGioHangKhachVangLai()
+    public List<ItemGioHang> LayGioHangKhachVangLai()
     {
-      GIOHANG lstGioHang = Session["GioHang"] as GIOHANG;
+      //Giỏ hàng đã tồn tại 
+      List<ItemGioHang> lstGioHang = Session["GioHang"] as List<ItemGioHang>;
       if (lstGioHang == null)
       {
-        lstGioHang = new GIOHANG();
-        lstGioHang.DaDat = false;
-        lstGioHang.ThanhTien = 0;
-        db.GIOHANGs.Add(lstGioHang);
-        db.SaveChanges();
-        Session["GioHang"] = lstGioHang;
+        //Nếu session giỏ hàng chưa tồn tại thì khởi tạo giỏ hàng
+        lstGioHang = new List<ItemGioHang>();
+        Session["GioHang"] = lstGioHang;//session nó đi theo cái lstGioHang luôn, thêm cái gì vô lstGioHang thì session có y chang
       }
       return lstGioHang;
     }
+    //public GIOHANG LayGioHangKhachVangLai()
+    //{
+    //  GIOHANG lstGioHang = Session["GioHang"] as GIOHANG;
+    //  if (lstGioHang == null)
+    //  {
+    //    lstGioHang = new GIOHANG();
+    //    lstGioHang.DaDat = false;
+    //    lstGioHang.ThanhTien = 0;
+    //    //db.GIOHANGs.Add(lstGioHang);
+    //    //db.SaveChanges();
+    //    Session["GioHang"] = lstGioHang;
+    //  }
+    //  return lstGioHang;
+    //}
     public GIOHANG LayGioHangKhachDaDangNhap(int maKH)
     {
       //GIOHANG lstGioHang = Session["GioHang"] as GIOHANG;
@@ -40,25 +52,73 @@ namespace WebSiteBanHang.Controllers
       //}
       return lstGioHang;
     }
-    //Tính tổng số lượng
     public int TinhTongSoLuong()
     {
       //Lấy giỏ hàng
-      GIOHANG lstGioHang = Session["GioHang"] as GIOHANG;
-      if (lstGioHang == null)
+      List<ItemGioHang> lstItemGioHang = null;
+      GIOHANG lstGioHang = null;
+      if (Session["NGUOIDUNG"] != null)
       {
-        return 0;
+        NGUOIDUNG kh = Session["NGUOIDUNG"] as NGUOIDUNG;
+        lstGioHang = LayGioHangKhachDaDangNhap(kh.MaNguoiDung);
+      }
+      else
+      {
+        lstItemGioHang = Session["GioHang"] as List<ItemGioHang>;
+        if (lstItemGioHang == null)
+        {
+          return 0;
+        }
+        return lstItemGioHang.Sum(n => n.SoLuong);
       }
       return (int)lstGioHang.CHITIETGIOHANGs.Sum(n => n.SoLuong);
     }
+    //GIOHANG lstGioHang = null;
+    //if (Session["NGUOIDUNG"] != null)
+    //{
+    //  NGUOIDUNG kh = Session["NGUOIDUNG"] as NGUOIDUNG;
+    //  lstGioHang = LayGioHangKhachDaDangNhap(kh.MaNguoiDung);
+    //}
+    //else
+    //{
+    //  lstGioHang = LayGioHangKhachVangLai();
+    //}
+    //return (int)lstGioHang.CHITIETGIOHANGs.Sum(n => n.SoLuong);
+    //Tính tổng số lượng
+    //public int TinhTongSoLuong()
+    //{
+    //  //Lấy giỏ hàng
+    //  GIOHANG lstGioHang = null;
+    //  if (Session["NGUOIDUNG"] != null)
+    //  {
+    //    NGUOIDUNG kh = Session["NGUOIDUNG"] as NGUOIDUNG;
+    //    lstGioHang = LayGioHangKhachDaDangNhap(kh.MaNguoiDung);
+    //  }
+    //  else
+    //  {
+    //    lstGioHang = LayGioHangKhachVangLai();
+    //  }
+    //  return (int)lstGioHang.CHITIETGIOHANGs.Sum(n => n.SoLuong);
+    //}
     //Tính Tổng tiền 
     public decimal TinhTongTien()
     {
       //Lấy giỏ hàng
-      GIOHANG lstGioHang = Session["GioHang"] as GIOHANG;
-      if (lstGioHang == null)
+      GIOHANG lstGioHang = null;
+      List<ItemGioHang> lstItemGioHang = null;
+      if (Session["NGUOIDUNG"] != null)
       {
-        return 0;
+        NGUOIDUNG kh = Session["NGUOIDUNG"] as NGUOIDUNG;
+        lstGioHang = LayGioHangKhachDaDangNhap(kh.MaNguoiDung);
+      }
+      else
+      {
+        lstItemGioHang = Session["GioHang"] as List<ItemGioHang>;
+        if (lstItemGioHang == null)
+        {
+          return 0;
+        }
+        return lstItemGioHang.Sum(n => n.ThanhTien);
       }
       return (decimal)lstGioHang.ThanhTien;
     }
@@ -81,36 +141,57 @@ namespace WebSiteBanHang.Controllers
     {
       //Lấy giỏ hàng 
       GIOHANG lstGioHang = null;
+      List<ItemGioHang> lstItemGioHang = null;
+      SANPHAM sp = null;
+      List<KhachHang_GioHangViewModel> lstSP_KH = new List<KhachHang_GioHangViewModel>();
+      int maGioHang;
       if (Session["NGUOIDUNG"] != null)
       {
         NGUOIDUNG khachHang = Session["NGUOIDUNG"] as NGUOIDUNG;
         lstGioHang = LayGioHangKhachDaDangNhap(khachHang.MaNguoiDung);
+        ViewBag.maGioHang = lstGioHang.MaGioHang;
+        ViewBag.maKH = khachHang.MaNguoiDung;
+        maGioHang = lstGioHang.MaGioHang;
+        foreach (CHITIETGIOHANG ctgh in lstGioHang.CHITIETGIOHANGs)
+        {
+          sp = db.SANPHAMs.SingleOrDefault(n => n.MaSP == ctgh.MaSP);
+          KhachHang_GioHangViewModel sp_KhachHang = new KhachHang_GioHangViewModel()
+          {
+            MaSP = ctgh.MaSP,
+            TenSP = sp.TenSP,
+            DonGia = sp.DonGia.Value,
+            HinhAnh = sp.HinhAnh,
+            SoLuong = ctgh.SoLuong.Value
+          };
+          lstSP_KH.Add(sp_KhachHang);
+        }
       }
       else
       {
-        lstGioHang = LayGioHangKhachVangLai();
-      }
-      SANPHAM sp = null;
-      List<KhachHang_GioHangViewModel> lstSP_KH = new List<KhachHang_GioHangViewModel>();
-      foreach (CHITIETGIOHANG ctgh in lstGioHang.CHITIETGIOHANGs)
-      {
-        sp = db.SANPHAMs.SingleOrDefault(n => n.MaSP == ctgh.MaSP);
-        KhachHang_GioHangViewModel sp_KhachHang = new KhachHang_GioHangViewModel()
+        lstItemGioHang = LayGioHangKhachVangLai();
+        ViewBag.maGioHang = null;
+        ViewBag.maKH = null;
+        foreach(ItemGioHang itemGioHang in lstItemGioHang)
         {
-          MaSP = ctgh.MaSP,
-          TenSP = sp.TenSP,
-          DonGia = sp.DonGia.Value,
-          HinhAnh = sp.HinhAnh,
-          MaGioHang = lstGioHang.MaGioHang,
-          SoLuong = ctgh.SoLuong.Value
-        };
-        lstSP_KH.Add(sp_KhachHang);
+          KhachHang_GioHangViewModel sp_KhachHang = new KhachHang_GioHangViewModel()
+          {
+            MaSP = itemGioHang.MaSP,
+            TenSP = itemGioHang.TenSP,
+            DonGia = itemGioHang.DonGia,
+            HinhAnh = itemGioHang.HinhAnh,
+            SoLuong = itemGioHang.SoLuong
+          };
+          lstSP_KH.Add(sp_KhachHang);
+        }
       }
+      ViewBag.TongSoLuong = TinhTongSoLuong();
+      ViewBag.TongTien = TinhTongTien();
       return View(lstSP_KH);
     }
     //Thêm giỏ hàng Ajax
     public ActionResult ThemGioHangAjax(int MaSP, string strURL)
     {
+      List<ItemGioHang> lstItemGioHang = null;
       SANPHAM sp = db.SANPHAMs.SingleOrDefault(n => n.MaSP == MaSP);
       if (sp == null)
       {
@@ -124,51 +205,78 @@ namespace WebSiteBanHang.Controllers
       {
         NGUOIDUNG khachHang = Session["NGUOIDUNG"] as NGUOIDUNG;
         lstGioHang = LayGioHangKhachDaDangNhap(khachHang.MaNguoiDung);
+        CHITIETGIOHANG spCheck = lstGioHang.CHITIETGIOHANGs.SingleOrDefault(n => n.MaSP == MaSP);
+        if (spCheck != null)
+        {
+          //Kiểm tra số lượng tồn trước khi cho khách hàng mua hàng
+          if (sp.SoLuongTon < spCheck.SoLuong)
+          {
+            return Content("<script> alert(\"Sản phẩm đã hết hàng!\")</script>");
+          }
+          spCheck.SoLuong++;
+          decimal donGiaSanPham = spCheck.SANPHAM.DonGia.Value;
+          spCheck.ThanhTienSP = spCheck.SoLuong * donGiaSanPham;
+          ViewBag.TongSoLuong = TinhTongSoLuong();
+          ViewBag.TongTien = TinhTongTien();
+          return PartialView("GioHangPartial");
+        }
+        //Nếu sản phẩm chưa tồn tại thì add một record vô trong CHITIETGIOHANG
+        CHITIETGIOHANG ctgh = new CHITIETGIOHANG();
+        ctgh.MaSP = MaSP;
+        ctgh.MaGioHang = lstGioHang.MaGioHang;
+        ctgh.SoLuong = 1;
+        ctgh.ThanhTienSP = 0;
+        db.CHITIETGIOHANGs.Add(ctgh);
+        db.SaveChanges();
+        //ItemGioHang itemGH = new ItemGioHang(MaSP);
+        if (sp.SoLuongTon < ctgh.SoLuong)
+        {
+          return Content("<script>alert(\"Sản phẩm đã hết hàng!\")</script>");
+        }
+        //lstGioHang.Add(itemGH);
+        ViewBag.TongSoLuong = TinhTongSoLuong();
+        ViewBag.TongTien = TinhTongTien();
       }
       else
       {
-        lstGioHang = LayGioHangKhachVangLai();
-      }
-      //Lấy giỏ hàng
-      // GIOHANG 
-      //Trường hợp 1 nếu sản phẩm đã tồn tại trong giỏ hàng 
-      CHITIETGIOHANG spCheck = lstGioHang.CHITIETGIOHANGs.SingleOrDefault(n => n.MaSP == MaSP);
-      if (spCheck != null)
-      {
-        //Kiểm tra số lượng tồn trước khi cho khách hàng mua hàng
-        if (sp.SoLuongTon < spCheck.SoLuong)
+        lstItemGioHang = LayGioHangKhachVangLai();
+        ItemGioHang spCheck = lstItemGioHang.SingleOrDefault(n => n.MaSP == MaSP);
+        if (spCheck != null)
         {
-          return Content("<script> alert(\"Sản phẩm đã hết hàng!\")</script>");
+          //Kiểm tra số lượng tồn trước khi cho khách hàng mua hàng
+          if (sp.SoLuongTon < spCheck.SoLuong)
+          {
+            ViewBag.ThongBao = 0;
+            ViewBag.TongSoLuong = TinhTongSoLuong();
+            ViewBag.TongTien = TinhTongTien();
+            //return Content("<script> alert(\"Sản phẩm đã hết hàng!\")</script>");
+            return PartialView("GioHangPartial");
+          }
+          spCheck.SoLuong++;
+          spCheck.ThanhTien = spCheck.SoLuong * spCheck.DonGia;
+          ViewBag.TongSoLuong = TinhTongSoLuong();
+          ViewBag.TongTien = TinhTongTien();
+          return PartialView("GioHangPartial");
         }
-        spCheck.SoLuong++;
-        decimal donGiaSanPham = spCheck.SANPHAM.DonGia.Value;
-        spCheck.ThanhTienSP = spCheck.SoLuong * donGiaSanPham;
+        ItemGioHang itemGH = new ItemGioHang(MaSP);
+        if (sp.SoLuongTon < itemGH.SoLuong)
+        {
+          ViewBag.TongSoLuong = TinhTongSoLuong();
+          ViewBag.TongTien = TinhTongTien();
+          ViewBag.ThongBao = 0;
+          return PartialView("GioHangPartial");
+        }
+        lstItemGioHang.Add(itemGH);
         ViewBag.TongSoLuong = TinhTongSoLuong();
         ViewBag.TongTien = TinhTongTien();
-        return PartialView("GioHangPartial");
       }
-      //Nếu sản phẩm chưa tồn tại thì add một record vô trong CHITIETGIOHANG
-      CHITIETGIOHANG ctgh = new CHITIETGIOHANG();
-      ctgh.MaSP = MaSP;
-      ctgh.MaGioHang = lstGioHang.MaGioHang;
-      ctgh.SoLuong = 1;
-      ctgh.ThanhTienSP = 0;
-      db.CHITIETGIOHANGs.Add(ctgh);
-      db.SaveChanges();
-      //ItemGioHang itemGH = new ItemGioHang(MaSP);
-      if (sp.SoLuongTon < ctgh.SoLuong)
-      {
-        return Content("<script>alert(\"Sản phẩm đã hết hàng!\")</script>");
-      }
-      //lstGioHang.Add(itemGH);
-      ViewBag.TongSoLuong = TinhTongSoLuong();
-      ViewBag.TongTien = TinhTongTien();
       return PartialView("GioHangPartial");
     }
 
     [HttpPost]
     public ActionResult CapNhatGioHang(int maGioHang, int maSP, int soLuongMoi)
     {
+      List<ItemGioHang> lstItemGioHang = null;
       //Kiểm tra số lượng tồn 
       SANPHAM spCheck = db.SANPHAMs.Single(n => n.MaSP == maSP);
       if (spCheck.SoLuongTon < soLuongMoi)
@@ -178,32 +286,38 @@ namespace WebSiteBanHang.Controllers
       //Cập nhật số lượng trong session giỏ hàng 
       //Bước 1: Lấy List<GioHang> từ session["GioHang"]
       GIOHANG lstGioHang = null;
+      SANPHAM sp = db.SANPHAMs.SingleOrDefault(n => n.MaSP == maSP);
       if (Session["NGUOIDUNG"] != null)
       {
         NGUOIDUNG khachHang = Session["NGUOIDUNG"] as NGUOIDUNG;
         lstGioHang = LayGioHangKhachDaDangNhap(khachHang.MaNguoiDung);
+        CHITIETGIOHANG itemGHUpdate = lstGioHang.CHITIETGIOHANGs.SingleOrDefault(n => n.MaSP == maSP);
+        if (itemGHUpdate == null)
+        {
+          return RedirectToAction("Index", "Home");
+        }
+        //Bước 3: Tiến hành cập nhật lại số lượng cũng thành tiền
+        itemGHUpdate.SoLuong = soLuongMoi;
+        itemGHUpdate.ThanhTienSP = itemGHUpdate.SoLuong * sp.DonGia;
+        db.Entry(itemGHUpdate).State = EntityState.Modified;
+        db.SaveChanges();
       }
       else
       {
-        lstGioHang = LayGioHangKhachVangLai();
+        lstItemGioHang = LayGioHangKhachVangLai();
+        ItemGioHang itemGioHang = lstItemGioHang.Find(n => n.MaSP == maSP);
+        itemGioHang.SoLuong = soLuongMoi;
+        itemGioHang.ThanhTien = (decimal)(itemGioHang.SoLuong * sp.DonGia);
+        //ItemGioHang itemGioHang = new ItemGioHang(maSP, soLuongMoi);
       }
       //Bước 2: Lấy sản phẩm cần cập nhật từ trong list<GioHang> ra
-      CHITIETGIOHANG itemGHUpdate = lstGioHang.CHITIETGIOHANGs.SingleOrDefault(n => n.MaSP == maSP);
-      if (itemGHUpdate == null)
-      {
-        return RedirectToAction("Index", "Home");
-      }
-      //Bước 3: Tiến hành cập nhật lại số lượng cũng thành tiền
-      itemGHUpdate.SoLuong = soLuongMoi;
-      SANPHAM sp = db.SANPHAMs.SingleOrDefault(n => n.MaSP == maSP);
-      itemGHUpdate.ThanhTienSP = itemGHUpdate.SoLuong * sp.DonGia;
-      db.Entry(itemGHUpdate).State = EntityState.Modified;
-      db.SaveChanges();
+      
       return RedirectToAction("XemGioHang");
     }
 
     public ActionResult XoaSanPhamKhoiGioHang(int maSP, int maGioHang)
     {
+      List<ItemGioHang> lstItemGioHang = null;
       //Kiểm tra session giỏ hàng tồn tại chưa 
       if (Session["GioHang"] == null)
       {
@@ -222,33 +336,23 @@ namespace WebSiteBanHang.Controllers
       {
         NGUOIDUNG khachHang = Session["NGUOIDUNG"] as NGUOIDUNG;
         lstGioHang = LayGioHangKhachDaDangNhap(khachHang.MaNguoiDung);
+        CHITIETGIOHANG spCheck = lstGioHang.CHITIETGIOHANGs.SingleOrDefault(n => n.MaSP == maSP);
+        if (spCheck == null)
+        {
+          return RedirectToAction("Index", "Home");
+        }
+        db.CHITIETGIOHANGs.Attach(spCheck);
+        db.CHITIETGIOHANGs.Remove(spCheck);
+        db.SaveChanges();
       }
       else
       {
-        lstGioHang = LayGioHangKhachVangLai();
+        lstItemGioHang = LayGioHangKhachVangLai();
+        ItemGioHang itemGioHang = lstItemGioHang.Find(n => n.MaSP == maSP);
+        lstItemGioHang.Remove(itemGioHang);
       }
-      //Kiểm tra xem sản phẩm đó có tồn tại trong giỏ hàng hay không
-      CHITIETGIOHANG spCheck = lstGioHang.CHITIETGIOHANGs.SingleOrDefault(n => n.MaSP == maSP);
-      //CHITIETGIOHANG spXoa = new CHITIETGIOHANG()
-      //{
-      //  MaGioHang=lstGioHang.MaGioHang,
-      //  MaSP=maSP,
-      //  SoLuong=spCheck.SoLuong,
-      //  ThanhTienSP=spCheck.ThanhTienSP
-      //};
-
-      if (spCheck == null)
-      {
-        return RedirectToAction("Index", "Home");
-      }
-      //Xóa item trong giỏ hàng
-      //
-      //db.Entry(spCheck).State = EntityState.Deleted;
-      db.CHITIETGIOHANGs.Attach(spCheck);
-      db.CHITIETGIOHANGs.Remove(spCheck);
-      //db.CHITIETGIOHANGs.Attach(spXoa);
-      //db.CHITIETGIOHANGs.Remove(spXoa);
-      db.SaveChanges();
+      ViewBag.TongSoLuong = TinhTongSoLuong();
+      ViewBag.TongTien = TinhTongTien();
       return RedirectToAction("XemGioHang");
     }
     //Xây dựng chức năng đặt hàng
