@@ -151,3 +151,7 @@ F:\17-18\Website-quan-ly-ban-hang-online-Do-an-CNPM-\WebSiteBanHang\bin\Microsof
 F:\17-18\Website-quan-ly-ban-hang-online-Do-an-CNPM-\WebSiteBanHang\bin\Microsoft.AI.ServerTelemetryChannel.xml
 F:\17-18\Website-quan-ly-ban-hang-online-Do-an-CNPM-\WebSiteBanHang\bin\Microsoft.AI.WindowsServer.xml
 F:\17-18\Website-quan-ly-ban-hang-online-Do-an-CNPM-\WebSiteBanHang\bin\Microsoft.AI.Web.xml
+E:\Learning\years 3\Cong nghe phan mem\Website-quan-ly-ban-hang-online-Do-an-CNPM-\WebSiteBanHang\obj\Debug\WebSiteBanHang.csprojResolveAssemblyReference.cache
+E:\Learning\years 3\Cong nghe phan mem\Website-quan-ly-ban-hang-online-Do-an-CNPM-\WebSiteBanHang\obj\Debug\WebSiteBanHang.csproj.CoreCompileInputs.cache
+E:\Learning\years 3\Cong nghe phan mem\Website-quan-ly-ban-hang-online-Do-an-CNPM-\WebSiteBanHang\obj\Debug\WebSiteBanHang.dll
+E:\Learning\years 3\Cong nghe phan mem\Website-quan-ly-ban-hang-online-Do-an-CNPM-\WebSiteBanHang\obj\Debug\WebSiteBanHang.pdb
