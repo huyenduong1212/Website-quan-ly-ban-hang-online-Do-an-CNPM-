@@ -10,7 +10,8 @@ namespace WebSiteBanHang.Controllers
 {
     public class TimKiemController : Controller
     {
-        
+        //
+        // GET: /TimKiem/
         QuanLyBanHangEntities db = new QuanLyBanHangEntities();
         [HttpGet]
         public ActionResult KQTimKiem(string sTuKhoa,int? page)
