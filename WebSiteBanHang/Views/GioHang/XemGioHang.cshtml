@@ -8,55 +8,63 @@
 
 }
 <div class="cart-header col-md-9">
-  @foreach (var item in Model)
+
+  @if (Model == null)
   {
-    using (Html.BeginForm("CapNhatGioHang", "GioHang", new { maGioHang = item.MaGioHang, maSP = item.MaSP, soLuong = item.SoLuong }))
+    <h1>Giỏ hàng rỗng</h1>
+  }
+  else
+  {
+    foreach (var item in Model)
     {
-      @*<div class="close"> </div>*@
-      <div class="cart-sec simpleCart_shelfItem">
-        <div class="cart-item cyc">
-          <img src="@Url.Content("~/Content/HinhAnhSP/" + item.HinhAnh)" class="img-responsive" alt="" />
-        </div>
-        <div class="cart-item-info">
-          <h3><a href="#">@item.TenSP</a></h3>
-          <ul class="qty col-md-6">
-            <li><p>Đơn giá: @item.DonGia</p></li>
-            <li><p>Số lượng: <input type="text" id="quantity" name="soLuongMoi" class="form-control input-number" value=@item.SoLuong></p></li>
-            @*<li><p>Số lượng: @item.SoLuong</p></li>*@
-            @*<li>
-              Số lượng:
-              <div class="center">
-                <p></p>
-                <div class="input-group">
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-                      <span class="glyphicon glyphicon-minus"></span>
-                    </button>
-                  </span>
-                  <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="50">
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
-                      <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                  </span>
-                </div>
-              </div>
-            </li>*@
-          </ul>
-          <div>
-            @*<input type="button" class="btn btn-primary col-md-2 edit_on" value="Sửa" />*@
-            <input type="submit" class="btn btn-primary col-md-2 save_on" value="Lưu" />
-            <a href="@Url.Action("XoaSanPhamKhoiGioHang","GioHang",new { @maSP =item.MaSP, @maGioHang =item.MaGioHang})" class="btn btn-primary col-md-2">Xóa</a>
-            @*<input type="button" class="btn btn-primary col-md-2" value="Xóa" />*@
+      using (Html.BeginForm("CapNhatGioHang", "GioHang", new { maGioHang = item.MaGioHang, maSP = item.MaSP, soLuong = item.SoLuong }))
+      {
+        @*<div class="close"> </div>*@
+        <div class="cart-sec simpleCart_shelfItem">
+          <div class="cart-item cyc">
+            <img src="@Url.Content("~/Content/HinhAnhSP/" + item.HinhAnh)" class="img-responsive" alt="" />
           </div>
-          @*<div class="delivery">
-              <p>Service Charges : Rs.100.00</p>
-              <span>Delivered in 2-3 bussiness days</span>
-              <div class="clearfix"></div>
-            </div>*@
+          <div class="cart-item-info">
+            <h3><a href="#">@item.TenSP</a></h3>
+            <ul class="qty col-md-6">
+              <li><p>Đơn giá: @item.DonGia</p></li>
+              <li><p>Số lượng: <input type="text" id="quantity" name="soLuongMoi" class="form-control input-number" value=@item.SoLuong></p></li>
+              @*<li><p>Số lượng: @item.SoLuong</p></li>*@
+              @*<li>
+                  Số lượng:
+                  <div class="center">
+                    <p></p>
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                          <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                      </span>
+                      <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="50">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+                          <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                </li>*@
+            </ul>
+            <div>
+              @*<input type="button" class="btn btn-primary col-md-2 edit_on" value="Sửa" />*@
+              <input type="submit" class="btn btn-primary col-md-2 save_on" value="Lưu" />
+              <a href="@Url.Action("XoaSanPhamKhoiGioHang","GioHang",new { @maSP =item.MaSP, @maGioHang =item.MaGioHang})" class="btn btn-primary col-md-2">Xóa</a>
+              @*<input type="button" class="btn btn-primary col-md-2" value="Xóa" />*@
+            </div>
+            @*<div class="delivery">
+                <p>Service Charges : Rs.100.00</p>
+                <span>Delivered in 2-3 bussiness days</span>
+                <div class="clearfix"></div>
+              </div>*@
+          </div>
+          <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
-      </div>
+      }
     }
   }
 </div>
@@ -78,8 +86,109 @@
     <div class="clearfix"> </div>
   </ul>
   <div class="clearfix"></div>
-  <a class="order" href="@Url.Action("DatHang","GioHang",new {@maGioHang=ViewBag.maGioHang,@maKH=ViewBag.maKH })">Đặt hàng</a>
+  @if (Session["NGUOIDUNG"] != null)
+  {
+    <a class="order" href="@Url.Action("DatHang","GioHang",new {@maGioHang=ViewBag.maGioHang,@maKH=ViewBag.maKH })">Đặt hàng</a>
+  }
 </div>
+@using (Html.BeginForm("DatHang", "GioHang"))
+{
+  if (Session["NGUOIDUNG"] == null)
+  {
+    @*Thiết kế form lưu thông tin khách hàng đối với vãng lai (Khách chưa có tài khoản)*@
+    <div class="ThongTinMuaHang">
+      <table align="center" class="table">
+        <tr>
+          <td align="center" colspan="2"><b>Thông tin khách hàng</b></td>
+        </tr>
+        <tr>
+          <td>Họ</td>
+          <td>
+            @Html.TextBox("Ho")
+            <p style="color:red;" id="TB_TenKH"></p>
+          </td>
+
+        </tr>
+        <tr>
+          <td>Tên lót</td>
+          <td>
+            @Html.TextBox("TenLot")
+            <p style="color:red;" id="TB_TenKH"></p>
+          </td>
+
+        </tr>
+        <tr>
+          <td>Tên</td>
+          <td>
+            @Html.TextBox("Ten")
+            <p style="color:red;" id="TB_TenKH"></p>
+          </td>
+
+        </tr>
+        <tr>
+          <td>
+            Địa chỉ
+          </td>
+          <td>
+            @Html.TextArea("DiaChi")
+            <p style="color:red;" id="TB_DiaChi"></p>
+          </td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>
+            @Html.TextBox("Email")
+            <p style="color:red;" id="TB_Email"></p>
+          </td>
+        </tr>
+        <tr>
+          <td>Điện thoại</td>
+          <td>@Html.TextBox("SoDienThoai")</td>
+        </tr>
+        <tr></tr>
+      </table>
+
+    </div>
+    @*Kiểm validation thông qua jquery*@
+
+    <script>
+      $("#btnDatHang").click(function () {
+        var loi = 0;
+        if ($("#TenKH").val() == "") {
+          $("#TB_TenKH").text("Tên kh không được bỏ trống");
+          loi++;
+        }
+        else {
+          $("#TB_TenKH").text("");
+        }
+
+        if ($("#DiaChi").val() == "") {
+          $("#TB_DiaChi").text("Tên kh không được bỏ trống");
+          loi++;
+        }
+        else {
+          $("#TB_DiaChi").text("");
+        }
+        var loi;
+        dinhdang = /^[0-9A-Za-z]+[0-9A-Za-z_]*@@[\w\d.]+\.\w{2,4}$/;
+        KTemail = dinhdang.test($('#Email').val());
+        if (!KTemail) {
+          $('#TB_Email').text("Email không hợp lệ !");
+          loi++;
+        }
+        if (loi != 0) {
+          //Ngăn sự kiện submit đến server
+          return false;
+        }
+      });
+
+    </script>
+    <div class="divDatHang" style="text-align:right;">
+      <input type="submit" value="Đặt hàng" class="btn btn-danger" id="btnDatHang" />
+      @*@Html.ActionLink("Mua tiếp", "Index", "Home", new { @class = "btn btn-success" })*@
+    </div>
+  }
+}
 <script>
   $('.edit_on').click(function () {
     debugger
