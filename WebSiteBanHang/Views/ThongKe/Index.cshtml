@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+
+<style>
+    .list_of_members {
+        display:none;
+    }
+</style>
+<br />
+<div class="list_of_members1">
+    <div class="sales">
+        <div class="icon">
+            <i class="dollar"></i>
+        </div>
+        <div class="icon-text">
+            @{decimal TongDoanhThu = decimal.Parse(ViewBag.TongDoanhThu.ToString());
+              TongDoanhThu = TongDoanhThu / 1000;  
+             }
+            <h3>@TongDoanhThu.ToString("#,##") K</h3>
+            <p>Sales</p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="new-users">
+        <div class="icon">
+            <i class="user1"></i>
+        </div>
+        <div class="icon-text">
+            <h3>@ViewBag.TongThanhVien</h3>
+            <p>New Users</p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="orders">
+        <div class="icon">
+            <i class="order"></i>
+        </div>
+        <div class="icon-text">
+            <h3>@ViewBag.TongDDH</h3>
+            <p>New Orders</p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="visitors">
+        <div class="icon">
+            <i class="visit"></i>
+        </div>
+        <div class="icon-text">
+            <h3>@ViewBag.SoNguoiTruyCap</h3>
+            <p>Visits</p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clear"></div>
+    <br /><br />
+    <div class="visitors">
+        <div class="icon">
+            <i class="visit"></i>
+        </div>
+        <div class="icon-text">
+            <h3>@ViewBag.SoLuongNguoiOnLine</h3>
+            <p>Online</p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
