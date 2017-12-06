@@ -3,65 +3,67 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.ApplicationServices;
 using WebSiteBanHang.Models;
 
 namespace WebSiteBanHang.Controllers
 {
-  public class ThongKeController : Controller
-  {
-    QuanLyBanHangEntities db = new QuanLyBanHangEntities();
-    //
-    // GET: /ThongKe/
-    [HttpGet]
-    public ActionResult ThongKe()
+    public class ThongKeController : Controller
     {
-      //
-      ViewBag.PageView = HttpContext.Application["PageView"].ToString();
-      ViewBag.Online = HttpContext.Application["Online"].ToString();
-      return View();
-    }
-    [HttpGet]
-    public JsonResult GetJsonData(int Year = 2015)
-    {
-      var lstDonDatHang = db.DONDATHANGs.Where(n => n.ThoiDiemDat.Value.Year == Year).ToList();
-      //var list = new List<ThongKeDoanhThu>();
-
-      if (lstDonDatHang.Count > 0)
-      {
-        //ThongKeDoanhThu tk;
-        for (int i = 1; i <= 12; i++)
+        //
+        QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+        // GET: /ThongKe/
+        public ActionResult Index()
         {
-          //tk = new ThongKeDoanhThu();
-         // tk.Nam = Year;
-        //  tk.Thang = i;
-          var lstDoanhThu = lstDonDatHang.Where(n => n.ThoiDiemDat.Value.Month == i);
-          if (lstDonDatHang.Count() > 0)
-          {
-           // tk.DoanhThu = 0;
-            foreach (var item in lstDoanhThu)
-            {
-              //tk.DoanhThu += item.CHITIETDONDATHANGs.Sum(n => n.SoLuong * n.DonGia).Value;
-
-              //tk.DoanhThu = 10000;
-            }
-          }
-          //list.Add(tk);
+            ViewBag.SoNguoiTruyCap = HttpContext.Application["SoNguoiTruyCap"].ToString(); //Lấy số lượng người truy cập từ application đã được tạo
+            ViewBag.SoLuongNguoiOnLine = HttpContext.Application["SoNguoiDangOnline"].ToString(); //Lấy số lượng đang truy cập
+            ViewBag.TongDoanhThu = ThongKeTongDoanhThu(); //Thống kê tổng doanh thu
+            ViewBag.TongDDH = ThongKeDonHang();//Thống kê đơn hàng
+            ViewBag.TongThanhVien = ThongKeThanhVien(); //Thống kê thành viên
+            return View();
         }
-      }
+        public decimal ThongKeTongDoanhThu() { 
+           //Thống kê theo tất cả doanh thu từ khi website thành lập
+            decimal TongDoanhThu =  db.DONDATHANGs.Sum(n => n.TongTien).Value;
+            return TongDoanhThu;
+        }
+        public double ThongKeDonHang()
+        {
+              //Đếm đơn đặt hàng  
+              double slDDH = db.DONDATHANGs.Count();
+              return slDDH;
+        
+        }
+        public double ThongKeThanhVien()
+        {
+            //Đếm đơn đặt hàng  
+            double slTV = db.NGUOIDUNGs.Count();
+            return slTV;
+
+        }
+        public decimal ThongKeTongDoanhThuThang(int Thang, int Nam)
+        {
+            //Thống kê theo tất cả doanh thu từ khi website thành lập
+            //List ra những đơn hàng nào có tháng, năm tương ứng
+            var lstDDH = db.DONDATHANGs.Where(n => n.ThoiDiemLap.Value.Month == Thang && n.ThoiDiemLap.Value.Year == Nam);
+            decimal TongTien = 0;
+            //Duyệt chi tiết của đơn đặt hàng đó và lấy tổng tiền của tất cả các sản phẩm thuộc đơn hàng đó
+            foreach(var item in lstDDH)
+            {
+                TongTien += decimal.Parse(item.TongTien.Value.ToString());
+            }
+            return TongTien;
+        }
 
 
-      return Json(/*list,*/ JsonRequestBehavior.AllowGet);
-    }
-    protected override void Dispose(bool disposing)
-    {
-      if (disposing)
-      {
-        if (db != null)
-          db.Dispose();
-        db.Dispose();
-      }
-      base.Dispose(disposing);
-    }
-  }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (db != null)
+                    db.Dispose();
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+	}
 }
