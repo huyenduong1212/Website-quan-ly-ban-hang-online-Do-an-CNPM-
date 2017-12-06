@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WebSiteBanHang.Models;
 using WebSiteBanHang.ViewModels;
 using System.Data.Entity;
+using System.Net;
 
 namespace WebSiteBanHang.Controllers
 {
@@ -218,6 +219,7 @@ namespace WebSiteBanHang.Controllers
           spCheck.ThanhTienSP = spCheck.SoLuong * donGiaSanPham;
           ViewBag.TongSoLuong = TinhTongSoLuong();
           ViewBag.TongTien = TinhTongTien();
+          TempData["result"] = "Thêm vào giỏ hàng thành công";
           return PartialView("GioHangPartial");
         }
         //Nếu sản phẩm chưa tồn tại thì add một record vô trong CHITIETGIOHANG
@@ -231,7 +233,9 @@ namespace WebSiteBanHang.Controllers
         //ItemGioHang itemGH = new ItemGioHang(MaSP);
         if (sp.SoLuongTon < ctgh.SoLuong)
         {
-          return Content("<script>alert(\"Sản phẩm đã hết hàng!\")</script>");
+          TempData["result"] = "Sản phẩm đã hết hàng";
+          return PartialView("GioHangPartial");
+          //return Content("<script>alert(\"Sản phẩm đã hết hàng!\")</script>");
         }
         //lstGioHang.Add(itemGH);
         ViewBag.TongSoLuong = TinhTongSoLuong();
@@ -250,12 +254,14 @@ namespace WebSiteBanHang.Controllers
             ViewBag.TongSoLuong = TinhTongSoLuong();
             ViewBag.TongTien = TinhTongTien();
             //return Content("<script> alert(\"Sản phẩm đã hết hàng!\")</script>");
+            TempData["result"] = "Sản phẩm đã hết hàng";
             return PartialView("GioHangPartial");
           }
           spCheck.SoLuong++;
           spCheck.ThanhTien = spCheck.SoLuong * spCheck.DonGia;
           ViewBag.TongSoLuong = TinhTongSoLuong();
           ViewBag.TongTien = TinhTongTien();
+          TempData["result"] = "Thêm vào giỏ hàng thành công";
           return PartialView("GioHangPartial");
         }
         ItemGioHang itemGH = new ItemGioHang(MaSP);
@@ -264,12 +270,14 @@ namespace WebSiteBanHang.Controllers
           ViewBag.TongSoLuong = TinhTongSoLuong();
           ViewBag.TongTien = TinhTongTien();
           ViewBag.ThongBao = 0;
+          TempData["result"] = "Thêm vào giỏ hàng thành công";
           return PartialView("GioHangPartial");
         }
         lstItemGioHang.Add(itemGH);
         ViewBag.TongSoLuong = TinhTongSoLuong();
         ViewBag.TongTien = TinhTongTien();
       }
+      TempData["result"] = "Thêm vào giỏ hàng thành công";
       return PartialView("GioHangPartial");
     }
 
@@ -301,6 +309,7 @@ namespace WebSiteBanHang.Controllers
         itemGHUpdate.ThanhTienSP = itemGHUpdate.SoLuong * sp.DonGia;
         db.Entry(itemGHUpdate).State = EntityState.Modified;
         db.SaveChanges();
+        TempData["result"] = "Cập nhật thành công";
       }
       else
       {
@@ -314,7 +323,22 @@ namespace WebSiteBanHang.Controllers
 
       return RedirectToAction("XemGioHang");
     }
-
+    public ActionResult XemChiTiet(int? id)
+    {
+      //Kiểm tra tham số truyền vào có rổng hay không
+      if (id == null)
+      {
+        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+      }
+      //Nếu không thì truy xuất csdl lấy ra sản phẩm tương ứng
+      SANPHAM sp = db.SANPHAMs.SingleOrDefault(n => n.MaSP == id && n.DaXoa == false);
+      if (sp == null)
+      {
+        //Thông báo nếu như không có sản phẩm đó
+        return HttpNotFound();
+      }
+      return View(sp);
+    }
     public ActionResult XoaSanPhamKhoiGioHang(int maSP, int maGioHang)
     {
       List<ItemGioHang> lstItemGioHang = null;
@@ -344,7 +368,8 @@ namespace WebSiteBanHang.Controllers
         db.CHITIETGIOHANGs.Attach(spCheck);
         db.CHITIETGIOHANGs.Remove(spCheck);
         db.SaveChanges();
-        return Content("<script> alert(\"Đặt hàng thành công!\")</script>");
+        //return Content("<script> alert(\"Xóa thành công!\")</script>");
+        return RedirectToAction("XemGioHang");
       }
       else
       {
@@ -356,7 +381,13 @@ namespace WebSiteBanHang.Controllers
       ViewBag.TongTien = TinhTongTien();
       return RedirectToAction("XemGioHang");
     }
+    [HttpGet]
+    public ActionResult DatHang(int? maKH, int? maGioHang)
+    {
+      return View(); 
+    }
     //Xây dựng chức năng đặt hàng
+    [HttpPost]
     public ActionResult DatHang(int? maKH, int? maGioHang, string TenLot, string Ho, string Ten, string DiaChi, string Email, string SoDienThoai)
     {
       List<ItemGioHang> lstItemGioHang = null;

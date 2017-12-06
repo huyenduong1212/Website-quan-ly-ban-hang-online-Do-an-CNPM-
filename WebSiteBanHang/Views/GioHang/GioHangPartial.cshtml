@@ -1,13 +1,30 @@
 ﻿@*Dùng viewbag để thể hiện tổng số lượng sản phẩm có trong giỏ hàng và tổng tiền*@
-<div id="divGioHang" class="cart box_1">
-    <a href="@Url.Action("XemGioHang","GioHang")">
-        <h3>
-            <div class="total">
-                (<span>@ViewBag.TongSoLuong</span>)
-            </div>
-            <img src="~/Content/images/cart.png" alt="" />
-        </h3>
-    </a>
-    <p><a href="@Url.Action("XemGioHang","GioHang")" class="simpleCart_empty">Giỏ hàng</a></p>
+<link href="~/Content/toastr.css" rel="stylesheet" />
+<script src="~/Scripts/toastr.js"></script>
 
+<div id="divGioHang" class="cart box_1">
+  <a href="@Url.Action("XemGioHang","GioHang")">
+    <h3>
+      <div class="total">
+        (<span>@ViewBag.TongSoLuong</span>)
+      </div>
+      <img src="~/Content/images/cart.png" alt="" />
+    </h3>
+  </a>
+  <p><a href="@Url.Action("XemGioHang","GioHang")" class="simpleCart_empty">Giỏ hàng</a></p>
 </div>
+<script>
+debugger
+      var value = '@TempData["result"]';
+      if (value != '')
+      {
+        toastr.success(value);
+      }
+</script>
+@*<script>
+  var value = '@TempData["result"]';
+  if (value != '')
+  {
+     toastr.success("Thành công");
+  }
+</script>*@

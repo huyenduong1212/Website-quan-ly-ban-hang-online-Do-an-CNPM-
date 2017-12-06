@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <script src="~/Content/js/jquery.min.js"></script>
+  <link href="~/Content/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+  <link href="~/Content/css/style.css" rel="stylesheet" />
+  <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" rel="stylesheet" type="text/css"><!--//fonts-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>@ViewBag.Title</title>
+</head>
+<body>
+  <div class="shipping-header">
+    <div class="container">
+      <div class="row row-style-1">
+        <div class="col-lg-2 visible-lg-block">
+          <a href="/"><img src="https://vcdn.tikicdn.com/assets/img/logo-big.png" height="62" width="149" class="img-responsive" alt="Image"></a>
+        </div>
+        <div class="col-lg-8">
+          <div class="row bs-wizard">
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 bs-wizard-step complete">
+              <div class="text-center bs-wizard-stepnum">
+                <span>Đăng Nhập</span>
+              </div>
+              <div class="progress"><div class="progress-bar"></div></div>
+              <span class="bs-wizard-dot">1</span>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 bs-wizard-step active">
+              <div class="text-center bs-wizard-stepnum">
+                <span class="hidden-xs">Địa Chỉ Giao Hàng</span>
+                <span class="visible-xs-inline-block">Địa Chỉ</span>
+              </div>
+              <div class="progress"><div class="progress-bar"></div></div>
+              <span class="bs-wizard-dot">2</span>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 bs-wizard-step disabled">
+              <div class="text-center bs-wizard-stepnum">
+                <span class="hidden-xs">Thanh Toán &amp; Đặt Mua</span>
+                <span class="visible-xs-inline-block">Thanh Toán</span>
+              </div>
+              <div class="progress"><div class="progress-bar"></div></div>
+              <span class="bs-wizard-dot">3</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-lg-2 visible-lg-block hotline">
+          <img src="https://vcdn.tikicdn.com/assets/img/hotline.png" height="42" width="176" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div>
+      @RenderBody()
+    </div>
+    <div class="container">
+      <h3>
+        2. Địa chỉ giao hàng
+      </h3>
+      <div class="row row-style-2">
+        <form id="form-address" method="post" action="/checkout/shipping/saving_shipping_address">
+          <div class="container">
+            <h5 class="visible-md-block visible-lg-block">
+              Chọn địa chỉ giao hàng có sẵn bên dưới:
+            </h5>
+          </div>
+          <div class="row-address-list">
+            <div class="col-lg-6 col-md-6 col-sm-6 item" id="item-2925500">
+              <div class="panel panel-default address-item is-default">
+                <div class="panel-body">
+                  <p class="name">Huỳnh Ngọc Thanh Xuân</p>
+                  <p class="address" title="KTX Khu B Đại học Quốc Gia, Phường Đông Hòa, Thị xã Dĩ An, Bình Dương">
+                    Địa chỉ: KTX Khu B Đại học Quốc Gia, Phường Đông Hòa, Thị xã Dĩ An, Bình Dương
+                  </p>
+                  <p class="address">
+                    Việt Nam
+                  </p>
+                  <p class="phone">Điện thoại: 0972626571</p>
+                  <p class="action">
+                    <button type="button" class="btn btn-default btn-custom1 saving-address is-blue" data-id="2925500">
+                      Giao đến địa chỉ này
+                    </button>
+                    <button type="button" class="btn btn-default btn-custom1 edit-address" data-id="2925500">Sửa</button>
+                  </p>
+                  <span class="default">Mặc định</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <p class="other">
+              Bạn muốn giao hàng đến địa chỉ khác?
+              <a href="javascript:void(0)" id="addNewAddress">
+                Thêm địa chỉ giao hàng mới
+              </a>
+            </p>
+          </div>
+        </form>
+        <div class="panel panel-default address-form is-edit">
+
+        </div>
+
+        <div class="shiping_plan"></div>
+
+
+        <div class="col-lg-4 hidden">
+
+          <div id="panel-cart">
+            <div class="panel panel-default cart">
+              <div class="panel-body">
+                <div class="order">
+                  <span class="title">Đơn Hàng</span>
+                  <span class="title"> (3 sản phẩm)</span>
+
+                  <a href="/checkout/cart/" class="btn btn-default btn-custom1">Sửa</a>
+                </div>
+                <div class="product">
+                  <div class="item">
+                    <p class="title">
+                      <strong>1 x</strong><a href="https://tiki.vn/vi-giam-doc-mot-phut-phuong-phap-quan-ly-hieu-qua-nhat-the-gioi-tai-ban-p538812.html?spid=261047" target="_blank">Vị Giám Đốc Một Phút: Phương Pháp Quản Lý Hiệu Quả Nhất Thế Giới (Tái Bản)</a>
+                      <span class="seller-by">
+                        Cung cấp bởi <strong class="firm">Tiki Trading</strong>
+                      </span>
+                    </p>
+
+
+
+                    <p class="price text-right">
+                      <span>38.000&nbsp;₫ </span>
+                      <br>
+                      <img srcset="https://vcdn.tikicdn.com/desktop/img/2h-circle.png 1x, https://vcdn.tikicdn.com/desktop/img/2h-circle@2x.png 2x" class="img2h" width="22" alt="Hỗ trợ giao hàng nhanh 2h tại TPHCM và HN" title="Hỗ trợ giao hàng nhanh 2h tại TPHCM và HN">
+                    </p>
+                  </div>
+                  <div class="item">
+                    <p class="title">
+                      <strong>1 x</strong><a href="https://tiki.vn/nhung-cau-noi-hay-ve-sach-va-van-hoa-doc-p618122.html?spid=618124" target="_blank">Những Câu Nói Hay Về Sách Và Văn Hóa Đọc</a>
+                      <span class="seller-by">
+                        Cung cấp bởi <strong class="firm">Tiki Trading</strong>
+                      </span>
+                    </p>
+
+
+
+                    <p class="price text-right">
+                      <span>35.000&nbsp;₫ </span>
+                      <br>
+                      <img srcset="https://vcdn.tikicdn.com/desktop/img/2h-circle.png 1x, https://vcdn.tikicdn.com/desktop/img/2h-circle@2x.png 2x" class="img2h" width="22" alt="Hỗ trợ giao hàng nhanh 2h tại TPHCM và HN" title="Hỗ trợ giao hàng nhanh 2h tại TPHCM và HN">
+                    </p>
+                  </div>
+                  <div class="item">
+                    <p class="title">
+                      <strong>1 x</strong><a href="https://tiki.vn/tai-nghe-nhet-tai-byz-s389-hang-chinh-hang-p591965.html?spid=592057" target="_blank">Tai Nghe Nhét Tai BYZ S389 - Hàng Chính Hãng</a>
+                      <span class="seller-by">
+                        Cung cấp bởi <strong class="firm">BStore</strong>
+                      </span>
+                    </p>
+
+
+
+                    <p class="price text-right">
+                      <span>40.000&nbsp;₫ </span>
+                      <br>
+                      <img srcset="https://vcdn.tikicdn.com/desktop/img/2h-circle.png 1x, https://vcdn.tikicdn.com/desktop/img/2h-circle@2x.png 2x" class="img2h" width="22" alt="Hỗ trợ giao hàng nhanh 2h tại TPHCM và HN" title="Hỗ trợ giao hàng nhanh 2h tại TPHCM và HN">
+                    </p>
+                  </div>
+                </div>
+
+                <p class="list-info-price">
+                  <b>Tạm tính</b>
+                  <span>113.000&nbsp;₫</span>
+                </p>
+
+                <p class="total2">
+                  Thành tiền:
+                  <span>113.000&nbsp;₫ </span>
+                </p>
+                <p class="text-right">
+                  <i>(Đã bao gồm VAT)</i>
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="shipping-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <p class="terms">
+            <a href="http://hotro.tiki.vn/hc/vi/articles/201971214" target="_blank">Điều khoản sử dụng</a>|
+            <a href="http://tiki.vn/doi-tra-de-dang" target="_blank">Chính sách đổi trả</a>|
+            <a href="http://hotro.tiki.vn/hc/vi/articles/202216110" target="_blank">Chính sách bảo mật</a>
+          </p>
+          <p class="copyright">© 2017 - Bản quyền của Công Ty Cổ Phần Ti Ki - Tiki.vn</p>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

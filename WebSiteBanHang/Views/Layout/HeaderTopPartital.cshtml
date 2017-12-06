@@ -11,7 +11,7 @@
     </div>
     <div class="header-left">
       <ul>
-        @if (Session["NGUOIDUNG"] != null && Session["TaiKhoan"] != "")
+        @if (Session["NGUOIDUNG"] != null && Session["NGUOIDUNG"] != "")
         {
           NGUOIDUNG tv = (NGUOIDUNG)Session["NGUOIDUNG"];
           <li>Chào @tv.Ten </li>

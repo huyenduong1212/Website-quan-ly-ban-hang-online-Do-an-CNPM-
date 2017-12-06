@@ -1,11 +1,9 @@
 ﻿@using WebSiteBanHang.Models
 @model SANPHAM
-
 @{
-  ViewBag.Title = "XemChiTiet";
-  Layout = "~/Views/Layout/ProductLayout.cshtml";
+    ViewBag.Title = "XemChiTiet";
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
 }
-
 <div class="col-md-9 product-price1">
   <div class="col-md-5 single-top">
     <div class="flexslider">
@@ -29,13 +27,13 @@
     <link rel="stylesheet" href="~/Content/ProductLayout/css/flexslider.css" type="text/css" media="screen" />
 
     <script>
-      // Can also be used with $(document).ready()
-      $(window).load(function () {
-        $('.flexslider').flexslider({
-          animation: "slide",
-          controlNav: "thumbnails"
-        });
-      });
+            // Can also be used with $(document).ready()
+            $(window).load(function () {
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    controlNav: "thumbnails"
+                });
+            });
     </script>
   </div>
   <div class="col-md-7 single-top-in simpleCart_shelfItem">
@@ -51,7 +49,6 @@
         </ul>
         <div class="review">
           <a href="#"> Lượt xem: @Model.LuotXem</a>
-          <a href="#">Xem @Model.LuotBinhChon lượt đánh giá</a>
 
         </div>
         <div class="clearfix"> </div>
@@ -71,9 +68,6 @@
   @Html.Raw(Model.MoTa)
   <!---->
 
-
-</div>
-<div class="col-md-3">
 
 </div>
 

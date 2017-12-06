@@ -86,16 +86,17 @@
     <div class="clearfix"> </div>
   </ul>
   <div class="clearfix"></div>
-  @if (Session["NGUOIDUNG"] != null)
+  <a class="order" href="@Url.Action("DatHang","GioHang",new {@maGioHang=ViewBag.maGioHang,@maKH=ViewBag.maKH })">Đặt hàng</a>
+  @*@if (Session["NGUOIDUNG"] != null)
   {
     <a class="order" href="@Url.Action("DatHang","GioHang",new {@maGioHang=ViewBag.maGioHang,@maKH=ViewBag.maKH })">Đặt hàng</a>
-  }
+  }*@
 </div>
-@using (Html.BeginForm("DatHang", "GioHang"))
+@*@using (Html.BeginForm("DatHang", "GioHang"))
 {
   if (Session["NGUOIDUNG"] == null)
   {
-    @*Thiết kế form lưu thông tin khách hàng đối với vãng lai (Khách chưa có tài khoản)*@
+    @*Thiết kế form lưu thông tin khách hàng đối với vãng lai (Khách chưa có tài khoản)
     <div class="ThongTinMuaHang">
       <table align="center" class="table">
         <tr>
@@ -149,8 +150,6 @@
       </table>
 
     </div>
-    @*Kiểm validation thông qua jquery*@
-
     <script>
       $("#btnDatHang").click(function () {
         var loi = 0;
@@ -170,7 +169,7 @@
           $("#TB_DiaChi").text("");
         }
         var loi;
-        dinhdang = /^[0-9A-Za-z]+[0-9A-Za-z_]*@@[\w\d.]+\.\w{2,4}$/;
+        dinhdang = /^[0-9A-Za-z]+[0-9A-Za-z_]@[\w\d.]+\.\w{2,4}$/;
         KTemail = dinhdang.test($('#Email').val());
         if (!KTemail) {
           $('#TB_Email').text("Email không hợp lệ !");
@@ -185,10 +184,10 @@
     </script>
     <div class="divDatHang" style="text-align:right;">
       <input type="submit" value="Đặt hàng" class="btn btn-danger" id="btnDatHang" />
-      @*@Html.ActionLink("Mua tiếp", "Index", "Home", new { @class = "btn btn-success" })*@
+      @Html.ActionLink("Mua tiếp", "Index", "Home", new { @class = "btn btn-success" })
     </div>
   }
-}
+}*@
 <script>
   $('.edit_on').click(function () {
     debugger

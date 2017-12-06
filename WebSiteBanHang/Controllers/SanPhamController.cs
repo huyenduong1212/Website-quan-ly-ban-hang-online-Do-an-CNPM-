@@ -29,7 +29,7 @@ namespace WebSiteBanHang.Controllers
       return PartialView();
     }
     //Xây dựng trang xem chi tiết 
-    public ActionResult XemChiTiet(int? id, string tensp)
+    public ActionResult XemChiTiet(int? id)
     {
       //Kiểm tra tham số truyền vào có rổng hay không
       if (id == null)
