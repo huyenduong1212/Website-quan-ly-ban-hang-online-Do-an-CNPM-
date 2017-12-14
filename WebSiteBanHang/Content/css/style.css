@@ -81,6 +81,10 @@ a.item_add {
   display: inline-block;
 }
 
+.container {
+  width: 100%;
+}
+
 .cart.box_1 {
   float: right;
   margin-top: 2px;

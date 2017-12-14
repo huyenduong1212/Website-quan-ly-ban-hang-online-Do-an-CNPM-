@@ -86,7 +86,14 @@
     <div class="clearfix"> </div>
   </ul>
   <div class="clearfix"></div>
-  <a class="order" href="@Url.Action("DatHang","GioHang",new {@maGioHang=ViewBag.maGioHang,@maKH=ViewBag.maKH })">Đặt hàng</a>
+  @if (Session["NGUOIDUNG"] != null)
+  {
+    <a class="order" href="@Url.Action("DatHang","GioHang",new {@maGioHang=ViewBag.maGioHang,@maKH=ViewBag.maKH })">Đặt hàng</a>
+  }
+  else
+  {
+    <a class="order" href="@Url.Action("DatHang","GioHang")">Đặt hàng</a>
+  }
   @*@if (Session["NGUOIDUNG"] != null)
   {
     <a class="order" href="@Url.Action("DatHang","GioHang",new {@maGioHang=ViewBag.maGioHang,@maKH=ViewBag.maKH })">Đặt hàng</a>

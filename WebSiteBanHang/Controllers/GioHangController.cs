@@ -74,33 +74,6 @@ namespace WebSiteBanHang.Controllers
       }
       return (int)lstGioHang.CHITIETGIOHANGs.Sum(n => n.SoLuong);
     }
-    //GIOHANG lstGioHang = null;
-    //if (Session["NGUOIDUNG"] != null)
-    //{
-    //  NGUOIDUNG kh = Session["NGUOIDUNG"] as NGUOIDUNG;
-    //  lstGioHang = LayGioHangKhachDaDangNhap(kh.MaNguoiDung);
-    //}
-    //else
-    //{
-    //  lstGioHang = LayGioHangKhachVangLai();
-    //}
-    //return (int)lstGioHang.CHITIETGIOHANGs.Sum(n => n.SoLuong);
-    //Tính tổng số lượng
-    //public int TinhTongSoLuong()
-    //{
-    //  //Lấy giỏ hàng
-    //  GIOHANG lstGioHang = null;
-    //  if (Session["NGUOIDUNG"] != null)
-    //  {
-    //    NGUOIDUNG kh = Session["NGUOIDUNG"] as NGUOIDUNG;
-    //    lstGioHang = LayGioHangKhachDaDangNhap(kh.MaNguoiDung);
-    //  }
-    //  else
-    //  {
-    //    lstGioHang = LayGioHangKhachVangLai();
-    //  }
-    //  return (int)lstGioHang.CHITIETGIOHANGs.Sum(n => n.SoLuong);
-    //}
     //Tính Tổng tiền 
     public decimal TinhTongTien()
     {
@@ -181,6 +154,7 @@ namespace WebSiteBanHang.Controllers
             DonGia = itemGioHang.DonGia,
             HinhAnh = itemGioHang.HinhAnh,
             SoLuong = itemGioHang.SoLuong
+
           };
           lstSP_KH.Add(sp_KhachHang);
         }
@@ -384,7 +358,108 @@ namespace WebSiteBanHang.Controllers
     [HttpGet]
     public ActionResult DatHang(int? maKH, int? maGioHang)
     {
-      return View(); 
+      List<KhachHang_GioHangViewModel> lstKHGH = new List<KhachHang_GioHangViewModel>();
+      ViewBag.TongTien = TinhTongTien();
+      ViewBag.maKH = maKH;
+      if (maGioHang != null && maKH!=null)
+      {
+        foreach (CHITIETGIOHANG ctgh1 in db.CHITIETGIOHANGs.Where(n => n.MaGioHang == maGioHang))
+        {
+          SANPHAM sp = db.SANPHAMs.Where(n => n.MaSP == ctgh1.MaSP).SingleOrDefault();
+          KhachHang_GioHangViewModel thongTinSanPham = new KhachHang_GioHangViewModel
+          {
+            TenSP = sp.TenSP,
+            MaSP = ctgh1.MaSP,
+            DonGia = (decimal)sp.DonGia,
+            HinhAnh = sp.HinhAnh,
+            MaGioHang = (int)maGioHang,
+            SoLuong = (int)ctgh1.SoLuong,
+          };
+          lstKHGH.Add(thongTinSanPham);
+        }
+      }
+      else
+      {
+        List<ItemGioHang> lstItemGioHang = LayGioHangKhachVangLai();
+        foreach(ItemGioHang itemGioHang in lstItemGioHang)
+        {
+          KhachHang_GioHangViewModel thongTinSanPham = new KhachHang_GioHangViewModel
+          {
+            TenSP = itemGioHang.TenSP,
+            MaSP = itemGioHang.MaSP,
+            DonGia = itemGioHang.DonGia,
+            HinhAnh = itemGioHang.HinhAnh,
+            SoLuong = itemGioHang.SoLuong,
+          };
+          lstKHGH.Add(thongTinSanPham);
+        }
+      }
+      return View(lstKHGH);
+    }
+    [HttpPost]
+    public ActionResult DatHang1(int? maKH, int? maGioHang, string diaChiNhanHang, string soDienThoaiNhanHang, string ho, string tenLot, string ten, string email)
+    {
+      GIOHANG lstGioHang = null;
+      if (Session["NGUOIDUNG"] != null)
+      {
+        NGUOIDUNG khachHang = Session["NGUOIDUNG"] as NGUOIDUNG;
+        lstGioHang = LayGioHangKhachDaDangNhap(khachHang.MaNguoiDung);
+        DONDATHANG ddh = new DONDATHANG()
+        {
+          ThoiDiemDat = DateTime.Now,
+          NgayGiaoDuKien = null,
+          UuDai = 0,
+          TinhTrangGiaoHang = -1,
+          MaGioHang = maGioHang,
+          MaKH = maKH,
+          TongTien = TinhTongTien(),
+          DiaChiNhanHang = diaChiNhanHang,
+          SoDienThoaiNhanHang = soDienThoaiNhanHang
+        };
+        db.DONDATHANGs.Add(ddh);
+        db.SaveChanges();
+        TempData["result"] = "Đặt hàng thành công";
+      }
+      else
+      {
+        NGUOIDUNG khachHangKhongCoTaiKhoan = new NGUOIDUNG()
+        {
+          MaLoaiNguoiDung = 2,
+          Ho = ho,
+          TenLot = tenLot,
+          Ten = ten,
+          DiaChi = diaChiNhanHang,
+          SoDienThoai = soDienThoaiNhanHang,
+          Email = email
+        };
+        db.NGUOIDUNGs.Add(khachHangKhongCoTaiKhoan);
+        db.SaveChanges();
+        GIOHANG gioHangCuaKhachVangLai = new GIOHANG()
+        {
+          MaKH = khachHangKhongCoTaiKhoan.MaNguoiDung,
+          ThanhTien = TinhTongTien(),
+          DaDat = true,
+        };
+        db.GIOHANGs.Add(gioHangCuaKhachVangLai);
+        db.SaveChanges();
+        DONDATHANG ddh = new DONDATHANG()
+        {
+          ThoiDiemDat = DateTime.Now,
+          NgayGiaoDuKien = null,
+          UuDai = 0,
+          TinhTrangGiaoHang = -1,
+          MaGioHang = gioHangCuaKhachVangLai.MaGioHang,
+          MaKH = khachHangKhongCoTaiKhoan.MaNguoiDung,
+          TongTien = TinhTongTien(),
+          DiaChiNhanHang = diaChiNhanHang,
+          SoDienThoaiNhanHang = soDienThoaiNhanHang
+        };
+        db.DONDATHANGs.Add(ddh);
+        db.SaveChanges();
+        Session["GioHang"] = null;
+        TempData["result"] = "Đặt hàng thành công";
+      }
+      return RedirectToAction("XemGioHang");
     }
     //Xây dựng chức năng đặt hàng
     [HttpPost]
@@ -431,7 +506,7 @@ namespace WebSiteBanHang.Controllers
         {
           MaKH = khachHangKhongCoTaiKhoan.MaNguoiDung,
           ThanhTien = TinhTongTien(),
-          DaDat=true,
+          DaDat = true,
         };
         db.GIOHANGs.Add(gioHangCuaKhachVangLai);
         db.SaveChanges();

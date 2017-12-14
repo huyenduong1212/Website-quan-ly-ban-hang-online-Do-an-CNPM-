@@ -1,8 +1,95 @@
-﻿
+﻿@using WebSiteBanHang.ViewModels
+@model IEnumerable<KhachHang_GioHangViewModel>
+
 @{
-    ViewBag.Title = "DatHang";
-    Layout = "~/Views/Layout/OrderLayout.cshtml";
+  ViewBag.Title = "DatHang";
+  Layout = "~/Views/Layout/OrderLayout.cshtml";
 }
+<div class="container">
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="tabbable tabs-left">
+            <div class="tab-content col-xs-9">
+              @if (Session["NGUOIDUNG"] == null)
+              {
+                using (Html.BeginForm("DatHang1", "GioHang", FormMethod.Post))
+                {
+                  <div class="form-row">
+                    <div class="form-group col-md-3">
+                      <label for="inputEmail4">Email</label>
+                      <input type="email" class="form-control" id="inputEmail4" name="email" placeholder="Email" />
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="inputPassword4">Họ</label>
+                      <input type="text" class="form-control" id="inputPassword4" name="ho" placeholder="Nhập vào họ tên">
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="inputPassword4">Tên lót</label>
+                      <input type="text" class="form-control" id="inputPassword4" name="tenLot" placeholder="Nhập vào họ tên">
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="inputPassword4">Tên</label>
+                      <input type="text" class="form-control" id="inputPassword4" name="ten" placeholder="Nhập vào họ tên">
+                    </div>
+                  </div>
+                <div class="form-group col-md-8">
+                  <label for="inputAddress">Địa chỉ</label>
+                  <input type="text" class="form-control" id="inputAddress" name="diaChiNhanHang" placeholder="Nhập vào địa chỉ nhận hàng">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputCity">Số điện thoại</label>
+                  <input type="text" class="form-control" id="inputCity" name="soDienThoaiNhanHang" placeholder="Nhập vào số điện thoại liên lạc" />
+                </div>
+                <button type="submit" class="btn btn-primary">Tiếp tục</button>
+                }
+              }
+              else
+              {
+                using (Html.BeginForm("DatHang1", "GioHang", new { @maKH = ViewBag.maKH, @maGioHang = Model.First().MaGioHang }, FormMethod.Post))
+                {
+                  <div class="form-group col-md-8">
+                    <label for="inputAddress">Địa chỉ</label>
+                    <input type="text" class="form-control" id="inputAddress" name="diaChiNhanHang" placeholder="Nhập vào địa chỉ nhận hàng">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="inputCity">Số điện thoại</label>
+                    <input type="text" class="form-control" id="inputCity" name="soDienThoaiNhanHang" placeholder="Nhập vào số điện thoại liên lạc" />
+                  </div>
+                  <button type="submit" class="btn btn-primary">Tiếp tục</button>
+                }
+              }
+            </div>
+            <div class="col-xs-3">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  @foreach (var item in Model)
+                  {
+                    <tr>
+                      <td>@item.TenSP</td>
+                      <td>@item.SoLuong</td>
+                      <td>@item.DonGia</td>
+                    </tr>
+                  }
 
-<h2>DatHang</h2>
-
+                </tbody>
+              </table>
+              <div class="text-center">
+                <label>Tổng tiền: </label>
+                <label>@ViewBag.TongTien</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
