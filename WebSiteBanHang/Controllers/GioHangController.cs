@@ -462,69 +462,69 @@ namespace WebSiteBanHang.Controllers
       return RedirectToAction("XemGioHang");
     }
     //Xây dựng chức năng đặt hàng
-    [HttpPost]
-    public ActionResult DatHang(int? maKH, int? maGioHang, string TenLot, string Ho, string Ten, string DiaChi, string Email, string SoDienThoai)
-    {
-      List<ItemGioHang> lstItemGioHang = null;
-      GIOHANG lstGioHang = null;
-      if (Session["NGUOIDUNG"] != null)
-      {
-        //hiện ra chọn địa chỉ giao hàng
-        NGUOIDUNG khachHang = Session["NGUOIDUNG"] as NGUOIDUNG;
-        lstGioHang = LayGioHangKhachDaDangNhap(khachHang.MaNguoiDung);
-        DONDATHANG ddh = new DONDATHANG()
-        {
-          ThoiDiemDat = DateTime.Now,
-          NgayGiaoDuKien = DateTime.Now.AddDays(3),
-          UuDai = 0,
-          TinhTrangGiaoHang = 0,
-          MaGioHang = maGioHang,
-          MaKH = maKH,
-          TongTien = TinhTongTien(),
-        };
-        db.DONDATHANGs.Add(ddh);
-        db.SaveChanges();
-        //return Content("<script> alert(\"Sản phẩm đã hết hàng!\")</script>");
-      }
-      else
-      {
-        //Thêm vào tài khoản loại người dùng số 2
-        NGUOIDUNG khachHangKhongCoTaiKhoan = new NGUOIDUNG()
-        {
-          MaLoaiNguoiDung = 2,
-          Ho = Ho,
-          TenLot = TenLot,
-          Ten = Ten,
-          DiaChi = DiaChi,
-          SoDienThoai = SoDienThoai,
-          Email = Email
-        };
-        db.NGUOIDUNGs.Add(khachHangKhongCoTaiKhoan);
-        db.SaveChanges();
-        // lstItemGioHang = LayGioHangKhachVangLai();
-        GIOHANG gioHangCuaKhachVangLai = new GIOHANG()
-        {
-          MaKH = khachHangKhongCoTaiKhoan.MaNguoiDung,
-          ThanhTien = TinhTongTien(),
-          DaDat = true,
-        };
-        db.GIOHANGs.Add(gioHangCuaKhachVangLai);
-        db.SaveChanges();
-        DONDATHANG ddh = new DONDATHANG()
-        {
-          ThoiDiemDat = DateTime.Now,
-          NgayGiaoDuKien = DateTime.Now.AddDays(3),
-          UuDai = 0,
-          TinhTrangGiaoHang = 0,
-          MaGioHang = gioHangCuaKhachVangLai.MaGioHang,
-          MaKH = khachHangKhongCoTaiKhoan.MaNguoiDung,
-          TongTien = TinhTongTien(),
-        };
-        db.DONDATHANGs.Add(ddh);
-        db.SaveChanges();
-        Session["GioHang"] = null;
-      }
-      return View("XemGioHang");
-    }
+    //[HttpPost]
+    //public ActionResult DatHang(int? maKH, int? maGioHang, string TenLot, string Ho, string Ten, string DiaChi, string Email, string SoDienThoai)
+    //{
+    //  List<ItemGioHang> lstItemGioHang = null;
+    //  GIOHANG lstGioHang = null;
+    //  if (Session["NGUOIDUNG"] != null)
+    //  {
+    //    //hiện ra chọn địa chỉ giao hàng
+    //    NGUOIDUNG khachHang = Session["NGUOIDUNG"] as NGUOIDUNG;
+    //    lstGioHang = LayGioHangKhachDaDangNhap(khachHang.MaNguoiDung);
+    //    DONDATHANG ddh = new DONDATHANG()
+    //    {
+    //      ThoiDiemDat = DateTime.Now,
+    //      NgayGiaoDuKien = DateTime.Now.AddDays(3),
+    //      UuDai = 0,
+    //      TinhTrangGiaoHang = 0,
+    //      MaGioHang = maGioHang,
+    //      MaKH = maKH,
+    //      TongTien = TinhTongTien(),
+    //    };
+    //    db.DONDATHANGs.Add(ddh);
+    //    db.SaveChanges();
+    //    //return Content("<script> alert(\"Sản phẩm đã hết hàng!\")</script>");
+    //  }
+    //  else
+    //  {
+    //    //Thêm vào tài khoản loại người dùng số 2
+    //    NGUOIDUNG khachHangKhongCoTaiKhoan = new NGUOIDUNG()
+    //    {
+    //      MaLoaiNguoiDung = 2,
+    //      Ho = Ho,
+    //      TenLot = TenLot,
+    //      Ten = Ten,
+    //      DiaChi = DiaChi,
+    //      SoDienThoai = SoDienThoai,
+    //      Email = Email
+    //    };
+    //    db.NGUOIDUNGs.Add(khachHangKhongCoTaiKhoan);
+    //    db.SaveChanges();
+    //    // lstItemGioHang = LayGioHangKhachVangLai();
+    //    GIOHANG gioHangCuaKhachVangLai = new GIOHANG()
+    //    {
+    //      MaKH = khachHangKhongCoTaiKhoan.MaNguoiDung,
+    //      ThanhTien = TinhTongTien(),
+    //      DaDat = true,
+    //    };
+    //    db.GIOHANGs.Add(gioHangCuaKhachVangLai);
+    //    db.SaveChanges();
+    //    DONDATHANG ddh = new DONDATHANG()
+    //    {
+    //      ThoiDiemDat = DateTime.Now,
+    //      NgayGiaoDuKien = DateTime.Now.AddDays(3),
+    //      UuDai = 0,
+    //      TinhTrangGiaoHang = 0,
+    //      MaGioHang = gioHangCuaKhachVangLai.MaGioHang,
+    //      MaKH = khachHangKhongCoTaiKhoan.MaNguoiDung,
+    //      TongTien = TinhTongTien(),
+    //    };
+    //    db.DONDATHANGs.Add(ddh);
+    //    db.SaveChanges();
+    //    Session["GioHang"] = null;
+    //  }
+    //  return View("XemGioHang");
+    //}
   }
 }

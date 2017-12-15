@@ -110,7 +110,7 @@ namespace WebSiteBanHang.Controllers
       //Kiểm tra tên đăng nhập và mật khẩu
       string sTaiKhoan = f["txtTenDangNhap"].ToString();
       string sMatKhau = f["txtMatKhau"].ToString();
-      NGUOIDUNG tv = db.NGUOIDUNGs.SingleOrDefault(n => n.TaiKhoan == sTaiKhoan && n.MatKhau == sMatKhau);
+      NGUOIDUNG tv = db.NGUOIDUNGs.FirstOrDefault(n => n.TaiKhoan == sTaiKhoan && n.MatKhau == sMatKhau);
       if (tv != null)
       {
         var lstQuyen = db.QUYENHANLOAINGUOIDUNGs.Where(n => n.MaLoaiNguoiDung == tv.MaLoaiNguoiDung);

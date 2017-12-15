@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebSiteBanHang.Models.DONDATHANG>
+
+
+@{
+  ViewBag.Title = "DaDuyet";
+  Layout = "~/Views/Layout/AdminLayout.cshtml";
+  WebGrid grid = new WebGrid(source: Model, rowsPerPage: 20);
+}
+<ul class="nav nav-tabs">
+  <li role="presentation">
+    <a href="@Url.Action("ChoDuyet","QuanLyDonHang")">Chờ duyệt</a>
+  </li>
+  <li role="presentation" class="active">
+    <a href="@Url.Action("DaDuyet", "QuanLyDonHang")">Đã duyệt</a>
+  </li>
+  <li role="presentation">
+    <a href="@Url.Action("DaTuChoi","QuanLyDonHang")">Đã từ chối</a>
+  </li>
+  <li role="presentation">
+    <a href="@Url.Action("DaGiao","QuanLyDonHang")">Đã giao</a>
+  </li>
+</ul>
+<br/>
+@grid.GetHtml(
+  tableStyle: "divTable",
+  headerStyle: "gridHead",
+  footerStyle: "gridRow",
+  alternatingRowStyle: "gridAltRow",
+  columns: grid.Columns(
+    grid.Column("MaDDH", "Mã đơn"),
+    grid.Column("ThoiDiemDat", header: "Thời điểm đặt"),
+    grid.Column("ThoiDiemLap", header: "Thời điểm lập hóa đơn"),
+    grid.Column("NgayGiaoDuKien", header: "Ngày giao"),
+    grid.Column("UuDai", header: "Ưu đãi"),
+    grid.Column("TongTien", header: "Tổng tiền"),
+    grid.Column("PhiVanChuyen", header: "Phí vận chuyển"),
+    grid.Column("DiaChiNhanHang", header: "Địa chỉ nhận hàng")
+    )
+)
+<style>
+  .nav > li {
+    background: rgba(0,0,0,.5);
+  }
+
+  .divTable {
+    width: 100%;
+    border: 1px solid #999999;
+  }
+
+    .divTable td {
+      border: 1px solid #999999;
+    }
+
+  .gridHead {
+    background-color: Green;
+  }
+
+    .gridHead > th > a {
+      color: #fff;
+    }
+
+  .gridFooter {
+    font-weight: bold;
+  }
+
+  .divTable a {
+    color: blue;
+  }
+</style>
+
+
+
