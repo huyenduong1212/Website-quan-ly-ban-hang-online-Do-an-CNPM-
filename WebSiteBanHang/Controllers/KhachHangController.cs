@@ -9,18 +9,28 @@ using WebSiteBanHang.Models;
 
 namespace WebSiteBanHang.Controllers
 {
-  public class KhachHangController : Controller
-  {
-    //
-    // GET: /KhachHang/
-    QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+    public class KhachHangController : Controller
+    {
+        //
+        // GET: /KhachHang/
+        QuanLyBanHangEntities db = new QuanLyBanHangEntities();
         public ActionResult Index()
         {
             return View();
         }
         public ActionResult SuaThongTin()
         {
-            return View();
+            if (Session["NGUOIDUNG"] != null)
+            {
+                NGUOIDUNG tv = (NGUOIDUNG)Session["NGUOIDUNG"];
+                int id = tv.MaNguoiDung;
+                var nguoidung = db.NGUOIDUNGs.Find(id);
+                return View(nguoidung);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
         public ActionResult SuaThongTin(NGUOIDUNG nd)
@@ -31,34 +41,69 @@ namespace WebSiteBanHang.Controllers
             entry.Property(e => e.TaiKhoan).IsModified = false;
             entry.Property(e => e.MatKhau).IsModified = false;
             db.SaveChanges();
-            
-            
+            var nguoidung = db.NGUOIDUNGs.Find(nd.MaNguoiDung);
+            Session["NGUOIDUNG"] = null;
+            Session["NGUOIDUNG"] = nguoidung;
 
             return RedirectToAction("Index");
         }
         public ActionResult DoiMatKhau()
         {
-            return View();
+            if (Session["NGUOIDUNG"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
-        public ActionResult DoiMatKhau(NGUOIDUNG nd)
+        public ActionResult DoiMatKhau(FormCollection f)
         {
-            var entry = db.Entry(nd);
-            entry.State = EntityState.Modified;
-            entry.Property(e => e.Ho).IsModified = false;
-            entry.Property(e => e.TenLot).IsModified = false;
-            entry.Property(e => e.Ten).IsModified = false;
-            entry.Property(e => e.GioiTinh).IsModified = false;
-            entry.Property(e => e.DiaChi).IsModified = false;
-            entry.Property(e => e.SoDienThoai).IsModified = false;
-            entry.Property(e => e.Email).IsModified = false;
-            entry.Property(e => e.MaLoaiNguoiDung).IsModified = false;
-            entry.Property(e => e.TaiKhoan).IsModified = false;
-            entry.Property(e => e.TrangThai).IsModified = false;
+            String MatKhauCu = f["MatKhauCu"].ToString();
+            String MatKhauMoi = f["MatKhauMoi"].ToString();
+            if (Session["NGUOIDUNG"] != null)
+            {
+                NGUOIDUNG tv = (NGUOIDUNG)Session["NGUOIDUNG"];
+                int id = tv.MaNguoiDung;
+                var nguoidung = db.NGUOIDUNGs.Find(id);
+                if (MatKhauCu != nguoidung.MatKhau)
+                {
+                    return Content("Sai Mật Khẩu");
+                }
+                else
+                {
+                    var ngdu = db.NGUOIDUNGs.Find(id);
+                    ngdu.MatKhau = MatKhauMoi;
+                    db.SaveChanges();
+                    Session["NGUOIDUNG"] = null;
+                    var nguoi = db.NGUOIDUNGs.Find(id);
+                    Session["NGUOIDUNG"] = nguoi;
+                    return JavaScript("window.location = '" + Url.Action("Index", "Home") + "'");
+                }
+            }
+            else
+            {
+                return JavaScript("window.location = '" + Url.Action("Index", "Home") + "'");
+            }
 
-            db.SaveChanges();
-            Session["NGUOIDUNG"] = null;
-            return RedirectToAction("Index", "Home");
+            //var nguoidung = db.NGUOIDUNGs.Find(nd.MaNguoiDung);
+            //nguoidung.MatKhau = nd.MatKhau;
+            //var entry = db.Entry(nd);
+            //entry.State = EntityState.Modified;
+            //entry.Property(e => e.Ho).IsModified = false;
+            //entry.Property(e => e.TenLot).IsModified = false;
+            //entry.Property(e => e.Ten).IsModified = false;
+            //entry.Property(e => e.GioiTinh).IsModified = false;
+            //entry.Property(e => e.DiaChi).IsModified = false;
+            //entry.Property(e => e.SoDienThoai).IsModified = false;
+            //entry.Property(e => e.Email).IsModified = false;
+            //entry.Property(e => e.MaLoaiNguoiDung).IsModified = false;
+            //entry.Property(e => e.TaiKhoan).IsModified = false;
+            //entry.Property(e => e.TrangThai).IsModified = false;
+
+
         }
         //public ActionResult Index()
         //{
