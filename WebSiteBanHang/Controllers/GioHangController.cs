@@ -190,7 +190,7 @@ namespace WebSiteBanHang.Controllers
           }
           spCheck.SoLuong++;
           decimal donGiaSanPham = spCheck.SANPHAM.DonGia.Value;
-          spCheck.ThanhTienSP = spCheck.SoLuong * donGiaSanPham;
+          spCheck.ThanhTienSP = (decimal)spCheck.SoLuong * donGiaSanPham;
           ViewBag.TongSoLuong = TinhTongSoLuong();
           ViewBag.TongTien = TinhTongTien();
           TempData["result"] = "Thêm vào giỏ hàng thành công";
