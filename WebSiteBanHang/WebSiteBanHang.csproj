@@ -202,7 +202,6 @@
     <Compile Include="Models\GIOHANG.cs">
       <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ItemGioHang.cs" />
     <Compile Include="Models\LOAINGUOIDUNG.cs">
       <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
@@ -246,9 +245,100 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WebSiteBanHang.edmx</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ItemGioHang.cs" />
+    <Compile Include="ViewModels\KhachHang_GioHangViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\CaptchaMvc.dll" />
+    <Content Include="bin\CaptchaMvc.pdb" />
+    <Content Include="bin\CaptchaMvc.xml" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.xml" />
+    <Content Include="bin\Microsoft.AI.PerfCounterCollector.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.xml" />
+    <Content Include="bin\Microsoft.AI.Web.dll" />
+    <Content Include="bin\Microsoft.AI.Web.xml" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.dll" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.xml" />
+    <Content Include="bin\Microsoft.ApplicationInsights.dll" />
+    <Content Include="bin\Microsoft.ApplicationInsights.xml" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\PagedList.dll" />
+    <Content Include="bin\PagedList.Mvc.dll" />
+    <Content Include="bin\PagedList.Mvc.xml" />
+    <Content Include="bin\PagedList.xml" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\csi.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
+    <Content Include="bin\roslyn\Microsoft.Win32.Primitives.dll" />
+    <Content Include="bin\roslyn\System.AppContext.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Console.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.FileVersionInfo.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.Process.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
+    <Content Include="bin\roslyn\System.IO.Compression.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.DriveInfo.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
+    <Content Include="bin\roslyn\System.IO.Pipes.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\System.Security.AccessControl.dll" />
+    <Content Include="bin\roslyn\System.Security.Claims.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Algorithms.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Encoding.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.X509Certificates.dll" />
+    <Content Include="bin\roslyn\System.Security.Principal.Windows.dll" />
+    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
+    <Content Include="bin\roslyn\System.Threading.Thread.dll" />
+    <Content Include="bin\roslyn\System.ValueTuple.dll" />
+    <Content Include="bin\roslyn\System.Xml.ReaderWriter.dll" />
+    <Content Include="bin\roslyn\System.Xml.XmlDocument.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="bin\WebSiteBanHang.dll" />
+    <Content Include="bin\WebSiteBanHang.pdb" />
     <Content Include="Content\AdminLayout\css\bootstrap.css" />
     <Content Include="Content\AdminLayout\css\clndr.css" />
     <Content Include="Content\AdminLayout\css\jqvmap.css" />
@@ -778,6 +868,14 @@
       <DependentUpon>WebSiteBanHang.edmx</DependentUpon>
       <LastGenOutput>WebSiteBanHang.cs</LastGenOutput>
     </Content>
+    <Content Include="obj\Debug\TempPE\Models.QuanLyBanHang.Context.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.QuanLyBanHang.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.QuanLyBanHang.Designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.WebSiteBanHang.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.WebSiteBanHang.Designer.cs.dll" />
+    <Content Include="obj\Debug\WebSiteBanHang.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\WebSiteBanHang.dll" />
+    <Content Include="obj\Debug\WebSiteBanHang.pdb" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -828,6 +926,27 @@
     <Content Include="Models\WebSiteBanHang.edmx.diagram">
       <DependentUpon>WebSiteBanHang.edmx</DependentUpon>
     </Content>
+    <Content Include="bin\ApplicationInsights.config" />
+    <Content Include="bin\roslyn\csc.exe.config" />
+    <Content Include="bin\roslyn\csc.rsp" />
+    <Content Include="bin\roslyn\csi.exe.config" />
+    <Content Include="bin\roslyn\csi.rsp" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\vbc.exe.config" />
+    <Content Include="bin\roslyn\vbc.rsp" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="bin\WebSiteBanHang.dll.config" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\QuanLyBanHang.csdl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\QuanLyBanHang.msl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\QuanLyBanHang.ssdl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\WebSiteBanHang.csdl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\WebSiteBanHang.msl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\WebSiteBanHang.ssdl" />
+    <Content Include="obj\Debug\WebSiteBanHang.csproj.CopyComplete" />
+    <Content Include="obj\Debug\WebSiteBanHang.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Release\WebSiteBanHang.csproj.CoreCompileInputs.cache" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -896,6 +1015,20 @@
     <Content Include="Views\Home\DangKy.cshtml" />
     <Content Include="Views\KhachHang\SuaThongTin.cshtml" />
     <Content Include="Views\KhachHang\DoiMatKhau.cshtml" />
+    <Content Include="Views\PhanQuyen\Index.cshtml" />
+    <Content Include="Views\PhanQuyen\PhanQuyen.cshtml" />
+    <Content Include="Views\QuanLyDonHang\ChoDuyet.cshtml" />
+    <Content Include="Views\QuanLyDonHang\ChuaGiao.cshtml" />
+    <Content Include="Views\QuanLyDonHang\ChuaThanhToan.cshtml" />
+    <Content Include="Views\QuanLyDonHang\DaDuyet.cshtml" />
+    <Content Include="Views\QuanLyDonHang\DaGiao.cshtml" />
+    <Content Include="Views\QuanLyDonHang\DaGiaoDaThanhToan.cshtml" />
+    <Content Include="Views\QuanLyDonHang\DaTuChoi.cshtml" />
+    <Content Include="Views\QuanLyDonHang\DuyetDonHang.cshtml" />
+    <Content Include="Views\Quyen\ChinhSua.cshtml" />
+    <Content Include="Views\Quyen\Index.cshtml" />
+    <Content Include="Views\Quyen\ThemChucNang.cshtml" />
+    <Content Include="Views\ThongKe\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
