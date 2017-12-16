@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebSiteBanHang.Models;
 using PagedList;
+using WebSiteBanHang.ViewModels;
+
 namespace WebSiteBanHang.Controllers
 {
   public class SanPhamController : Controller
@@ -31,6 +33,7 @@ namespace WebSiteBanHang.Controllers
     //Xây dựng trang xem chi tiết 
     public ActionResult XemChiTiet(int? id)
     {
+      int TongDiem = 0;
       //Kiểm tra tham số truyền vào có rổng hay không
       if (id == null)
       {
@@ -43,7 +46,68 @@ namespace WebSiteBanHang.Controllers
         //Thông báo nếu như không có sản phẩm đó
         return HttpNotFound();
       }
+      IEnumerable<DANHGIA> lstdanhgia = db.DANHGIAs.Where(n => n.MaSP == id);
+      List<KhachHangDanhGia_ViewModels> lstThongTinKHDanhGia = new List<KhachHangDanhGia_ViewModels>();
+      KhachHangDanhGia_ViewModels thongtinkhachhang = null;
+      foreach (DANHGIA itemDanhGia in lstdanhgia)
+      {
+        NGUOIDUNG nguoidung = db.NGUOIDUNGs.Where(n => n.MaNguoiDung == itemDanhGia.MaNguoiDungKhachHang).SingleOrDefault();
+        thongtinkhachhang = new KhachHangDanhGia_ViewModels
+        {
+          MaSP = (int)id,
+          DiemDanhGia = (int)itemDanhGia.DiemDanhGia,
+          HoTen = nguoidung.Ho + " " + nguoidung.TenLot + " " + nguoidung.Ten,
+          MaBL = itemDanhGia.MaBL,
+          NoiDungBL = itemDanhGia.NoiDungBL,
+          MaKH = nguoidung.MaNguoiDung,
+          ThoiDiem = DateTime.Now
+        };
+        TongDiem += thongtinkhachhang.DiemDanhGia;
+        lstThongTinKHDanhGia.Add(thongtinkhachhang);
+      }
+      ViewBag.thongTinNguoiDung = lstThongTinKHDanhGia;
+      ViewBag.DiemTrungBinh = TongDiem/lstThongTinKHDanhGia.Count;
       return View(sp);
+    }
+    public ActionResult GuiDanhGia(string comment, string rating, int maSP)
+    {
+      NGUOIDUNG nguoidung = Session["NGUOIDUNG"] as NGUOIDUNG;
+      int count = 0;
+      IEnumerable<GIOHANG> lstgiohang = db.GIOHANGs.Where(n => n.MaKH == nguoidung.MaNguoiDung && n.DaDat == true);
+      foreach (GIOHANG gh in lstgiohang)
+      {
+        CHITIETGIOHANG ctgh = db.CHITIETGIOHANGs.Where(n => n.MaGioHang == gh.MaGioHang && n.MaSP == maSP).SingleOrDefault();
+        if(ctgh!=null)
+        { 
+          count++;
+          break;
+        }
+      }
+      if (count == 0)
+      {
+        //TempData["result"] = "Bạn chưa mua sản phẩm này, không thể đánh giá";
+        //RedirectToAction("XemChiTiet", new { @id = maSP });
+        //return Content("<script>window.location.reload();</script>");
+        return Content("<script>window.location.href= window.location;</ script>");
+        //return RedirectToAction("Index", "Home");
+        //return RedirectToAction("XemChiTiet", new { @id = maSP });
+        //return Content("<script>window.location.reload();</script>");
+        //return RedirectToAction("XemChiTiet","SanPham",new { @id=maSP});
+
+      }
+      DANHGIA danhgia = new DANHGIA();
+      
+      danhgia.NoiDungBL = comment;
+      danhgia.DiemDanhGia = Convert.ToInt32(rating);
+      danhgia.MaSP = maSP;
+      danhgia.MaNguoiDungKhachHang = nguoidung.MaNguoiDung;
+      danhgia.ThoiDiem = DateTime.Now;
+      db.DANHGIAs.Add(danhgia);
+      db.SaveChanges();
+      return RedirectToAction("Index", "Home");
+      //return RedirectToAction("XemChiTiet", new { @id = maSP });
+      //return RedirectToAction("XemChiTiet", new { @id = maSP });
+      //return Content("<script>window.location.reload();</script>");
     }
     public ActionResult SanPham(int? MaLoaiSP, int? page)
     {
