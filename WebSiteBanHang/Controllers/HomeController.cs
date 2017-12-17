@@ -15,6 +15,7 @@ namespace WebSiteBanHang.Controllers
     //
     // GET: /Home/
     QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+
     public ActionResult Index()
     {
       //Lần lượt tạo các viewbag để lấy list sản phẩm từ cơ sở dữ liệu
@@ -25,7 +26,7 @@ namespace WebSiteBanHang.Controllers
 
       //List LapTop mới nhất
       var lstLT = db.SANPHAMs.Where(n => n.MaLoaiSP == 3 /*&& n.Moi == 1 */&& n.DaXoa == false);
-      IEnumerable<SANPHAM> lstSPLT= db.SANPHAMs.Where(n => n.MaLoaiSP == 3 && n.DaXoa == false);
+      IEnumerable<SANPHAM> lstSPLT = db.SANPHAMs.Where(n => n.MaLoaiSP == 3 && n.DaXoa == false);
       //Gán vào ViewBag
       ViewBag.ListLTM = lstLT;
 
@@ -36,19 +37,59 @@ namespace WebSiteBanHang.Controllers
 
       return View();
     }
-
-    public ActionResult MenuPartial()
+    public ActionResult BannerPartial()
     {
-      //Truy vấn lấy về 1 list các sản phẩm
-      var lstSP = db.SANPHAMs;
-      return PartialView(lstSP);
-    }
-    public ActionResult DangKy()
-    {
-      //ViewBag.CauHoi = new SelectList(LoadCauHoi());
+      //IEnumerable<SUKIEN> lstSuKien = db.SUKIENs.Where(n => n.NgayBatDau.Value.Date > DateTime.Now.Date);
+      //IEnumerable<SUKIEN> lstSuKien = db.SUKIENs.Where(n => n.NgayBatDau.Value.Date > DateTime.Now.Date);
+      IEnumerable<SUKIEN> lstSuKien = db.SUKIENs;
+      List<SUKIEN> lstSuKienCurrent = new List<SUKIEN>();
+      int day = DateTime.Now.Day;
+      int month = DateTime.Now.Month;
+      int year = DateTime.Now.Year;
+      foreach (SUKIEN sk1 in lstSuKien)
+      {
+        if(DateTime.Compare(sk1.NgayBatDau.Value,DateTime.Now)<0 && DateTime.Compare(sk1.NgayKetThuc.Value, DateTime.Now)<0)
+        {
+          lstSuKienCurrent.Add(sk1);
+        }
+      }
+        //foreach (SUKIEN sk1 in lstSuKien)
+        //{
+        //  if (sk1.NgayBatDau.Value.Year < year && sk1.NgayKetThuc.Value.Year > year)
+        //  {
+        //    if (sk1.NgayBatDau.Value.Month < month && sk1.NgayKetThuc.Value.Month > month)
+        //    {
+        //      lstSuKienCurrent.Add(sk1);
+        //    }
+        //    else if (sk1.NgayBatDau.Value.Month == month)
+        //    {
+        //      if (sk1.NgayBatDau.Value.Day < day && sk1.NgayKetThuc.Value.Day > day)
+        //      {
+        //        lstSuKienCurrent.Add(sk1);
+        //      }
+        //    }
+        //    else if (sk1.NgayKetThuc.Value.Month == month)
+        //    {
+        //      if (sk1.NgayBatDau.Value.Day < day && sk1.NgayKetThuc.Value.Day > day)
+        //      {
+        //        lstSuKienCurrent.Add(sk1);
+        //      }
+        //    }
+        //  }
+        return PartialView(lstSuKienCurrent);
+      }
+      public ActionResult MenuPartial()
+      {
+        //Truy vấn lấy về 1 list các sản phẩm
+        var lstSP = db.SANPHAMs;
+        return PartialView(lstSP);
+      }
+      public ActionResult DangKy()
+      {
+        //ViewBag.CauHoi = new SelectList(LoadCauHoi());
 
-      return View();
-    }
+        return View();
+      }
     [HttpPost]
     public ActionResult DangKy(NGUOIDUNG nd, FormCollection f)
     {
@@ -133,14 +174,15 @@ namespace WebSiteBanHang.Controllers
         else
         {
           var lstQuyen = db.QUYENHANLOAINGUOIDUNGs.Where(n => n.MaLoaiNguoiDung == tv.MaLoaiNguoiDung);
-          string quyen = "";
+          string Quyen = "";
           if (lstQuyen.Count() != 0)
           {
             foreach (var item in lstQuyen)
             {
-              quyen += item.MaChucNang + ",";
+              Quyen += item.MaChucNang + ",";
             }
-            PhanQuyen(tv.MaNguoiDung.ToString(), quyen);
+            Quyen = Quyen.Substring(0, Quyen.Length - 1);
+            PhanQuyen(tv.MaNguoiDung.ToString(), Quyen);
             Session["NGUOIDUNG"] = tv;
             return Content("<script>window.location.reload();</script>");
           }
@@ -152,10 +194,10 @@ namespace WebSiteBanHang.Controllers
     {
       return View();
     }
-    public void PhanQuyen(string tv, string quyen)
+    public void PhanQuyen(string tv, string Quyen)
     {
       FormsAuthentication.Initialize();
-      var ticket = new FormsAuthenticationTicket(1, tv, DateTime.Now, DateTime.Now.AddHours(3), true, quyen);
+      var ticket = new FormsAuthenticationTicket(1, tv, DateTime.Now, DateTime.Now.AddHours(3), true, Quyen);
       var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));//value (đã được mã hóa)
       if (ticket.IsPersistent)//true nếu cookie đã được cấp 
       {

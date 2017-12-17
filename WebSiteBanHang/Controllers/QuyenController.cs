@@ -8,6 +8,7 @@ using WebSiteBanHang.Models;
 namespace WebSiteBanHang.Controllers
 {
   //[Authorize(Roles = "1")], Đây là công việc của lập trình viên, không phải của người dùng (admin), người dùng chỉ tương tác trên trang mà hệ thống đã đưa ra sẵn, cho lên giao diện sẽ tiện hơn, ít tương tác với csdl thì sẽ hay hơn
+  [Authorize(Roles = "31")]
   public class QuyenController : Controller
   {
     //

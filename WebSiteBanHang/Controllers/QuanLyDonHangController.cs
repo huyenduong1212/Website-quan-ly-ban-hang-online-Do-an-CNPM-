@@ -9,11 +9,13 @@ using System.Net.Mail; // send mail
 
 namespace WebSiteBanHang.Controllers
 {
+  [Authorize(Roles = "10")]
   public class QuanLyDonHangController : Controller
   {
     //
     // GET: /QuanLyDonHang/
     QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+    
     public ActionResult ChoDuyet()
     {
       var lst = db.DONDATHANGs.Where(n => n.TinhTrangGiaoHang == -1).OrderBy(p => p.ThoiDiemDat);

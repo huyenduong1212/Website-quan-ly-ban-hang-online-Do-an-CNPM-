@@ -1,0 +1,46 @@
+﻿@using WebSiteBanHang.Models;
+@model IEnumerable<SUKIEN>
+
+
+
+<div class="banner" style="background: url('@Url.Content("~/Content/images/"+Model.First().HinhAnh)') no-repeat;">
+  <div class="container">
+    <script src="~/Content/js/responsiveslides.min.js"></script>
+    <script>
+      $(function () {
+        $("#slider").responsiveSlides({
+          auto: true,
+          nav: true,
+          speed: 500,
+          namespace: "callbacks",
+          pager: true,
+        });
+      });
+    </script>
+    <div id="top" class="callbacks_container">
+      <ul class="rslides callbacks callbacks1" id="slider">
+        <li id="callbacks1_s0" class="callbacks1_on" style="display: block; float: left; position: relative; opacity: 1; z-index: 2; transition: opacity 500ms ease-in-out;">
+          <div class="banner-text">
+            @*<h3>Lorem Ipsum is not simply dummy  </h3>
+              <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor .</p>
+              <a href="single.html">Learn More</a>*@
+          </div>
+        </li>
+        <li id="callbacks1_s1" class="" style="float: none; position: absolute; opacity: 0; z-index: 1; display: list-item; transition: opacity 500ms ease-in-out;">
+          <div class="banner-text">
+            @*<h3>Lorem Ipsum is not simply dummy  </h3>
+              <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor .</p>
+              <a href="single.html">Learn More</a>*@
+          </div>
+        </li>
+        <li id="callbacks1_s2" style="float: none; position: absolute; opacity: 0; z-index: 1; display: list-item; transition: opacity 500ms ease-in-out;" class="">
+          <div class="banner-text">
+            @*<h3>Lorem Ipsum is not simply dummy  </h3>
+              <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor .</p>
+              <a href="single.html">Learn More</a>*@
+          </div>
+        </li>
+      </ul><a href="#" class="callbacks_nav callbacks1_nav prev">Previous</a><a href="#" class="callbacks_nav callbacks1_nav next">Next</a><ul class="callbacks_tabs callbacks1_tabs"><li class="callbacks1_s1 callbacks_here"><a href="#" class="callbacks1_s1">1</a></li><li class="callbacks1_s2"><a href="#" class="callbacks1_s2">2</a></li><li class="callbacks1_s3"><a href="#" class="callbacks1_s3">3</a></li></ul>
+    </div>
+  </div>
+</div>
