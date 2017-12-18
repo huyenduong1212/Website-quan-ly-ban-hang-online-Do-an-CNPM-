@@ -46,15 +46,15 @@
     <div class="clearfix" ></div>
     <br />
    
-    <div class="col-md-12">
-        @*Ngày nhập*@
+    @*@*<div class="col-md-12">
+        @*Ngày nhập
         <div class="col-md-2">
             Ngày nhập
         </div>
         <div class="col-md-5">
-            <input name="NgayNhap" type="text"  class="date" />
+            <input name="ThoiDiemNhap" type="text"  class="date" />
         </div>
-    </div>
+    </div>*@
     <div class="clearfix">  </div>
         <br /><br /><br />
         @*Phần chi tiết nhập hàng*@
@@ -115,8 +115,8 @@
             //Lấy thuộc tính data-id của thẻ tr hiện
             var id = $(this).attr("data-id");
             var nameMaSanPham = "[" + id + "].MaSP"; //Tạo ra mã sản phẩm
-            var nameSoLuongNhap = "[" + id + "].SoLuongNhap"; //Tạo ra số lượng nhập
-            var nameDonGiaNhap = "[" + id + "].DonGiaNhap";   //Tạo ra đơn giá nhập
+            var nameSoLuongNhap = "[" + id + "].SoLuong"; //Tạo ra số lượng nhập
+            var nameDonGiaNhap = "[" + id + "].DonGia";   //Tạo ra đơn giá nhập
             $(this).find(".ddlSanPham").attr("name", nameMaSanPham);//Gán name cho dropdownlist
             $(this).find(".txtDonGia").attr("name", nameDonGiaNhap);//Gán name đơn giá nhập
             $(this).find(".txtSoLuong").attr("name", nameSoLuongNhap);//Gán name số lượng nhập
@@ -139,8 +139,8 @@
             $(this).attr("data-id", i);
             //Cập nhật lại id khi xóa
             var nameMaSanPham = "[" + id + "].MaSP"; //Tạo ra mã sản phẩm
-            var nameSoLuongNhap = "[" + id + "].SoLuongNhap"; //Tạo ra số lượng nhập
-            var nameDonGiaNhap = "[" + id + "].DonGiaNhap";   //Tạo ra đơn giá nhập
+            var nameSoLuongNhap = "[" + id + "].SoLuong"; //Tạo ra số lượng nhập
+            var nameDonGiaNhap = "[" + id + "].DonGia";   //Tạo ra đơn giá nhập
             $(this).find(".ddlSanPham").attr("name", nameMaSanPham);//Gán name cho dropdownlist
             $(this).find(".txtDonGia").attr("name", nameDonGiaNhap);//Gán name đơn giá nhập
             $(this).find(".txtSoLuong").attr("name", nameSoLuongNhap);//Gán name số lượng nhập

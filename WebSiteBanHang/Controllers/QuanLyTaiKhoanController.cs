@@ -67,15 +67,6 @@ namespace WebSiteBanHang.Controllers
             nguoidung.MatKhau = nd.MatKhau;
             nguoidung.MaLoaiNguoiDung = nd.MaLoaiNguoiDung;
             nguoidung.TrangThai = nd.TrangThai;
-            //var entry = db.Entry(nd);
-            //entry.State = EntityState.Modified;
-            //entry.Property(e => e.Ho).IsModified = false;
-            //entry.Property(e => e.TenLot).IsModified = false;
-            //entry.Property(e => e.Ten).IsModified = false;
-            //entry.Property(e => e.GioiTinh).IsModified = false;
-            //entry.Property(e => e.DiaChi).IsModified = false;
-            //entry.Property(e => e.SoDienThoai).IsModified = false;
-            //entry.Property(e => e.Email).IsModified = false;
             db.SaveChanges();
             SetViewBag(nd.MaNguoiDung);
             return RedirectToAction("Index");

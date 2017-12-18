@@ -19,8 +19,6 @@
     </div>
     <div class="col-md-9">
         <div class="ttSP">
-            <h3>Hãng sản xuất: @Model.NhaSanXuat.TenNSX</h3>
-            <h3>Loại sản phẩm: @Model.LoaiSanPham.TenLoai</h3>
             <h3>Số lượng tồn: @Model.SoLuongTon</h3>
         </div>
     </div>
@@ -38,10 +36,10 @@
             Nhà cung cấp: @Html.DropDownList("MaNCC", lstNCC, new {@class="MaNCC" })
         </div>
         <div class="col-md-4">
-        So lượng nhập : @Html.TextBox("SoLuongNhap")
+        So lượng nhập : @Html.TextBox("SoLuong")
         </div>
         <div class="col-md-4">
-        Đơn giá nhập :@Html.TextBox("DonGiaNhap")
+        Đơn giá nhập :@Html.TextBox("DonGia")
         </div>
         <div class="col-md-4">
          
