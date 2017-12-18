@@ -15,9 +15,9 @@
         <div class="product-at ">
           <a href="@Url.Action("XemChiTiet","SanPham", new { @id=item.MaSP})">
             <img class="img-responsive" src="@Url.Content("~/Content/HinhAnhSP/"+item.HinhAnh)" alt="" style="width:150px;height:150px;">
-            @*<div class="pro-grid">
-              <span class="buy-in">Đặt mua</span>
-            </div>*@
+            <div class="pro-grid">
+              <span class="buy-in">@item.DonGia.Value.ToString("#,##") VNĐ</span>
+            </div>
           </a>
         </div>
         <p class="tun">@item.TenSP</p>

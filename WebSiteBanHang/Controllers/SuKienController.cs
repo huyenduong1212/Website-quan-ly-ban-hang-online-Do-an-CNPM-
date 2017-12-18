@@ -17,7 +17,7 @@ namespace WebSiteBanHang.Controllers
     {
       return View();
     }
-    public ActionResult SanPhamSuKien(int maSuKien, int? page)
+    public ActionResult SanPhamSuKien(int? maSuKien, int? page)
     {
       if (maSuKien == null)
       {
