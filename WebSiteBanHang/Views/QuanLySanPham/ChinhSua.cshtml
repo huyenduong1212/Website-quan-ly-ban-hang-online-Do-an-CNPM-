@@ -47,7 +47,14 @@
     @Html.ValidationSummary(true)
 
     <span style="color:red;">@Html.Raw(ViewBag.upload as string) <br /> @Html.Raw(ViewBag.upload1 as string) </span>
-
+    
+     <div class="form-group">
+        @Html.LabelFor(model => model.MaSP, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MaSP, new { htmlAttributes = new { @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.MaSP)
+        </div>
+    </div>
     <div class="form-group">
       @Html.LabelFor(model => model.TenSP, new { @class = "control-label col-md-2" })
       <div class="col-md-10">
