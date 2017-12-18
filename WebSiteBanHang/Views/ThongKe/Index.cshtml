@@ -3,9 +3,10 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Layout/AdminLayout.cshtml";
 }
+
 <style>
     .list_of_members {
-        display: none;
+        display:none;
     }
 </style>
 <br />
@@ -16,8 +17,8 @@
         </div>
         <div class="icon-text">
             @{decimal TongDoanhThu = decimal.Parse(ViewBag.TongDoanhThu.ToString());
-                TongDoanhThu = TongDoanhThu / 1000;
-            }
+              TongDoanhThu = TongDoanhThu / 1000;  
+             }
             <h3>@TongDoanhThu.ToString("#,##") K</h3>
             <p>Sales</p>
         </div>

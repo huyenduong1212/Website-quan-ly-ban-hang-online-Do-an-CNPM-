@@ -280,7 +280,7 @@ namespace WebSiteBanHang.Controllers
         }
         //Bước 3: Tiến hành cập nhật lại số lượng cũng thành tiền
         itemGHUpdate.SoLuong = soLuongMoi;
-        itemGHUpdate.ThanhTienSP = (decimal)(itemGHUpdate.SoLuong * sp.DonGia);
+        itemGHUpdate.ThanhTienSP = itemGHUpdate.SoLuong * sp.DonGia;
         db.Entry(itemGHUpdate).State = EntityState.Modified;
         db.SaveChanges();
         TempData["result"] = "Cập nhật thành công";

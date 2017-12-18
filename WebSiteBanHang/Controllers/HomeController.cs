@@ -213,6 +213,7 @@ namespace WebSiteBanHang.Controllers
     {
       return View();
     }
+    [Authorize(Roles ="31")]
     public void PhanQuyen(string tv, string Quyen)
     {
       FormsAuthentication.Initialize();

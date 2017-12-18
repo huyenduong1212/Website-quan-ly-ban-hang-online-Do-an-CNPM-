@@ -52,48 +52,6 @@ namespace WebSiteBanHang.Controllers
       var lst = db.DONDATHANGs.Where(n => n.TinhTrangGiaoHang == 1).OrderBy(p => p.ThoiDiemDat);
       return View(lst);
     }
-    public ActionResult DaGiao()
-    {
-      var lst = db.DONDATHANGs.Where(n => n.TinhTrangGiaoHang == 2).OrderBy(p => p.ThoiDiemDat);
-      return View(lst);
-    }
-    public ActionResult ChuaThanhToan()
-    {
-      //Lấy danh sách các đơn hàng Chưa duyệt
-      var lst = db.DONDATHANGs.OrderBy(n => n.ThoiDiemDat);
-      return View(lst);
-    }
-    public ActionResult ChuaGiao()
-    {
-      //Lấy danh sách đơn hàng chưa giao 
-      var lstDSDHCG = db.DONDATHANGs.Where(n => n.TinhTrangGiaoHang == 0).OrderBy(n => n.NgayGiaoDuKien);
-      return View(lstDSDHCG);
-    }
-    public ActionResult DaGiaoDaThanhToan()
-    {
-      //Lấy danh sách đơn hàng chưa giao 
-      var lstDSDHCG = db.DONDATHANGs.Where(n => n.TinhTrangGiaoHang == 1);
-      return View(lstDSDHCG);
-    }
-    //[HttpGet]
-    //public ActionResult DuyetDonHang(int? id)
-    //{
-    //  //Kiểm tra xem id hợp lệ không
-    //  if (id == null)
-    //  {
-    //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-    //  }
-    //  DONDATHANG model = db.DONDATHANGs.SingleOrDefault(n => n.MaDDH == id);
-    //  //Kiểm tra đơn hàng có tồn tại không
-    //  if (model == null)
-    //  {
-    //    return HttpNotFound();
-    //  }
-    //  //Lấy danh sách chi tiết đơn hàng để hiển thị cho người dùng thấy
-    //  var lstChiTietDH = db.CHITIETDONDATHANGs.Where(n => n.MaDDH == id);
-    //  ViewBag.ListChiTietDH = lstChiTietDH;
-    //  return View(model);
-    //}
     [HttpPost]
     public ActionResult DuyetDonHang(DONDATHANG ddh)
     {

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WebSiteBanHang.Models.SUKIEN>
+
+@{
+  ViewBag.Title = "Index";
+  Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<script>
+  $(document).ready(function () {
+    $('#example').DataTable();
+  });
+</script>
+<a class="btn btn-primary" href="@Url.Action("ThemSuKien","SuKien")">Thêm sự kiện</a>
+<table id="example" class="display" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Mã sự kiện</th>
+      <th>Tên sự kiện</th>
+      <th>Mô tả</th>
+      <th>Hình ảnh</th>
+      <th>Ưu đãi</th>
+      <th>Ngày bắt đầu</th>
+      <th>Ngày kết thúc</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model)
+    {
+      <tr>
+        <td>@item.MaSuKien</td>
+        <td>@item.TenSuKien</td>
+        <td>@item.MoTa</td>
+        <td><img width="200" height="100" src="@Url.Content("~/Content/images/" + @item.HinhAnh)" /></td>
+        <td>@item.UuDai %</td>
+        <td>@item.NgayBatDau</td>
+        <td>@item.NgayKetThuc</td>
+        <td><span><a class="btn btn-danger" href="@Url.Action("SuaSuKien","SuKien",new { @maSuKien= item.MaSuKien})">Sửa sự kiện</a></span><span><br /><a class="btn btn-danger" href="@Url.Action("XoaSuKien","SuKien",new { @maSuKien= item.MaSuKien})">Xóa sự kiện</a></span></td>
+        @*<td><a class="btn btn-danger" href="@Url.Action("XoaSuKien","SuKien")">Xóa sự kiện</a></td>*@
+      </tr>
+    }
+  </tbody>
+</table>
+

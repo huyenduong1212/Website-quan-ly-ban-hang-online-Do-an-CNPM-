@@ -190,6 +190,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         @if ((Session["NGUOIDUNG"] != null))
         {
           NGUOIDUNG nguoidung = Session["NGUOIDUNG"] as NGUOIDUNG;
+          if (nguoidung.MaLoaiNguoiDung == 4)
+          {
+            <ul>
+              @*<li><a href="#"></a></li>*@
+              <li><a href="@Url.Action("Index", "SuKien")">Quản lý sự kiện, khuyến mãi</a></li>
+            </ul>
+          }
+        }
+        @if ((Session["NGUOIDUNG"] != null))
+        {
+          NGUOIDUNG nguoidung = Session["NGUOIDUNG"] as NGUOIDUNG;
           if (nguoidung.MaLoaiNguoiDung == 4 || nguoidung.MaLoaiNguoiDung == 5)
           {
             <ul>
