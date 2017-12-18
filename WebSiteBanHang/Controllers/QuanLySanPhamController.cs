@@ -136,7 +136,28 @@ namespace WebSiteBanHang.Controllers
             ViewBag.MaSuKien = new SelectList(db.SUKIENs.OrderBy(n => n.MaSuKien), "MaSuKien", "TenSuKien", model.MaSuKien);
             ViewBag.MaLoaiSP = new SelectList(db.LOAISANPHAMs.OrderBy(n => n.MaLoaiSP), "MaLoaiSP", "TenLoai", model.MaLoaiSP);
             //Nếu dữ liệu đầu vào chắn chắn ok 
-            db.Entry(model).State = EntityState.Modified;
+            db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+
+
+            //var entry = db.Entry(model);
+            //entry.State = EntityState.Modified;
+            //entry.Property(e => e.TenSP).IsModified = false;
+            //entry.Property(e => e.NgayCapNhat).IsModified = false;
+            //entry.Property(e => e.DonGia).IsModified = false;
+            //entry.Property(e => e.MoTa).IsModified = false;
+            //entry.Property(e => e.HinhAnh).IsModified = false;
+            //entry.Property(e => e.SoLuongTon).IsModified = false;
+            //entry.Property(e => e.LuotBinhChon).IsModified = false;
+            //entry.Property(e => e.LuotXem).IsModified = false;
+            //entry.Property(e => e.DaXoa).IsModified = false;
+
+            //entry.Property(e => e.MaLoaiSP).IsModified = false;
+
+            //entry.Property(e => e.NgayDang).IsModified = false;
+            //entry.Property(e => e.MaSuKien).IsModified = false;
+
+
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }

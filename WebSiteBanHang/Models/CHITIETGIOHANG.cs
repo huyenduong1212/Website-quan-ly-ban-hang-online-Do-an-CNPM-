@@ -17,7 +17,7 @@ namespace WebSiteBanHang.Models
         public int MaGioHang { get; set; }
         public int MaSP { get; set; }
         public Nullable<int> SoLuong { get; set; }
-    
+        public Decimal ThanhTienSP { get; set; }
         public virtual GIOHANG GIOHANG { get; set; }
         public virtual SANPHAM SANPHAM { get; set; }
     }

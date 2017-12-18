@@ -190,7 +190,7 @@ namespace WebSiteBanHang.Controllers
           }
           spCheck.SoLuong++;
           decimal donGiaSanPham = spCheck.SANPHAM.DonGia.Value;
-          spCheck.ThanhTienSP = spCheck.SoLuong * donGiaSanPham;
+          spCheck.ThanhTienSP = (decimal)spCheck.SoLuong * donGiaSanPham;
           ViewBag.TongSoLuong = TinhTongSoLuong();
           ViewBag.TongTien = TinhTongTien();
           TempData["result"] = "Thêm vào giỏ hàng thành công";
@@ -280,7 +280,7 @@ namespace WebSiteBanHang.Controllers
         }
         //Bước 3: Tiến hành cập nhật lại số lượng cũng thành tiền
         itemGHUpdate.SoLuong = soLuongMoi;
-        itemGHUpdate.ThanhTienSP = itemGHUpdate.SoLuong * sp.DonGia;
+        itemGHUpdate.ThanhTienSP = (decimal)(itemGHUpdate.SoLuong * sp.DonGia);
         db.Entry(itemGHUpdate).State = EntityState.Modified;
         db.SaveChanges();
         TempData["result"] = "Cập nhật thành công";

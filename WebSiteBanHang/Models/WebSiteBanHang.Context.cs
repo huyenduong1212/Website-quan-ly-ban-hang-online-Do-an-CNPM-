@@ -26,7 +26,8 @@ namespace WebSiteBanHang.Models
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
+       
         public virtual DbSet<BINHLUAN> BINHLUANs { get; set; }
         public virtual DbSet<CHITIETDONDATHANG> CHITIETDONDATHANGs { get; set; }
         public virtual DbSet<CHITIETGIOHANG> CHITIETGIOHANGs { get; set; }

@@ -170,6 +170,7 @@
     <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Controllers\PhanQuyenController.cs" />
     <Compile Include="Controllers\QuanLyDonHangController.cs" />
+    <Compile Include="Controllers\QuanLyGiaController.cs" />
     <Compile Include="Controllers\QuanLyPhieuNhapController.cs" />
     <Compile Include="Controllers\QuanLySanPhamController.cs" />
     <Compile Include="Controllers\QuanLyTaiKhoanController.cs" />
@@ -202,7 +203,6 @@
     <Compile Include="Models\GIOHANG.cs">
       <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ItemGioHang.cs" />
     <Compile Include="Models\LOAINGUOIDUNG.cs">
       <DependentUpon>WebSiteBanHang.tt</DependentUpon>
     </Compile>
@@ -247,6 +247,8 @@
       <DependentUpon>WebSiteBanHang.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ItemGioHang.cs" />
+    <Compile Include="ViewModels\KhachHang_GioHangViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AdminLayout\css\bootstrap.css" />
@@ -782,6 +784,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\CssFont\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\CssFont\fonts\fontawesome-webfont.ttf" />
@@ -842,7 +845,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <None Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -896,6 +901,8 @@
     <Content Include="Views\Home\DangKy.cshtml" />
     <Content Include="Views\KhachHang\SuaThongTin.cshtml" />
     <Content Include="Views\KhachHang\DoiMatKhau.cshtml" />
+    <Content Include="Views\ThongKe\Index.cshtml" />
+    <Content Include="Views\QuanLyGia\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
