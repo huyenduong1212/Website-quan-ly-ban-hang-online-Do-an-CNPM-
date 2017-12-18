@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace WebSiteBanHang.Controllers
 {
+  [Authorize(Roles ="31")]
   public class PhanQuyenController : Controller
   {
     QuanLyBanHangEntities db = new QuanLyBanHangEntities();

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebSiteBanHang.Models;
 using WebSiteBanHang.ViewModels;
 using System.Data.Entity;
 using System.Net;
+using WebSiteBanHang.Models;
 
 namespace WebSiteBanHang.Controllers
 {
@@ -190,7 +190,7 @@ namespace WebSiteBanHang.Controllers
           }
           spCheck.SoLuong++;
           decimal donGiaSanPham = spCheck.SANPHAM.DonGia.Value;
-          spCheck.ThanhTienSP = spCheck.SoLuong * donGiaSanPham;
+          spCheck.ThanhTienSP = (decimal)spCheck.SoLuong * donGiaSanPham;
           ViewBag.TongSoLuong = TinhTongSoLuong();
           ViewBag.TongTien = TinhTongTien();
           TempData["result"] = "Thêm vào giỏ hàng thành công";

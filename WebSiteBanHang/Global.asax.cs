@@ -18,18 +18,57 @@ namespace WebSiteBanHang
       FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
       RouteConfig.RegisterRoutes(RouteTable.Routes);
       BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+      Application["SoNguoiTruyCap"] = 0;
+      Application["SoNguoiDangOnline"] = 0;
     }
+    protected void Session_Start()
+    {
+      Application.Lock(); // Dùng để đồng bộ hóa 
+      Application["SoNguoiTruyCap"] = (int)Application["SoNguoiTruyCap"] + 1;
+      Application["SoNguoiDangOnline"] = (int)Application["SoNguoiDangOnline"] + 1;
+      //Application["Online"] = (int)Application["Online"] + 1;
+      Application.UnLock();
+    }
+    protected void Session_End()
+    {
+      Application.Lock(); // Dùng để đồng bộ hóa 
+      Application["SoNguoiDangOnline"] = (int)Application["SoNguoiDangOnline"] - 1;
+      Application.UnLock();
+
+    }
+    protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+    {
+      var TaiKhoanCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
+      if (TaiKhoanCookie != null)
+      {
+        var authTicket = FormsAuthentication.Decrypt(TaiKhoanCookie.Value);
+        var chucNang = authTicket.UserData.Split(new Char[] { ',' });
+        var userPrincipal = new GenericPrincipal(new GenericIdentity(authTicket.Name), chucNang);
+        Context.User = userPrincipal;
+      }
+    }
+    //protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+    //{
+    //  var TaiKhoanCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
+    //  if (TaiKhoanCookie != null)
+    //  {
+    //    var authTicket = FormsAuthentication.Decrypt(TaiKhoanCookie.Value);
+    //    var Quyen = authTicket.UserData.Split(new Char[] { ',' });
+    //    var userPrincipal = new GenericPrincipal(new GenericIdentity(authTicket.Name), Quyen);
+    //    Context.User = userPrincipal;
+    //  }
+    //}
     //protected void Application_AuthenticationRequest(Object sender, EventArgs e)
     //{
     //  var taiKhoan_cookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];//lấy dữ liệu (index của cookie) từ request được gửi lên từ client
     //  if (taiKhoan_cookie != null)
     //  {
-    //    var authticket = FormsAuthentication.Decrypt(taiKhoan_cookie.Value);
-    //    var chucNang = authticket.UserData.Split(new char[] { ',' });//cắt thành một mảng lưu vào chucNang dựa vào ký tự ','
-    //    var userPrincipal = new GenericPrincipal(new GenericIdentity(authticket.Name), chucNang);//Quyen là mảng chuỗi biểu diễn các roles đi với cái authTicket.Nam này
+    //    var authticket = FormsAuthentication.Decrypt(taiKhoan_cookie.Value);//giải mã 
+    //    var quyen = authticket.UserData.Split(new char[] { ',' });//cắt thành một mảng lưu vào chucNang dựa vào ký tự ','
+    //    var userPrincipal = new GenericPrincipal(new GenericIdentity(authticket.Name), quyen);//Quyen là mảng chuỗi biểu diễn các roles đi với cái authTicket.Name này
     //    Context.User = userPrincipal;//Thiết lập cái thông tin bảo mật cho HTTP request hiện tại
     //  }
-
     //}
   }
 }

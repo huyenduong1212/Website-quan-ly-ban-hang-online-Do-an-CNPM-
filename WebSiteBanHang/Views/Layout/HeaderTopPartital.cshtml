@@ -15,12 +15,12 @@
         {
           NGUOIDUNG tv = (NGUOIDUNG)Session["NGUOIDUNG"];
           <li>Chào @tv.Ten </li>
-                  @Html.ActionLink("Đăng xuất", "DangXuat", "Home")
+          @Html.ActionLink("Đăng xuất", "DangXuat", "Home")
         }
         else
         {
-          <li style=" display: inline;"><a id="btnDangNhap" class="lock" href="#">Đăng nhập</a></li>
-              <li style=" display: inline;"><a class="lock" href="@Url.Action("DangKy","Home")">Đăng ký</a></li>
+          <li style=" display: inline;"><a id="btnDangNhapDanhGia" class="lock" href="#">Đăng nhập</a></li>
+          <li style=" display: inline;"><a class="lock" href="@Url.Action("DangKy","Home")">Đăng ký</a></li>
         }
         <li>
 
@@ -28,7 +28,12 @@
 
       </ul>
       @*Chèn partial view giỏ hàng vào layout( Tách icon giỏ hàng sang 1 partial view mới)*@
-      @Html.Action("GioHangPartial", "GioHang")
+     
+      @if (Session["NGUOIDUNG"] == null || (Session["NGUOIDUNG"]!=null && (Session["NGUOIDUNG"] as NGUOIDUNG).MaLoaiNguoiDung==1))
+      {
+        Html.Action("GioHangPartial", "GioHang");
+      }
+      
       <div class="clearfix"> </div>
     </div>
     <div class="clearfix"> </div>
@@ -48,16 +53,15 @@
     <div class="form-info">
       @using (Ajax.BeginForm("DangNhap", "Home", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "ThongBao" }))
       {
-
         <input class="email TaiKhoan" name="txtTenDangNhap" placeholder="Tên đăng nhập" required="" type="text">
         <input class="password MatKhau" name="txtMatKhau" placeholder="Mật khẩu" required="" type="password">
         <p><a href="#">Quên mật khẩu?</a></p>
         <h3 style="font-weight:bold;color:red;text-align:left;" id="ThongBao"> </h3>
-                    <ul class="login-buttons">
-                      <li><input value="Đăng nhập" type="submit" id="btnDangNhap1"></li>
-                      <li><a href="#" class="hvr-sweep-to-left">Đăng ký</a></li>
+        <ul class="login-buttons">
+          <li><input value="Đăng nhập" type="submit" id="btnDangNhap1"></li>
+          <li><a href="#" class="hvr-sweep-to-left">Đăng ký</a></li>
 
-                    </ul>
+        </ul>
 
       }
 
@@ -95,7 +99,7 @@
 @*Sử dụng jquery hiển thị popup đăng nhập*@
 <script type="text/javascript">
   //Hiển thị popup_login
-  $("#btnDangNhap").click(function () {
+  $("#btnDangNhapDanhGia").click(function () {
     $("#popup_login").show();
   });
   //Ẩn đi popup_login

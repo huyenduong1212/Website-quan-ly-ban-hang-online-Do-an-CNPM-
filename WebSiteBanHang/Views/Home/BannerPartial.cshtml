@@ -1,0 +1,101 @@
+﻿@using WebSiteBanHang.Models;
+@model IEnumerable<SUKIEN>
+
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<div class="banner">
+  <div class="container">
+    <div class="w3-content w3-display-container">
+      @foreach (var sk in Model)
+      {
+        <a href="@Url.Action("SanPhamSuKien", "SuKien", new { @maSuKien =sk.MaSuKien})"><img class="mySlides" src='@Url.Content("~/Content/images/"+sk.HinhAnh)' style="width:100%"></a>
+      }
+      
+      @*<img class="mySlides" src="https://vcdn.tikicdn.com/ts/banner/89/47/4d/7785bbfdfd947d9bf1a5310a85868313.jpg" style="width:100%">
+      <img class="mySlides" src="https://vcdn.tikicdn.com/ts/banner/7c/2d/bd/60701c816f130312166ba41ec7a538b9.jpg" style="width:100%">
+      <img class="mySlides" src="https://vcdn.tikicdn.com/ts/banner/80/6d/c5/950a75bb5d72bddc74c2b37a7af0fcfd.jpg" style="width:100%">*@
+
+      <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+      <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+    </div>
+
+    <script>
+      //var myIndex = 0;
+      //carousel();
+
+      //function carousel() {
+      //  var i;
+      //  var x = document.getElementsByClassName("mySlides");
+      //  for (i = 0; i < x.length; i++) {
+      //    x[i].style.display = "none";
+      //  }
+      //  myIndex++;
+      //  if (myIndex > x.length) { myIndex = 1 }
+      //  x[myIndex - 1].style.display = "block";
+      //  setTimeout(carousel, 2000); // Change image every 2 seconds
+      //}
+      var slideIndex = 1;
+      showDivs(slideIndex);
+
+      function plusDivs(n) {
+        showDivs(slideIndex += n);
+      }
+
+      function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        if (n > x.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = x.length }
+        for (i = 0; i < x.length; i++) {
+          x[i].style.display = "none";
+        }
+        x[slideIndex - 1].style.display = "block";
+      }
+    </script>
+
+
+  </div>
+</div>
+
+@*<div class="banner" style="background: url('@Url.Content("~/Content/images/"+Model.First().HinhAnh)') no-repeat;">
+    <div class="container">
+      <script src="~/Content/js/responsiveslides.min.js"></script>
+      <script>
+        $(function () {
+          $("#slider").responsiveSlides({
+            auto: true,
+            nav: true,
+            speed: 500,
+            namespace: "callbacks",
+            pager: true,
+          });
+        });
+      </script>
+      <div id="top" class="callbacks_container">
+        <ul class="rslides callbacks callbacks1" id="slider">
+          <li id="callbacks1_s0" class="callbacks1_on" style="display: block; float: left; position: relative; opacity: 1; z-index: 2; transition: opacity 500ms ease-in-out;">
+            <div class="banner-text">
+              @*<h3>Lorem Ipsum is not simply dummy  </h3>
+                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor .</p>
+                <a href="single.html">Learn More</a>
+            </div>
+          </li>
+          <li id="callbacks1_s1" class="" style="float: none; position: absolute; opacity: 0; z-index: 1; display: list-item; transition: opacity 500ms ease-in-out;">
+            <div class="banner-text">
+              @*<h3>Lorem Ipsum is not simply dummy  </h3>
+                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor .</p>
+                <a href="single.html">Learn More</a>
+            </div>
+          </li>
+          <li id="callbacks1_s2" style="float: none; position: absolute; opacity: 0; z-index: 1; display: list-item; transition: opacity 500ms ease-in-out;" class="">
+            <div class="banner-text">
+              @*<h3>Lorem Ipsum is not simply dummy  </h3>
+                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor .</p>
+                <a href="single.html">Learn More</a>
+            </div>
+          </li>
+        </ul><a href="#" class="callbacks_nav callbacks1_nav prev">Previous</a><a href="#" class="callbacks_nav callbacks1_nav next">Next</a><ul class="callbacks_tabs callbacks1_tabs"><li class="callbacks1_s1 callbacks_here"><a href="#" class="callbacks1_s1">1</a></li><li class="callbacks1_s2"><a href="#" class="callbacks1_s2">2</a></li><li class="callbacks1_s3"><a href="#" class="callbacks1_s3">3</a></li></ul>
+      </div>
+    </div>
+  </div>*@
