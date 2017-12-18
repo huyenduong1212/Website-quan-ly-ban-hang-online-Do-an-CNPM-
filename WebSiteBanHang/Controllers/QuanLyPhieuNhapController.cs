@@ -26,21 +26,32 @@ namespace WebSiteBanHang.Controllers
             //Sau khi các bạn đã kiểm tra tất cả dữ liệu đầu vào
             //Gán đã xóa: False
             //model.DaXoa = false;
-            db.PHIEUNHAPs.Add(model);
-            db.SaveChanges();
-            //SaveChanges để lấy được mã phiếu nhập gán cho lstCHITIETPHIEUNHAP
-            SANPHAM sp;
-            foreach (var item in lstModel)
+            if (Session["NGUOIDUNG"] != null)
             {
-                //Cập nhật số lượng tồn
-                sp = db.SANPHAMs.Single(n => n.MaSP == item.MaSP);
-                sp.SoLuongTon += item.SoLuong;
-                //Gán mã phiếu nhập cho tất cả chi tiết phiếu nhập
-                item.MaPN = model.MaPN;
+                NGUOIDUNG tv = (NGUOIDUNG)Session["NGUOIDUNG"];
+                int id = tv.MaNguoiDung;
+                model.MaNV = id;
+                model.ThoiDiemNhap = DateTime.Now;
+                db.PHIEUNHAPs.Add(model);
+                db.SaveChanges();
+                //SaveChanges để lấy được mã phiếu nhập gán cho lstCHITIETPHIEUNHAP
+                SANPHAM sp;
+                foreach (var item in lstModel)
+                {
+                    //Cập nhật số lượng tồn
+                    sp = db.SANPHAMs.Single(n => n.MaSP == item.MaSP);
+                    sp.SoLuongTon += item.SoLuong;
+                    //Gán mã phiếu nhập cho tất cả chi tiết phiếu nhập
+                    item.MaPN = model.MaPN;
+                }
+                db.CHITIETPHIEUNHAPs.AddRange(lstModel);
+                db.SaveChanges();
+                return View();
             }
-            //db.CHITIETPHIEUNHAPs.AddRange(lstModel);
-            db.SaveChanges();
-            return View();
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpGet]
         public ActionResult DSSPHetHang()
@@ -77,18 +88,28 @@ namespace WebSiteBanHang.Controllers
             ViewBag.MaNCC = new SelectList(db.NHACUNGCAPs.OrderBy(n => n.TenNCC), "MaNCC", "TenNCC",model.MaNCC);
             //Sau khi các bạn đã kiểm tra tất cả dữ liệu đầu vào
             //Gán đã xóa: False
-            model.ThoiDiemNhap = DateTime.Now;
-            //model.DaXoa = false;
-            db.PHIEUNHAPs.Add(model);
-            db.SaveChanges();
-            //SaveChanges để lấy được mã phiếu nhập gán cho lstCHITIETPHIEUNHAP
-            ctpn.MaPN = model.MaPN;
-            //Cập nhật tồn 
-            SANPHAM sp = db.SANPHAMs.Single(n => n.MaSP == ctpn.MaSP);
-            sp.SoLuongTon += ctpn.SoLuong;
-            db.CHITIETPHIEUNHAPs.Add(ctpn);
-            db.SaveChanges();
-            return View(sp);
+            if (Session["NGUOIDUNG"] != null)
+            {
+                NGUOIDUNG tv = (NGUOIDUNG)Session["NGUOIDUNG"];
+                int id = tv.MaNguoiDung;
+                model.MaNV = id;
+                model.ThoiDiemNhap = DateTime.Now;
+                //model.DaXoa = false;
+                db.PHIEUNHAPs.Add(model);
+                db.SaveChanges();
+                //SaveChanges để lấy được mã phiếu nhập gán cho lstCHITIETPHIEUNHAP
+                ctpn.MaPN = model.MaPN;
+                //Cập nhật tồn 
+                SANPHAM sp = db.SANPHAMs.Single(n => n.MaSP == ctpn.MaSP);
+                sp.SoLuongTon += ctpn.SoLuong;
+                db.CHITIETPHIEUNHAPs.Add(ctpn);
+                db.SaveChanges();
+                return RedirectToAction("DSSPHetHang", "QuanLyPhieuNhap");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
         }
         //Giải phóng biến cho vùng nhớ

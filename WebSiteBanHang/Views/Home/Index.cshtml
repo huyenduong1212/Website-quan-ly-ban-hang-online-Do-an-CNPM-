@@ -9,7 +9,7 @@
     IEnumerable<SANPHAM> lstLTM = ViewBag.ListLTM as IEnumerable<SANPHAM>;
     IEnumerable<SANPHAM> lstMTBM = ViewBag.ListMTBM as IEnumerable<SANPHAM>;
 }
-@Html.RouteLink("click vào đây để vào trang khách hàng", "khachhang")
+@*@Html.RouteLink("click vào đây để vào trang khách hàng", "khachhang")*@
 @*Bước 1: Chúng ta sẽ tách code và lồng PartialView*@
 @*Bước 2: Gán dữ liệu từ Controller thông qua ViewBag vào partialview*@
 @*Điện thoại*@
@@ -17,14 +17,14 @@
     <h1>Điện thoại mới nhất </h1>
     <div class="grid-in">
         <div class="container">
-            @*@Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", lstDTM)*@
+            @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", lstDTM)
         </div>
    </div>                     
 
     <h1>Máy vi tính xách tay mới nhất </h1>
     <div class="grid-in">
         <div class="container">
-            @*@Html.Partial("~/Views/SanPham/SanPhamStyle2Partial.cshtml", lstLTM)*@
+           @Html.Partial("~/Views/SanPham/SanPhamStyle2Partial.cshtml", lstLTM)
         </div>
     </div>  
 
@@ -32,7 +32,7 @@
     <div class="grid-in">
         @*Máy tính bảng*@
         <div class="container">
-              
+              @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", lstMTBM)
         </div>
    </div>
 </div>

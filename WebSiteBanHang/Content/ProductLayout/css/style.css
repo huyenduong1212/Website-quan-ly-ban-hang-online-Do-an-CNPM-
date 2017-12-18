@@ -1085,7 +1085,7 @@ p.tun{
 	
 }
  ul.star-footer li i{
-	height: 16px;
+	height: 18px;
 	width: 16px;
 	background: url("../images/img-sprite.png") no-repeat -261px -106px  ;
 	display: inline-block;
@@ -1187,7 +1187,7 @@ h3.real{
 }
 .star-on a{
 	text-decoration:none;
-	font-size:1em;
+	font-size:2em;
 	color:#000;
 }
 .star-on a:hover{

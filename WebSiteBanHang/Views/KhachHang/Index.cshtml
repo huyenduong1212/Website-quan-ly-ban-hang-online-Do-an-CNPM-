@@ -5,9 +5,10 @@
 }
 
 <h2>Thông Tin Cá Nhân</h2>
-<a href="@Url.Action("SuaThongTin","KhachHang")"><button type="button" class="btn btn-warning btn-xs" >Sửa Thông Tin</button></a>
+<a href="@Url.Action("SuaThongTin","KhachHang")"><button type="button" class="btn btn-warning btn-xs">Sửa Thông Tin</button></a>
 <a href="@Url.Action("DoiMatKhau","KhachHang")"><button type="button" class="btn btn-warning btn-xs">Đổi Mật Khẩu</button></a>
-@if (Session["NGUOIDUNG"] != null && Session["TaiKhoan"] != "")
+<br />
+@if (Session["NGUOIDUNG"] != null)
 {
     NGUOIDUNG tv = (NGUOIDUNG)Session["NGUOIDUNG"];
 
@@ -15,35 +16,35 @@
         <div class="row">
             <div class="col-md-9">
                 <table class="table">
-                    
+
                     <tbody>
-                            <tr class="active">
-                                <td>Họ và Tên</td>
-                                <td> @tv.Ho @tv.TenLot @tv.Ten</td>
-                            </tr>
-                            <tr class="active">
-                                <td>Số Điện Thoại</td>
-                                <td>@tv.SoDienThoai</td>
-                            </tr>
-                            <tr class="active">
-                                <td>Địa Chỉ</td>
-                                <td>@tv.DiaChi</td>
-                            </tr>
-                            <tr class="active">
-                                <td>Email</td>
-                                <td>@tv.Email</td>
-                            </tr>
-                            <tr class="active">
-                                <td>Giới Tính</td>
-                                @if(@tv.GioiTinh == true)
-                                {
-                                    <td>Nam</td>
-                                }
-                                else
-                                {
-                                    <td>Nữ</td>
-                                }
-                            </tr>
+                        <tr class="active">
+                            <td>Họ và Tên</td>
+                            <td> @tv.Ho @tv.TenLot @tv.Ten</td>
+                        </tr>
+                        <tr class="active">
+                            <td>Số Điện Thoại</td>
+                            <td>@tv.SoDienThoai</td>
+                        </tr>
+                        <tr class="active">
+                            <td>Địa Chỉ</td>
+                            <td>@tv.DiaChi</td>
+                        </tr>
+                        <tr class="active">
+                            <td>Email</td>
+                            <td>@tv.Email</td>
+                        </tr>
+                        <tr class="active">
+                            <td>Giới Tính</td>
+                            @if (@tv.GioiTinh == true)
+                            {
+                                <td>Nam</td>
+                            }
+                            else
+                            {
+                                <td>Nữ</td>
+                            }
+                        </tr>
 
                     </tbody>
                 </table>

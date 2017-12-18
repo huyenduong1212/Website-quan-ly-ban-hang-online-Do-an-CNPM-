@@ -15,6 +15,7 @@ namespace WebSiteBanHang.Controllers
     //
     // GET: /Home/
     QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+
     public ActionResult Index()
     {
       //Lần lượt tạo các viewbag để lấy list sản phẩm từ cơ sở dữ liệu
@@ -25,6 +26,7 @@ namespace WebSiteBanHang.Controllers
 
       //List LapTop mới nhất
       var lstLT = db.SANPHAMs.Where(n => n.MaLoaiSP == 3 /*&& n.Moi == 1 */&& n.DaXoa == false);
+      IEnumerable<SANPHAM> lstSPLT = db.SANPHAMs.Where(n => n.MaLoaiSP == 3 && n.DaXoa == false);
       //Gán vào ViewBag
       ViewBag.ListLTM = lstLT;
 
@@ -35,7 +37,47 @@ namespace WebSiteBanHang.Controllers
 
       return View();
     }
-
+    public ActionResult BannerPartial()
+    {
+      //IEnumerable<SUKIEN> lstSuKien = db.SUKIENs.Where(n => n.NgayBatDau.Value.Date > DateTime.Now.Date);
+      //IEnumerable<SUKIEN> lstSuKien = db.SUKIENs.Where(n => n.NgayBatDau.Value.Date > DateTime.Now.Date);
+      IEnumerable<SUKIEN> lstSuKien = db.SUKIENs;
+      List<SUKIEN> lstSuKienCurrent = new List<SUKIEN>();
+      int day = DateTime.Now.Day;
+      int month = DateTime.Now.Month;
+      int year = DateTime.Now.Year;
+      foreach (SUKIEN sk1 in lstSuKien)
+      {
+        if (DateTime.Compare(sk1.NgayBatDau.Value, DateTime.Now) < 0 && DateTime.Compare(sk1.NgayKetThuc.Value, DateTime.Now) > 0)
+        {
+          lstSuKienCurrent.Add(sk1);
+        }
+      }
+      //foreach (SUKIEN sk1 in lstSuKien)
+      //{
+      //  if (sk1.NgayBatDau.Value.Year < year && sk1.NgayKetThuc.Value.Year > year)
+      //  {
+      //    if (sk1.NgayBatDau.Value.Month < month && sk1.NgayKetThuc.Value.Month > month)
+      //    {
+      //      lstSuKienCurrent.Add(sk1);
+      //    }
+      //    else if (sk1.NgayBatDau.Value.Month == month)
+      //    {
+      //      if (sk1.NgayBatDau.Value.Day < day && sk1.NgayKetThuc.Value.Day > day)
+      //      {
+      //        lstSuKienCurrent.Add(sk1);
+      //      }
+      //    }
+      //    else if (sk1.NgayKetThuc.Value.Month == month)
+      //    {
+      //      if (sk1.NgayBatDau.Value.Day < day && sk1.NgayKetThuc.Value.Day > day)
+      //      {
+      //        lstSuKienCurrent.Add(sk1);
+      //      }
+      //    }
+      //  }
+      return PartialView(lstSuKienCurrent);
+    }
     public ActionResult MenuPartial()
     {
       //Truy vấn lấy về 1 list các sản phẩm
@@ -49,12 +91,24 @@ namespace WebSiteBanHang.Controllers
       return View();
     }
     [HttpPost]
-    public ActionResult DangKy(NGUOIDUNG nd)
+    public ActionResult DangKy(NGUOIDUNG nd, FormCollection f)
     {
-      nd.MaLoaiNguoiDung = 1;
-      db.NGUOIDUNGs.Add(nd);
-      db.SaveChanges();
-      return RedirectToAction("Index");
+      string TaiKhoan = f["TaiKhoan"].ToString();
+      NGUOIDUNG nguoidung = db.NGUOIDUNGs.SingleOrDefault(n => n.TaiKhoan == TaiKhoan);
+      if (nguoidung != null)
+      {
+        return Content("Tài Khoản Đã Tồn Tại");
+      }
+      else
+      {
+        nd.MaLoaiNguoiDung = 1;
+        nd.TrangThai = true;
+        db.NGUOIDUNGs.Add(nd);
+        db.SaveChanges();
+        NGUOIDUNG nguoidungs = db.NGUOIDUNGs.SingleOrDefault(n => n.TaiKhoan == nd.TaiKhoan && n.MatKhau == nd.MatKhau);
+        Session["NGUOIDUNG"] = nguoidungs;
+        return JavaScript("window.location = '" + Url.Action("Index", "Home") + "'");
+      }
     }
 
     [HttpPost, CaptchaMvc.Attributes.CaptchaVerify("Captcha is not valid")]
@@ -110,20 +164,47 @@ namespace WebSiteBanHang.Controllers
       //Kiểm tra tên đăng nhập và mật khẩu
       string sTaiKhoan = f["txtTenDangNhap"].ToString();
       string sMatKhau = f["txtMatKhau"].ToString();
-      NGUOIDUNG tv = db.NGUOIDUNGs.FirstOrDefault(n => n.TaiKhoan == sTaiKhoan && n.MatKhau == sMatKhau);
+      NGUOIDUNG tv = db.NGUOIDUNGs.SingleOrDefault(n => n.TaiKhoan == sTaiKhoan && n.MatKhau == sMatKhau);
       if (tv != null)
       {
-        var lstQuyen = db.QUYENHANLOAINGUOIDUNGs.Where(n => n.MaLoaiNguoiDung == tv.MaLoaiNguoiDung);
-        string quyen = "";
-        if (lstQuyen.Count() != 0)
+        if (tv.TrangThai == false)
         {
-          foreach (var item in lstQuyen)
+          return Content("Tài khoản đã bị khóa!");
+        }
+        else
+        {
+          var lstQuyen = db.QUYENHANLOAINGUOIDUNGs.Where(n => n.MaLoaiNguoiDung == tv.MaLoaiNguoiDung);
+          string Quyen = "";
+          if (lstQuyen.Count() != 0)
           {
-            quyen += item.MaChucNang + ",";
+            foreach (var item in lstQuyen)
+            {
+              Quyen += item.MaChucNang + ",";
+            }
+            Quyen = Quyen.Substring(0, Quyen.Length - 1);
+            PhanQuyen(tv.MaNguoiDung.ToString(), Quyen);
+            Session["NGUOIDUNG"] = tv;
+            if (tv.MaLoaiNguoiDung == 1)
+            {
+              return Content("<script>window.location.reload();</script>");
+            }
+            if (tv.MaLoaiNguoiDung == 3)
+            {
+              return JavaScript("window.location = '" + Url.Action("Index", "QuanLyTaiKhoan") + "'");
+            }
+            if (tv.MaLoaiNguoiDung == 4)
+            {
+              return JavaScript("window.location = '" + Url.Action("Index", "QuanLyTaiKhoan") + "'");
+            }
+            if (tv.MaLoaiNguoiDung == 5)
+            {
+              return JavaScript("window.location = '" + Url.Action("Index", "QuanLySanPham") + "'");
+            }
+            if (tv.MaLoaiNguoiDung == 4)
+            {
+              return JavaScript("window.location = '" + Url.Action("Index", "QuanLyKhachHang") + "'");
+            }
           }
-          PhanQuyen(tv.MaNguoiDung.ToString(), quyen);
-          Session["NGUOIDUNG"] = tv;
-          return Content("<script>window.location.reload();</script>");
         }
       }
       return Content("Tài khoản hoặc mật khẩu không đúng!");
@@ -132,10 +213,10 @@ namespace WebSiteBanHang.Controllers
     {
       return View();
     }
-    public void PhanQuyen(string tv, string quyen)
+    public void PhanQuyen(string tv, string Quyen)
     {
       FormsAuthentication.Initialize();
-      var ticket = new FormsAuthenticationTicket(1, tv, DateTime.Now, DateTime.Now.AddHours(3), true, quyen);
+      var ticket = new FormsAuthenticationTicket(1, tv, DateTime.Now, DateTime.Now.AddHours(3), true, Quyen);
       var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));//value (đã được mã hóa)
       if (ticket.IsPersistent)//true nếu cookie đã được cấp 
       {
@@ -146,7 +227,6 @@ namespace WebSiteBanHang.Controllers
     public ActionResult DangXuat()
     {
       Session["NGUOIDUNG"] = null;
-      Session["GioHang"] = null;
       return RedirectToAction("Index");
     }
   }

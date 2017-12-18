@@ -1,10 +1,14 @@
 ﻿@using WebSiteBanHang.Models
 @model SANPHAM
 
+
+
 @{
   ViewBag.Title = "XemChiTiet";
   Layout = "~/Views/Layout/ProductLayout.cshtml";
 }
+
+
 
 <div class="col-md-9 product-price1">
   <div class="col-md-5 single-top">
@@ -21,13 +25,20 @@
           </li>
           <li data-thumb="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh3)">
               <img src="@Url.Content("~/Content/HinhAnhSP/"+Model.HinhAnh3)" />*@
-        </li>
+        @*</li>*@
       </ul>
     </div>
     <!-- FlexSlider -->
     <script defer src="~/Content/ProductLayout/js/jquery.flexslider.js"></script>
     <link rel="stylesheet" href="~/Content/ProductLayout/css/flexslider.css" type="text/css" media="screen" />
+    @*<script src="~/Content/js/jquery.min.js"></script>*@
+    <script src="~/Content/ProductLayout/js/review.js"></script>
+    <link href="~/Content/CssFont/css/font-awesome.min.css" rel="stylesheet" />
+    @*<link href="~/Content/ProductLayout/css/bootstrap-rating.css" rel="stylesheet" />*@
 
+    <script src="~/Content/ProductLayout/js/bootstrap-rating.min.js"></script>
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+      <link href="~/Content/ProductLayout/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />*@
     <script>
       // Can also be used with $(document).ready()
       $(window).load(function () {
@@ -43,32 +54,95 @@
       <h4>@Model.TenSP</h4>
       <div class="star-on">
         <ul class="star-footer">
+          <input type="hidden" value="@ViewBag.DiemTrungBinh" class="rating" data-filled="fa fa-star fa-3x" data-empty="fa fa-star-o fa-3x" disabled />
+          @*<li><a href="#"><i> </i></a></li>
           <li><a href="#"><i> </i></a></li>
           <li><a href="#"><i> </i></a></li>
           <li><a href="#"><i> </i></a></li>
-          <li><a href="#"><i> </i></a></li>
-          <li><a href="#"><i> </i></a></li>
+          <li><a href="#"><i> </i></a></li>*@
         </ul>
-        <div class="review">
+        @*<div class="review">
           <a href="#"> Lượt xem: @Model.LuotXem</a>
-          <a href="#">Xem @Model.LuotBinhChon lượt đánh giá</a>
-
-        </div>
+        </div>*@
         <div class="clearfix"> </div>
       </div>
 
       <h5 class="item_price">@Model.DonGia.Value.ToString("#,##") VNĐ</h5>
-      @*<p>
-            @Html.Raw(Model.CauHinh)
-        </p>*@
-      <a href="#" class="add-cart item_add">Giỏ hàng</a>
+      <p>
+        @*@Html.Raw(Model.CauHinh)*@
+      </p>
+      @Ajax.ActionLink("Thêm vào giỏ hàng", "ThemGioHangAjax", "GioHang", new { @MaSP = Model.MaSP}, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-primary center-block" })
     </div>
-
   </div>
   <div class="clearfix"> </div>
-  <h3>Thông tin sản phẩm</h3>
-  <hr />
   @Html.Raw(Model.MoTa)
+  <div class="cd-tabs">
+    <nav>
+      <ul class="cd-tabs-navigation">
+        <li><a data-content="fashion" href="#0">Thông tin sản phẩm</a></li>
+        <li><a data-content="television" href="#0" class="selected ">Nhận xét từ khách hàng (@ViewBag.thongTinNguoiDung.Count)</a></li>
+      </ul>
+    </nav>
+    <ul class="cd-tabs-content">
+      <li data-content="fashion">
+        @Html.Raw(Model.MoTa)
+      </li>
+      <li data-content="television" class="selected">
+        <div class="comments-top-top">
+          @*<div class="top-comment-left">
+              <img class="img-responsive" src="images/co.png" alt="">
+            </div>*@
+          @foreach (var itemDanhGia in ViewBag.thongTinNguoiDung)
+          {
+            <div class="top-comment-right">
+              <h6><a href="#">@itemDanhGia.HoTen</a></h6><br />
+              <div>@itemDanhGia.ThoiDiem</div>
+              <ul class="star-footer">
+                <input type="hidden" value="@itemDanhGia.DiemDanhGia" class="rating" data-filled="fa fa-star fa-3x" data-empty="fa fa-star-o fa-3x" disabled />
+                @*<li><a href="#"><i> </i></a></li>
+                  <li><a href="#"><i> </i></a></li>
+                  <li><a href="#"><i> </i></a></li>
+                  <li><a href="#"><i> </i></a></li>
+                  <li><a href="#"><i> </i></a></li>*@
+              </ul>
+              <p>@itemDanhGia.NoiDungBL</p>
+            </div>
+          }
+
+          <div class="clearfix"> </div>
+          @if (Session["NGUOIDUNG"] == null)
+          {
+            <a id="btnDangNhap" class="add-re" href="#">Đăng nhập để đánh giá</a>
+          }
+          else
+          {
+            <a class="add-re" href="#reviews-anchor" id="open-review-box">Thêm nhận xét</a>
+            <div class="row" id="post-review-box" style="display:none;">
+              <div class="col-md-12">
+                @*<form accept-charset="UTF-8" action="" method="post">*@
+                @using (Ajax.BeginForm("GuiDanhGia", "SanPham", new { @maSP = Model.MaSP,@url=Request.Url.ToString() }, new AjaxOptions { }))
+                {
+                  @*<input id="ratings-hidden" name="rating" type="hidden">*@
+                  @*<input name="rating" type="hidden"/>*@
+                  <label>Đánh giá của bạn về sản phẩm này</label>
+                          <input type="hidden" class="rating" data-filled="fa fa-star fa-3x" data-empty="fa fa-star-o fa-3x" name="rating" />
+                          <textarea class="form-control animated" cols="50" id="new-review" name="comment"
+                                    placeholder="Viết nhận xét của bạn" rows="5"></textarea>
+                                    <div class="text-right">
+                                      <button class="btn btn-danger" type="button" id="close-review-box">Hủy</button>
+                                      <button class="btn btn-success" type="submit">Lưu</button>
+                                    </div>
+                }
+                @*</form>*@
+              </div>
+            </div>
+          }
+        </div>
+      </li>
+    </ul>
+  </div>
+  <hr />
+
   <!---->
 
 
@@ -76,8 +150,84 @@
 <div class="col-md-3">
 
 </div>
+<div id="popup_login" style="display:none;">
+  <div class="login-form" id="login-form">
+    <div style="clear:both;text-align:right;margin-bottom:0;">
+      <span id="close-form" class="btn btn-danger">X</span>
+    </div>
+    <h2>Đăng nhập</h2>
+    <div class="form-info">
+      @using (Ajax.BeginForm("DangNhap", "Home", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "ThongBao" }))
+      {
+        <input class="email TaiKhoan" name="txtTenDangNhap" placeholder="Tên đăng nhập" required="" type="text">
+        <input class="password MatKhau" name="txtMatKhau" placeholder="Mật khẩu" required="" type="password">
+        <p><a href="#">Quên mật khẩu?</a></p>
+        <h3 style="font-weight:bold;color:red;text-align:left;" id="ThongBao"> </h3>
+          <ul class="login-buttons">
+            <li><input value="Đăng nhập" type="submit" id="btnDangNhap1"></li>
+            <li><a href="#" class="hvr-sweep-to-left">Đăng ký</a></li>
+          </ul>
+      }
+    </div>
+  </div>
+</div>
 
 
 
 
+<style>
+  #close-form {
+    color: white;
+  }
 
+
+  #login-form {
+    background: #3a3a46;
+    cursor: pointer;
+  }
+  /*css cho phần div popup_login*/
+  #popup_login {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    z-index: 9999;
+    display: none;
+  }
+
+  ul {
+    text-align: left;
+  }
+</style>
+
+<script type="text/javascript">
+  //Hiển thị popup_login
+  $("#btnDangNhap").click(function () {
+    debugger
+    $("#popup_login").show();
+  });
+  //Ẩn đi popup_login
+  $("#close-form").click(AnForm);
+
+  //Định nghĩa function ẩn form
+  function AnForm() {
+    $("#popup_login").hide();
+  }
+  //Ví dụ về lấy giá trị từ textbox
+  $("#btnDangNhap1").click(function () {
+    var TaiKhoan = $(".TaiKhoan").val();
+    var MatKhau = $(".MatKhau").val();
+    //alert("Tài khoản:" + TaiKhoan + "\n Mật khẩu:" + MatKhau);
+    if (TaiKhoan == "") {
+      alert("Lỗi");
+      return;
+    }
+    });
+      var value = '@TempData["result"]';
+      if (value != '')
+      {
+        toastr.info(value);
+      }
+</script>

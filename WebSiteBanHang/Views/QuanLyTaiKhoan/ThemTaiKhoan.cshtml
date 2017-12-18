@@ -7,44 +7,50 @@
 
 <h2>Thêm Tài Khoản</h2>
 
-@using (Html.BeginForm("ThemTaiKhoan","QuanLyTaiKhoan",FormMethod.Post)) 
+@using (Ajax.BeginForm("ThemTaiKhoan", "QuanLyTaiKhoan",
+                new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "tk", InsertionMode = InsertionMode.Replace, OnBegin = "return IsCheck()" }))
 {
     @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        
-
         <div class="form-group">
-            @Html.LabelFor(model => model.TaiKhoan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <label class="control-label col-md-2" style="text-align:left">Tài Khoản</label>
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.TaiKhoan, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TaiKhoan, "", new { @class = "text-danger" })
             </div>
+            <span class="col-md-4" id="tk"></span>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+            <label class="control-label col-md-2" style="text-align:left">Mật Khẩu</label>
+            <div class="col-md-6">
+                <input type="password" class="form-control" id="MatKhau" name="MatKhau" />
             </div>
+            <span class="col-md-4" id="mk"></span>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MaLoaiNguoiDung, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" style="text-align:left">Mã Loại Người Dùng</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MaLoaiNguoiDung, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.MaLoaiNguoiDung, null, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MaLoaiNguoiDung, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @{
+            var selectList = new SelectList(
+                new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "Hoạt Động", Value = "True"},
+                    new SelectListItem {Text = "Ngưng Hoạt Động", Value = "False"},
+                }, "Value", "Text");
+        }
         <div class="form-group">
-            @Html.LabelFor(model => model.TrangThai, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" style="text-align:left">Trạng Thái</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TrangThai, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.TrangThai, selectList, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -55,8 +61,32 @@
             </div>
         </div>
     </div>
-}
+            }
 
 <div>
     @Html.ActionLink("Trở Về", "Index")
 </div>
+<script>
+    function IsCheck() {
+        var rs = true;
+        var x = document.getElementById("TaiKhoan").value;
+        if (x == "") {
+            document.getElementById("tk").innerHTML = "Không được để trống";
+            rs = false;
+        }
+        else {
+            document.getElementById("tk").innerHTML = "";
+        }
+
+        var x = document.getElementById("MatKhau").value;
+        if (x == "") {
+            document.getElementById("mk").innerHTML = "Không được để trống";
+            rs = false;
+        }
+        else {
+            document.getElementById("mk").innerHTML = "";
+        }
+        return rs;
+    }
+
+</script>

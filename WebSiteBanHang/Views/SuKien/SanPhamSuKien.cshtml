@@ -17,6 +17,7 @@
             <img class="img-responsive" src="@Url.Content("~/Content/HinhAnhSP/"+item.HinhAnh)" alt="" style="width:150px;height:150px;">
             <div class="pro-grid">
               <span class="buy-in">@item.DonGia.Value.ToString("#,##") VNĐ</span>
+              <span class="buy-in">@item.SUKIEN.UuDai %</span>
             </div>
           </a>
         </div>
@@ -34,5 +35,5 @@
 </div>
 <div class="dlink">
   Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
-  @Html.PagedListPager(Model, page => Url.Action("SanPham", new { page = page, @MaLoaiSP = ViewBag.MaLoaiSP }))
+  @Html.PagedListPager(Model, page => Url.Action("SanPham", new { page = page, @MaLoaiSP = ViewBag.MaSuKien }))
 </div>
