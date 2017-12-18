@@ -28,7 +28,12 @@
 
       </ul>
       @*Chèn partial view giỏ hàng vào layout( Tách icon giỏ hàng sang 1 partial view mới)*@
-      @Html.Action("GioHangPartial", "GioHang")
+     
+      @if (Session["NGUOIDUNG"] == null || (Session["NGUOIDUNG"]!=null && (Session["NGUOIDUNG"] as NGUOIDUNG).MaLoaiNguoiDung==1))
+      {
+        Html.Action("GioHangPartial", "GioHang");
+      }
+      
       <div class="clearfix"> </div>
     </div>
     <div class="clearfix"> </div>

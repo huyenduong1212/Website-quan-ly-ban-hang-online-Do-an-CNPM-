@@ -48,48 +48,48 @@ namespace WebSiteBanHang.Controllers
       int year = DateTime.Now.Year;
       foreach (SUKIEN sk1 in lstSuKien)
       {
-        if(DateTime.Compare(sk1.NgayBatDau.Value,DateTime.Now)<0 && DateTime.Compare(sk1.NgayKetThuc.Value, DateTime.Now)<0)
+        if (DateTime.Compare(sk1.NgayBatDau.Value, DateTime.Now) < 0 && DateTime.Compare(sk1.NgayKetThuc.Value, DateTime.Now) > 0)
         {
           lstSuKienCurrent.Add(sk1);
         }
       }
-        //foreach (SUKIEN sk1 in lstSuKien)
-        //{
-        //  if (sk1.NgayBatDau.Value.Year < year && sk1.NgayKetThuc.Value.Year > year)
-        //  {
-        //    if (sk1.NgayBatDau.Value.Month < month && sk1.NgayKetThuc.Value.Month > month)
-        //    {
-        //      lstSuKienCurrent.Add(sk1);
-        //    }
-        //    else if (sk1.NgayBatDau.Value.Month == month)
-        //    {
-        //      if (sk1.NgayBatDau.Value.Day < day && sk1.NgayKetThuc.Value.Day > day)
-        //      {
-        //        lstSuKienCurrent.Add(sk1);
-        //      }
-        //    }
-        //    else if (sk1.NgayKetThuc.Value.Month == month)
-        //    {
-        //      if (sk1.NgayBatDau.Value.Day < day && sk1.NgayKetThuc.Value.Day > day)
-        //      {
-        //        lstSuKienCurrent.Add(sk1);
-        //      }
-        //    }
-        //  }
-        return PartialView(lstSuKienCurrent);
-      }
-      public ActionResult MenuPartial()
-      {
-        //Truy vấn lấy về 1 list các sản phẩm
-        var lstSP = db.SANPHAMs;
-        return PartialView(lstSP);
-      }
-      public ActionResult DangKy()
-      {
-        //ViewBag.CauHoi = new SelectList(LoadCauHoi());
+      //foreach (SUKIEN sk1 in lstSuKien)
+      //{
+      //  if (sk1.NgayBatDau.Value.Year < year && sk1.NgayKetThuc.Value.Year > year)
+      //  {
+      //    if (sk1.NgayBatDau.Value.Month < month && sk1.NgayKetThuc.Value.Month > month)
+      //    {
+      //      lstSuKienCurrent.Add(sk1);
+      //    }
+      //    else if (sk1.NgayBatDau.Value.Month == month)
+      //    {
+      //      if (sk1.NgayBatDau.Value.Day < day && sk1.NgayKetThuc.Value.Day > day)
+      //      {
+      //        lstSuKienCurrent.Add(sk1);
+      //      }
+      //    }
+      //    else if (sk1.NgayKetThuc.Value.Month == month)
+      //    {
+      //      if (sk1.NgayBatDau.Value.Day < day && sk1.NgayKetThuc.Value.Day > day)
+      //      {
+      //        lstSuKienCurrent.Add(sk1);
+      //      }
+      //    }
+      //  }
+      return PartialView(lstSuKienCurrent);
+    }
+    public ActionResult MenuPartial()
+    {
+      //Truy vấn lấy về 1 list các sản phẩm
+      var lstSP = db.SANPHAMs;
+      return PartialView(lstSP);
+    }
+    public ActionResult DangKy()
+    {
+      //ViewBag.CauHoi = new SelectList(LoadCauHoi());
 
-        return View();
-      }
+      return View();
+    }
     [HttpPost]
     public ActionResult DangKy(NGUOIDUNG nd, FormCollection f)
     {
@@ -184,7 +184,26 @@ namespace WebSiteBanHang.Controllers
             Quyen = Quyen.Substring(0, Quyen.Length - 1);
             PhanQuyen(tv.MaNguoiDung.ToString(), Quyen);
             Session["NGUOIDUNG"] = tv;
-            return Content("<script>window.location.reload();</script>");
+            if (tv.MaLoaiNguoiDung == 1)
+            {
+              return Content("<script>window.location.reload();</script>");
+            }
+            if (tv.MaLoaiNguoiDung == 3)
+            {
+              return JavaScript("window.location = '" + Url.Action("Index", "QuanLyTaiKhoan") + "'");
+            }
+            if (tv.MaLoaiNguoiDung == 4)
+            {
+              return JavaScript("window.location = '" + Url.Action("Index", "QuanLyTaiKhoan") + "'");
+            }
+            if (tv.MaLoaiNguoiDung == 5)
+            {
+              return JavaScript("window.location = '" + Url.Action("Index", "QuanLySanPham") + "'");
+            }
+            if (tv.MaLoaiNguoiDung == 4)
+            {
+              return JavaScript("window.location = '" + Url.Action("Index", "QuanLyKhachHang") + "'");
+            }
           }
         }
       }

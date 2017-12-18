@@ -31,7 +31,6 @@ namespace WebSiteBanHang.Controllers
       return PartialView();
     }
     //Xây dựng trang xem chi tiết 
-    [Authorize(Roles ="4")]
     public ActionResult XemChiTiet(int? id)
     {
       int TongDiem = 0;
